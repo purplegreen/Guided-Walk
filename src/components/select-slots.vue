@@ -30,18 +30,21 @@ article {
   border: 1px solid blue;
   border-radius: 8px;
   width: 90vw;
+  max-width: 620px;
   border: auto;
   position: relative;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  align-self: center;
   align-items: flex-start;
-  justify-content: space-evenly;
+  justify-content: space-around;
   padding: 10px;
 }
 
 .sydra {
   width: 70vw;
+  max-width: 450px;
   height: 20px;
   padding: 4px;
   margin: 20px;
@@ -73,8 +76,8 @@ article {
 }
 
 .is-open {
-  background-color: lightgray;
-  border: 1px solid blue;
+  background-color: white;
+  border: 2px solid blue;
   padding: 10px;
   margin: 10px;
   border-radius: 8px;

@@ -17,4 +17,9 @@ export default {
 </template>
 
 <style scoped>
+.home {
+  position: relative;
+  justify-content: center;
+  display: flex;
+}
 </style>
