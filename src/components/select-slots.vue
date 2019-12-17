@@ -2,12 +2,19 @@
   <article>
     <section class="sydra">...</section>
     <section class="container">
-      <button class="slot" v-for="slot of slots" v-bind:key="slot" v-on:click="open">{{ slot.name }}</button>
-      <div class="is-open">
-        <ul v-for="slot of slots" v-bind:key="slot">
-          <li>{{ slot.category }}</li>
-          <li>{{ slot.duration }} min</li>
-        </ul>
+      <button
+        @click="toggleModal"
+        class="slot"
+        v-for="slot of slots"
+        v-bind:key="slot"
+      >{{ slot.name }}</button>
+      <div v-if="isOpen" class="modal">
+        <button @click="toggleModal">
+          <ul>
+            <li>{{ slot.category }}</li>
+            <li>{{ slot.duration }} min</li>
+          </ul>
+        </button>
       </div>
     </section>
   </article>
@@ -16,11 +23,21 @@
 <script>
 import { mapState } from "vuex";
 export default {
+  data() {
+    return {
+      isOpen: false
+    };
+  },
   name: "SelectSlots",
   props: ["slots"],
   computed: mapState({
     slots: "slots"
-  })
+  }),
+  methods: {
+    toggleModal() {
+      this.isOpen = !this.isOpen;
+    }
+  }
 };
 </script>
 
@@ -75,7 +92,7 @@ article {
   border: 1px solid blue;
 }
 
-.is-open {
+.modal {
   background-color: white;
   border: 2px solid blue;
   padding: 10px;
