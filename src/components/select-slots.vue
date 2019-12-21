@@ -6,8 +6,10 @@
         @click="toggleModal"
         class="slot"
         v-for="slot of slots"
-        v-bind:key="slot"
-      >{{ slot.name }}</button>
+        :key="slot.id"
+      >
+        {{ slot.name }}
+      </button>
       <div v-if="isOpen" class="modal">
         <button @click="toggleModal">
           <ul>
@@ -29,7 +31,6 @@ export default {
     };
   },
   name: "SelectSlots",
-  props: ["slots"],
   computed: mapState({
     slots: "slots"
   }),
