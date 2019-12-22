@@ -3,19 +3,31 @@
     <section class="sydra">...</section>
     <section class="container">
       <button
-        @click="toggleModal"
+        @click="showModal(slot)"
         class="slot"
         v-for="slot of slots"
-        v-bind:key="slot"
-      >{{ slot.name }}</button>
-      <div v-if="isOpen" class="modal">
-        <button @click="toggleModal">
+        :key="slot.id"
+      >
+        {{ slot.name }}
+      </button>
+      <modal
+        name="slot-modal"
+        transition="nice-modal-fade"
+        :adaptive="true"
+        width="90%"
+        @before-open="beforeOpen">
+        <div class="slot-modal-content">
           <ul>
-            <li>{{ slot.category }}</li>
-            <li>{{ slot.duration }} min</li>
+            <li>name: {{ selectedSlot.name }}</li>
+            <li>category: {{ selectedSlot.category }}</li>
+            <li>duration: {{ selectedSlot.duration }} min</li>
           </ul>
-        </button>
-      </div>
+          <div>
+            <button @click="$emit('saveSlot')">Save</button>
+            <button @click="$modal.hide('slot-modal')">Close</button>
+          </div>
+        </div>
+      </modal>
     </section>
   </article>
 </template>
@@ -25,17 +37,19 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      isOpen: false
+      selectedSlot: {}
     };
   },
   name: "SelectSlots",
-  props: ["slots"],
   computed: mapState({
     slots: "slots"
   }),
   methods: {
-    toggleModal() {
-      this.isOpen = !this.isOpen;
+    showModal(slot) {
+      this.$modal.show("slot-modal", { slot });
+    },
+    beforeOpen({ params }) {
+      this.selectedSlot = params.slot;
     }
   }
 };
@@ -101,5 +115,16 @@ article {
   position: absolute;
   top: 10px;
   left: 0px;
+}
+</style>
+
+<style>
+.v--modal-box {
+  border: 2px solid blue;
+  border-radius: 8px;
+}
+
+.slot-modal-content {
+  padding: 10px;
 }
 </style>
