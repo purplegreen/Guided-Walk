@@ -1,7 +1,5 @@
 const { slots } = require("../data");
 
-const SET_LOG_IN_LOADING = "SET_LOG_IN_LOADING";
-
 const state = {
   slots,
   error: false,
@@ -11,12 +9,7 @@ const state = {
 
 const mutations = {};
 
-const actions = {
-  addToWalkpath({ commit }) {
-    if (state.isLoggedIn) return;
-    commit(SET_LOG_IN_LOADING, true);
-  }
-};
+const actions = {};
 
 export default {
   state,

@@ -1,6 +1,7 @@
 const { walkpaths } = require("../data");
 
 const ADD_TO_WALKPATH = "ADD_TO_WALKPATH";
+const REMOVE_FROM_WALKPATH = "REMOVE_FROM_WALKPATH";
 
 const state = {
   walkpaths,
@@ -14,11 +15,29 @@ const state = {
   success: false
 };
 
-const mutations = {};
+const mutations = {
+  [ADD_TO_WALKPATH](state, slot) {
+    const index = state.customWalkpath.composition.findIndex(e => e.id == slot.id);
+    if (index != -1) return;
+    state.customWalkpath.composition.push(slot);
+    state.customWalkpath.duration += slot.duration;
+  },
+  [REMOVE_FROM_WALKPATH](state, slot) {
+
+    const index = state.customWalkpath.composition.findIndex(e => e.id == slot.id);
+    if (index == -1) return;
+
+    state.customWalkpath.composition.splice(index, 1);
+    state.customWalkpath.duration -= slot.duration;
+  }
+};
 
 const actions = {
   addToWalkpath({ commit }, slot) {
     commit(ADD_TO_WALKPATH, slot);
+  },
+  removeFromWalkpath({ commit }, slot) {
+    commit(REMOVE_FROM_WALKPATH, slot);
   }
 };
 

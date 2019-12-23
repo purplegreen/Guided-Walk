@@ -1,10 +1,13 @@
 <template>
   <article>
-    <section class="sydra">...</section>
+    <section class="sydra">
+      {{ customWalkpath.duration }}
+    </section>
     <section class="container">
       <button
         @click="showModal(slot)"
         class="slot"
+        :class="{ selected: slot.isSelected }"
         v-for="slot of slots"
         :key="slot.id"
       >
@@ -24,7 +27,10 @@
             <li>duration: {{ selectedSlot.duration }} min</li>
           </ul>
           <div>
-            <button @click="$emit('saveSlot')">Save</button>
+            <button v-if="selectedSlot.isSelected" @click="remove">
+              Remove
+            </button>
+            <button v-else @click="add">Save</button>
             <button @click="$modal.hide('slot-modal')">Close</button>
           </div>
         </div>
@@ -34,7 +40,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -44,17 +50,28 @@ export default {
   name: "SelectSlots",
   computed: {
     ...mapState({
-      slots: state => state.slot.slots
+      slots: state => state.slot.slots,
+      customWalkpath: state => state.walkpath.customWalkpath
     })
   },
   methods: {
+    ...mapActions(["addToWalkpath", "removeFromWalkpath"]),
     showModal(slot) {
       this.$modal.show("slot-modal", { slot });
     },
     beforeOpen({ params }) {
       this.selectedSlot = params.slot;
     },
-    addToWalkpath() {}
+    add() {
+      this.addToWalkpath(this.selectedSlot);
+      this.selectedSlot.isSelected = true;
+      this.$modal.hide("slot-modal");
+    },
+    remove() {
+      this.removeFromWalkpath(this.selectedSlot);
+      this.selectedSlot.isSelected = false;
+      this.$modal.hide("slot-modal");
+    }
   }
 };
 </script>
@@ -108,6 +125,10 @@ article {
   margin: 10px;
   border-radius: 8px;
   border: 1px solid blue;
+}
+
+.slot.selected {
+  background: red;
 }
 
 .modal {
