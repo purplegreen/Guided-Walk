@@ -15,7 +15,8 @@
         transition="nice-modal-fade"
         :adaptive="true"
         width="90%"
-        @before-open="beforeOpen">
+        @before-open="beforeOpen"
+      >
         <div class="slot-modal-content">
           <ul>
             <li>name: {{ selectedSlot.name }}</li>
@@ -41,16 +42,19 @@ export default {
     };
   },
   name: "SelectSlots",
-  computed: mapState({
-    slots: "slots"
-  }),
+  computed: {
+    ...mapState({
+      slots: state => state.slot.slots
+    })
+  },
   methods: {
     showModal(slot) {
       this.$modal.show("slot-modal", { slot });
     },
     beforeOpen({ params }) {
       this.selectedSlot = params.slot;
-    }
+    },
+    addToWalkpath() {}
   }
 };
 </script>
