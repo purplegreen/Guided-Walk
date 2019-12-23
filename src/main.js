@@ -3,28 +3,14 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-import upperFirst from "lodash/upperFirst";
-import camelCase from "lodash/camelCase";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 
 import VModal from "vue-js-modal";
+import { ProgressPlugin } from "bootstrap-vue";
 
 Vue.use(VModal);
-
-const requireComponent = require.context(
-  "./components",
-  false,
-  /Base[A-Z]\w+\.(vue|js)$/
-);
-
-requireComponent.keys().forEach(fileName => {
-  const componentConfig = requireComponent(fileName);
-
-  const componentName = upperFirst(
-    camelCase(fileName.replace(/^\.\/(.*)\.\w+$/, "$1"))
-  );
-
-  Vue.component(componentName, componentConfig.default || componentConfig);
-});
+Vue.use(ProgressPlugin);
 
 Vue.config.productionTip = false;
 

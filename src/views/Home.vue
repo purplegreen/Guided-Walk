@@ -5,14 +5,14 @@ import SelectSlots from "@/components/select-slots.vue";
 export default {
   name: "home",
   components: {
-    "select-slots": SelectSlots
+    SelectSlots
   }
 };
 </script>
 
 <template>
   <div class="home">
-    <select-slots name="SelectSlots" />
+    <select-slots></select-slots>
   </div>
 </template>
 

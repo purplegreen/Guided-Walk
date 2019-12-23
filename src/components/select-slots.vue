@@ -1,8 +1,6 @@
 <template>
   <article>
-    <section class="sydra">
-      {{ customWalkpath.duration }}
-    </section>
+    <walkpath-progress></walkpath-progress>
     <section class="container">
       <button
         @click="showModal(slot)"
@@ -41,6 +39,8 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import WalkpathProgress from "@/components/walkpath-progress.vue";
+
 export default {
   data() {
     return {
@@ -48,6 +48,9 @@ export default {
     };
   },
   name: "SelectSlots",
+  components: {
+    WalkpathProgress
+  },
   computed: {
     ...mapState({
       slots: state => state.slot.slots,
@@ -92,16 +95,6 @@ article {
   align-items: flex-start;
   justify-content: space-around;
   padding: 10px;
-}
-
-.sydra {
-  width: 70vw;
-  max-width: 450px;
-  height: 20px;
-  padding: 4px;
-  margin: 20px;
-  border-radius: 8px;
-  background-color: dodgerblue;
 }
 
 .container {

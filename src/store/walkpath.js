@@ -17,14 +17,17 @@ const state = {
 
 const mutations = {
   [ADD_TO_WALKPATH](state, slot) {
-    const index = state.customWalkpath.composition.findIndex(e => e.id == slot.id);
+    const index = state.customWalkpath.composition.findIndex(
+      e => e.id == slot.id
+    );
     if (index != -1) return;
     state.customWalkpath.composition.push(slot);
     state.customWalkpath.duration += slot.duration;
   },
   [REMOVE_FROM_WALKPATH](state, slot) {
-
-    const index = state.customWalkpath.composition.findIndex(e => e.id == slot.id);
+    const index = state.customWalkpath.composition.findIndex(
+      e => e.id == slot.id
+    );
     if (index == -1) return;
 
     state.customWalkpath.composition.splice(index, 1);
