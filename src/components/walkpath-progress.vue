@@ -38,6 +38,7 @@ export default {
         :value="slot.duration"
         :precision="2"
       >
+        {{ slot.duration }} min {{ slot.name }}
       </b-progress-bar>
     </b-progress>
     <span v-else>No slots selected yet</span>
