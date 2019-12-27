@@ -34,6 +34,13 @@
         </div>
       </modal>
     </section>
+    <b-button
+      class="mt-2"
+      variant="outline-primary"
+      @click="start"
+    >
+      Start Walkpath!
+    </b-button>
   </article>
 </template>
 
@@ -58,7 +65,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions(["addToWalkpath", "removeFromWalkpath"]),
+    ...mapActions(["addToWalkpath", "removeFromWalkpath", "startWalkpath"]),
     showModal(slot) {
       this.$modal.show("slot-modal", { slot });
     },
@@ -74,6 +81,9 @@ export default {
       this.removeFromWalkpath(this.selectedSlot);
       this.selectedSlot.isSelected = false;
       this.$modal.hide("slot-modal");
+    },
+    start() {
+      this.startWalkpath()
     }
   }
 };

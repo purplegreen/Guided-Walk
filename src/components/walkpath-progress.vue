@@ -30,18 +30,23 @@ export default {
 </script>
 <template>
   <section class="sydra">
-    <b-progress show-value :max="max" v-if="walkpath.composition.length">
-      <b-progress-bar
-        v-for="slot in walkpath.composition"
-        :key="slot.id"
-        :style="getRandomBgColor()"
-        :value="slot.duration"
-        :precision="2"
-      >
-        {{ slot.duration }} min {{ slot.name }}
-      </b-progress-bar>
-    </b-progress>
-    <span v-else>No slots selected yet</span>
+    <template v-if="walkpath.composition.length">
+      <b-progress show-value :max="max">
+        <b-progress-bar
+          v-for="slot in walkpath.composition"
+          :key="slot.id"
+          :style="getRandomBgColor()"
+          :value="slot.duration"
+          :precision="2"
+        >
+          {{ slot.duration }} min {{ slot.name }}
+        </b-progress-bar>
+      </b-progress>
+      <div class="my-2">Total {{ walkpath.duration }} min</div>
+    </template>
+    <template v-else>
+      <span>No slots selected yet</span>
+    </template>
   </section>
 </template>
 
@@ -49,10 +54,5 @@ export default {
 .sydra {
   width: 70vw;
   max-width: 450px;
-  height: 20px;
-  padding: 4px;
-  margin: 20px;
-  border-radius: 8px;
-  /* background-color: dodgerblue; */
 }
 </style>
