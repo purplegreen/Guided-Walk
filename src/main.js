@@ -1,13 +1,13 @@
 import Vue from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
+import VModal from "vue-js-modal";
+import { ProgressPlugin } from "bootstrap-vue";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 
-import VModal from "vue-js-modal";
-import { ProgressPlugin } from "bootstrap-vue";
+import App from "./App.vue";
+import router from "./router";
+import store from "./store";
 
 Vue.use(VModal);
 Vue.use(ProgressPlugin);

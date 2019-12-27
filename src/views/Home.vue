@@ -12,7 +12,6 @@ export default {
 
 <template>
   <div class="home">
-
     <select-slots></select-slots>
   </div>
 </template>
