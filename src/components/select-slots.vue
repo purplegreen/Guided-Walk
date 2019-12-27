@@ -34,13 +34,9 @@
         </div>
       </modal>
     </section>
-    <b-button
-      class="mt-2"
-      variant="outline-primary"
-      @click="start"
-    >
+    <button class="mt-2" variant="outline-primary" @click="start">
       Start Walkpath!
-    </b-button>
+    </button>
   </article>
 </template>
 
@@ -83,7 +79,7 @@ export default {
       this.$modal.hide("slot-modal");
     },
     start() {
-      this.startWalkpath()
+      this.startWalkpath();
     }
   }
 };

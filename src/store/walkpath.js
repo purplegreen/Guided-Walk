@@ -35,7 +35,7 @@ const mutations = {
     state.customWalkpath.duration -= slot.duration;
   },
   [START_WALKPATH](state) {
-    state.walkpathInProgress = state.customWalkpath
+    state.walkpathInProgress = state.customWalkpath;
   }
 };
 
