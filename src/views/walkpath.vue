@@ -22,6 +22,13 @@ export default {
 <template>
 <div>
   <walkpath-progress :walkpath="customWalkpath"></walkpath-progress>
-  <div>Hey</div>
+  <b-button-group>
+    <b-button>Audio</b-button>
+    <b-button>Text</b-button>
+  </b-button-group>
+  <div class="mt-2 pt-2 border-top">
+    <b-button variant="outline-secondary">Stop</b-button>
+    <b-button variant="outline-secondary" class="ml-2">Exit</b-button>
+  </div>
 </div>
 </template>
