@@ -1,12 +1,13 @@
 <script>
-import { mapState } from "vuex";
-
 export default {
-  name: "hede",
+  name: "WalkpathProgress",
+  props: {
+    walkpath: {
+      type: Object,
+      default: () => {}
+    }
+  },
   computed: {
-    ...mapState({
-      walkpath: state => state.walkpath.customWalkpath
-    }),
     max() {
       return this.walkpath.composition.reduce((total, slot) => {
         return total + slot.duration;

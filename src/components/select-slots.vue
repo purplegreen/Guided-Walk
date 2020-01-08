@@ -1,6 +1,6 @@
 <template>
   <article>
-    <walkpath-progress></walkpath-progress>
+    <walkpath-progress :walkpath="customWalkpath"></walkpath-progress>
     <section class="container">
       <button
         @click="showModal(slot)"
