@@ -25,18 +25,18 @@
             <li>duration: {{ selectedSlot.duration }} min</li>
           </ul>
           <div>
-            <button v-if="selectedSlot.isSelected" @click="remove">
+            <b-button variant="outline-secondary" v-if="selectedSlot.isSelected" @click="remove">
               Remove
-            </button>
-            <button v-else @click="add">Save</button>
-            <button @click="$modal.hide('slot-modal')">Close</button>
+            </b-button>
+            <b-button variant="outline-secondary" v-else @click="add">Save</b-button>
+            <b-button variant="outline-secondary" @click="$modal.hide('slot-modal')" class="ml-2">Close</b-button>
           </div>
         </div>
       </modal>
     </section>
-    <button class="mt-2" variant="outline-primary" @click="start">
+    <b-button class="mt-2" variant="outline-primary" @click="start" :disabled="!isWalkpathReady">
       Start Walkpath!
-    </button>
+    </b-button>
   </article>
 </template>
 
@@ -58,7 +58,10 @@ export default {
     ...mapState({
       slots: state => state.slot.slots,
       customWalkpath: state => state.walkpath.customWalkpath
-    })
+    }),
+    isWalkpathReady() {
+      return this.customWalkpath.composition.length > 0;
+    }
   },
   methods: {
     ...mapActions(["addToWalkpath", "removeFromWalkpath", "startWalkpath"]),
@@ -80,6 +83,7 @@ export default {
     },
     start() {
       this.startWalkpath();
+      this.$router.push("walkpath");
     }
   }
 };
