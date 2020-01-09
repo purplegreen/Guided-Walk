@@ -25,10 +25,9 @@ export default {
       :key="walkpath.id"
       @click="select(walkpath)"
     >
-    <div>
-     {{ walkpath.name }}
-
-    </div>
+      <div>
+        {{ walkpath.name }}
+      </div>
     </a>
   </div>
 </template>

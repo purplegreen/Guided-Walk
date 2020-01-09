@@ -9,8 +9,10 @@ export default {
   },
   data() {
     return {
-      mode: 'audio'
-    }
+      mode: "audio",
+      audioPlaying: false,
+      audio: {},
+    };
   },
   mounted() {
     if (!this.walkpathInProgress.composition) {
@@ -26,7 +28,7 @@ export default {
   methods: {
     ...mapActions(["stopWalkpath"]),
     selectMode(mode) {
-      this.mode = mode
+      this.mode = mode;
     },
     exit() {
       this.stopWalkpath();
@@ -35,6 +37,15 @@ export default {
       } else {
         this.$router.push("select");
       }
+    },
+    toggleAudio() {
+      if (!this.audioPlaying) {
+        this.audio = new Audio("./Tchaikovsky_Nocturne__orch.mp3");
+        this.audio.play();
+      } else {
+        this.audio.pause();
+      }
+      this.audioPlaying = !this.audioPlaying;
     }
   }
 };
@@ -45,15 +56,20 @@ export default {
     <div class="button-group">
       <a
         class="btn"
-        :class="{ 'selected': mode == 'audio' }"
-        @click="selectMode('audio')">Audio</a>
+        :class="{ selected: mode == 'audio' }"
+        @click="selectMode('audio')"
+        >Audio</a
+      >
       <a
         class="btn"
-        :class="{ 'selected': mode == 'text' }"
-        @click="selectMode('text')">Text</a>
+        :class="{ selected: mode == 'text' }"
+        @click="selectMode('text')"
+        >Text</a
+      >
     </div>
     <div class="bottom-row">
-      <button>Stop</button>
+      <button v-if="audioPlaying" @click="toggleAudio()">Stop</button>
+      <button v-else @click="toggleAudio()">Start</button>
       <button @click="exit()">Exit</button>
     </div>
   </div>
