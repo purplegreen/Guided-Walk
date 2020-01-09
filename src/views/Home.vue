@@ -5,22 +5,33 @@ export default {
 </script>
 
 <template>
-  <div class="p-4">
+  <div class="wrapper">
     <router-link to="select">
-      <b-card border-variant="primary" class="my-2">
-        <b-card-title>
+      <div class="card">
+        <div>
           Choose a pre-composed walkpaths
-        </b-card-title>
-      </b-card>
+        </div>
+      </div>
     </router-link>
     <router-link to="create">
-      <b-card border-variant="primary" class="my-2">
-        <b-card-title>
+      <div class="card">
+        <div>
           Compose your walkpath
-        </b-card-title>
-      </b-card>
+        </div>
+      </div>
     </router-link>
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.wrapper {
+  padding: 1em;
+}
+
+.card {
+  border: 1px solid blue;
+  border-radius: 8px;
+  margin-bottom: 1em;
+  padding: 1em;
+}
+</style>

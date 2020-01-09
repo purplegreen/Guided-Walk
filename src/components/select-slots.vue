@@ -25,18 +25,18 @@
             <li>duration: {{ selectedSlot.duration }} min</li>
           </ul>
           <div>
-            <b-button variant="outline-secondary" v-if="selectedSlot.isSelected" @click="remove">
+            <button v-if="selectedSlot.isSelected" @click="remove">
               Remove
-            </b-button>
-            <b-button variant="outline-secondary" v-else @click="add">Save</b-button>
-            <b-button variant="outline-secondary" @click="$modal.hide('slot-modal')" class="ml-2">Close</b-button>
+            </button>
+            <button v-else @click="add">Save</button>
+            <button @click="$modal.hide('slot-modal')">Close</button>
           </div>
         </div>
       </modal>
     </section>
-    <b-button class="mt-2" variant="outline-primary" @click="start" :disabled="!isWalkpathReady">
+    <button @click="start" :disabled="!isWalkpathReady">
       Start Walkpath!
-    </b-button>
+    </button>
   </article>
 </template>
 

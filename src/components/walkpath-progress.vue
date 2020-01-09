@@ -16,14 +16,15 @@ export default {
   },
   methods: {
     // just for fun
-    getRandomBgColor() {
+    getStyle(duration) {
       const letters = "0123456789ABCDEF";
       let color = "#";
       for (let i = 0; i < 6; i++) {
         color += letters[Math.floor(Math.random() * 16)];
       }
       return {
-        backgroundColor: color
+        backgroundColor: color,
+        width: `${duration * 100 /this.max}%`
       };
     }
   }
@@ -32,18 +33,16 @@ export default {
 <template>
   <section class="sydra">
     <template v-if="walkpath.composition.length">
-      <b-progress show-value :max="max">
-        <b-progress-bar
+      <div class="progress">
+        <span
+          class="progress-bar"
           v-for="slot in walkpath.composition"
           :key="slot.id"
-          :style="getRandomBgColor()"
-          :value="slot.duration"
-          :precision="2"
-        >
+          :style="getStyle(slot.duration)">
           {{ slot.duration }} min {{ slot.name }}
-        </b-progress-bar>
-      </b-progress>
-      <div class="my-2">Total {{ walkpath.duration }} min</div>
+        </span>
+      </div>
+      <div>Total {{ walkpath.duration }} min</div>
     </template>
     <template v-else>
       <span>No slots selected yet</span>
@@ -55,5 +54,26 @@ export default {
 .sydra {
   width: 70vw;
   max-width: 450px;
+}
+
+.progress {
+  display: flex;
+  overflow: hidden;
+  font-size: .75em;
+  background-color: #e9ecef;
+  border-radius: 8px;
+  height: 1rem;
+}
+
+.progress-bar {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #007bff;
+  transition: width .6s ease;
 }
 </style>

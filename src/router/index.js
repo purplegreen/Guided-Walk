@@ -27,7 +27,7 @@ const routes = [
     path: "/walkpath",
     name: "walkpath",
     component: Walkpath
-  },
+  }
 ];
 
 const router = new VueRouter({
