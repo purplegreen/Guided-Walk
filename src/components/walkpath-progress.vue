@@ -24,7 +24,7 @@ export default {
       }
       return {
         backgroundColor: color,
-        width: `${duration * 100 /this.max}%`
+        width: `${(duration * 100) / this.max}%`
       };
     }
   }
@@ -38,7 +38,8 @@ export default {
           class="progress-bar"
           v-for="slot in walkpath.composition"
           :key="slot.id"
-          :style="getStyle(slot.duration)">
+          :style="getStyle(slot.duration)"
+        >
           {{ slot.duration }} min {{ slot.name }}
         </span>
       </div>
@@ -52,14 +53,13 @@ export default {
 
 <style scoped>
 .sydra {
-  width: 70vw;
-  max-width: 450px;
+  width: 100%;
 }
 
 .progress {
   display: flex;
   overflow: hidden;
-  font-size: .75em;
+  font-size: 0.75em;
   background-color: #e9ecef;
   border-radius: 8px;
   height: 1rem;
@@ -74,6 +74,6 @@ export default {
   text-align: center;
   white-space: nowrap;
   background-color: #007bff;
-  transition: width .6s ease;
+  transition: width 0.6s ease;
 }
 </style>
