@@ -1,45 +1,3 @@
-<template>
-  <article>
-    <walkpath-progress :walkpath="customWalkpath"></walkpath-progress>
-    <section class="container">
-      <button
-        @click="showModal(slot)"
-        class="slot"
-        :class="{ selected: slot.isSelected }"
-        v-for="slot of slots"
-        :key="slot.id"
-      >
-        {{ slot.name }}
-      </button>
-      <modal
-        name="slot-modal"
-        transition="nice-modal-fade"
-        :adaptive="true"
-        width="90%"
-        @before-open="beforeOpen"
-      >
-        <div class="slot-modal-content">
-          <ul>
-            <li>name: {{ selectedSlot.name }}</li>
-            <li>category: {{ selectedSlot.category }}</li>
-            <li>duration: {{ selectedSlot.duration }} min</li>
-          </ul>
-          <div>
-            <button v-if="selectedSlot.isSelected" @click="remove">
-              Remove
-            </button>
-            <button v-else @click="add">Save</button>
-            <button @click="$modal.hide('slot-modal')">Close</button>
-          </div>
-        </div>
-      </modal>
-    </section>
-    <button @click="start" :disabled="!isWalkpathReady">
-      Start Walkpath!
-    </button>
-  </article>
-</template>
-
 <script>
 import { mapState, mapActions } from "vuex";
 import WalkpathProgress from "@/components/walkpath-progress.vue";
@@ -82,12 +40,54 @@ export default {
       this.$modal.hide("slot-modal");
     },
     start() {
-      this.startWalkpath();
+      this.startWalkpath(this.customWalkpath);
       this.$router.push("walkpath");
     }
   }
 };
 </script>
+
+<template>
+  <article>
+    <walkpath-progress :walkpath="customWalkpath"></walkpath-progress>
+    <section class="container">
+      <button
+        @click="showModal(slot)"
+        class="slot"
+        :class="{ selected: slot.isSelected }"
+        v-for="slot of slots"
+        :key="slot.id"
+      >
+        {{ slot.name }}
+      </button>
+      <modal
+        name="slot-modal"
+        transition="nice-modal-fade"
+        :adaptive="true"
+        width="90%"
+        @before-open="beforeOpen"
+      >
+        <div class="slot-modal-content">
+          <ul>
+            <li>name: {{ selectedSlot.name }}</li>
+            <li>category: {{ selectedSlot.category }}</li>
+            <li>duration: {{ selectedSlot.duration }} min</li>
+          </ul>
+          <div>
+            <button v-if="selectedSlot.isSelected" @click="remove">
+              Remove
+            </button>
+            <button v-else @click="add">Save</button>
+            <button @click="$modal.hide('slot-modal')">Close</button>
+          </div>
+        </div>
+      </modal>
+    </section>
+    <button @click="start" :disabled="!isWalkpathReady">
+      Start Walkpath!
+    </button>
+  </article>
+</template>
 
 <style scoped>
 article {

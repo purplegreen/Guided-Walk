@@ -35,8 +35,8 @@ const mutations = {
     state.customWalkpath.composition.splice(index, 1);
     state.customWalkpath.duration -= slot.duration;
   },
-  [START_WALKPATH](state) {
-    state.walkpathInProgress = state.customWalkpath;
+  [START_WALKPATH](state, walkpath) {
+    state.walkpathInProgress = walkpath;
   },
   [STOP_WALKPATH](state) {
     state.walkpathInProgress = {};
@@ -50,8 +50,8 @@ const actions = {
   removeFromWalkpath({ commit }, slot) {
     commit(REMOVE_FROM_WALKPATH, slot);
   },
-  startWalkpath({ commit }) {
-    commit(START_WALKPATH);
+  startWalkpath({ commit }, walkpath) {
+    commit(START_WALKPATH, walkpath);
   },
   stopWalkpath({ commit }) {
     commit(STOP_WALKPATH);
