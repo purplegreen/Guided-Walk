@@ -131,7 +131,7 @@ article {
 }
 
 .slot.selected {
-  background: red;
+  background: #81f495;
 }
 
 .modal {

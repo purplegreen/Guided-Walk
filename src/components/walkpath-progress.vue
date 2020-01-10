@@ -4,7 +4,10 @@ export default {
   props: {
     walkpath: {
       type: Object,
-      default: () => {}
+      default: () => ({
+        composition: [],
+        duration: 0
+      })
     }
   },
   computed: {
@@ -14,18 +17,36 @@ export default {
       }, 0);
     }
   },
+  data() {
+    return {
+      audioPlaying: false,
+      audio: {},
+    };
+  },
   methods: {
     // just for fun
-    getStyle(duration) {
-      const letters = "0123456789ABCDEF";
-      let color = "#";
-      for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
+    getStyle(slot) {
       return {
-        backgroundColor: color,
-        width: `${(duration * 100) / this.max}%`
+        backgroundColor: slot.color,
+        width: `${(slot.duration * 100) / this.max}%`
       };
+    },
+    onClick(slot, e) {
+      if (!this.audio.paused) {
+        this.audio.pause && this.audio.pause();
+      }
+      this.audio = new Audio(slot.audio);
+      const rect = e.target.getBoundingClientRect();
+      const width = rect.right - rect.left;
+
+      const x = e.clientX - rect.left; // x position within the element.
+      this.audio.onloadedmetadata = () => {
+        this.audio.currentTime = (x * this.audio.duration) / width;
+        this.audio.play();
+      };
+      // this.audio.ontimeupdate = () => {
+      //   this.progress = this.audio.currentTime;
+      // };
     }
   }
 };
@@ -38,7 +59,8 @@ export default {
           class="progress-bar"
           v-for="slot in walkpath.composition"
           :key="slot.id"
-          :style="getStyle(slot.duration)"
+          @click="onClick(slot, $event)"
+          :style="getStyle(slot)"
         >
           {{ slot.duration }} min {{ slot.name }}
         </span>
@@ -57,6 +79,7 @@ export default {
 }
 
 .progress {
+  cursor: pointer;
   display: flex;
   overflow: hidden;
   font-size: 0.75em;

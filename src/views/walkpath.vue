@@ -11,7 +11,7 @@ export default {
     return {
       mode: "audio",
       audioPlaying: false,
-      audio: {},
+      audio: {}
     };
   },
   mounted() {

@@ -6,7 +6,8 @@ module.exports = {
       category: "Listening",
       duration: 3,
       isSelected: false,
-      audio: "./Tchaikovsky_Nocturne__orch.mp3"
+      audio: "./Tchaikovsky_Nocturne__orch.mp3",
+      color: "#7A306C"
     },
     {
       id: 2,
@@ -14,7 +15,8 @@ module.exports = {
       category: "Meditation",
       duration: 2.12,
       isSelected: false,
-      audio: "./Tchaikovsky_Nocturne__orch.mp3"
+      audio: "./Tchaikovsky_Rococo_Var_orch.mp3",
+      color: "#8E8DBE"
     },
     {
       id: 3,
@@ -22,7 +24,8 @@ module.exports = {
       category: "Observation",
       duration: 4,
       isSelected: false,
-      audio: "./Tchaikovsky_Nocturne__orch.mp3"
+      audio: "./Vivaldi_Sonata_eminor_.mp3",
+      color: "#A9E4EF"
     },
     {
       id: 4,
@@ -30,7 +33,8 @@ module.exports = {
       category: "Meditation",
       duration: 2.11,
       isSelected: false,
-      audio: "./Tchaikovsky_Nocturne__orch.mp3"
+      audio: "./Tchaikovsky_Nocturne__orch.mp3",
+      color: "#81F495"
     },
     {
       id: 5,
@@ -38,7 +42,8 @@ module.exports = {
       category: "In Water",
       duration: 3,
       isSelected: false,
-      audio: "./Tchaikovsky_Nocturne__orch.mp3"
+      audio: "./Tchaikovsky_Rococo_Var_orch.mp3",
+      color: "#96F550"
     },
     {
       id: 6,
@@ -46,7 +51,8 @@ module.exports = {
       category: "Listening",
       duration: 1.33,
       isSelected: false,
-      audio: "./Tchaikovsky_Nocturne__orch.mp3"
+      audio: "./Vivaldi_Sonata_eminor_.mp3",
+      color: "#7A306C"
     }
   ],
   walkpaths: [
