@@ -33,7 +33,7 @@ export default {
     onClick(slot, index, event) {
       // reset progresses on slots
       this.walkpath.composition.forEach((element, i) => {
-        element.progress = index > i ? 100 : 0
+        element.progress = index > i ? 100 : 0;
       });
 
       if (!this.audio.paused) {
