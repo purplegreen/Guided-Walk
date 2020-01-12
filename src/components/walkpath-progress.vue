@@ -20,33 +20,42 @@ export default {
   data() {
     return {
       audioPlaying: false,
-      audio: {},
+      audio: {}
     };
   },
   methods: {
-    // just for fun
-    getStyle(slot) {
+    getProgressBarStyle(slot) {
       return {
         backgroundColor: slot.color,
         width: `${(slot.duration * 100) / this.max}%`
       };
     },
-    onClick(slot, e) {
+    onClick(slot, index, event) {
+      // reset progresses on slots
+      this.walkpath.composition.forEach((element, i) => {
+        element.progress = index > i ? 100 : 0
+      });
+
       if (!this.audio.paused) {
         this.audio.pause && this.audio.pause();
       }
+
       this.audio = new Audio(slot.audio);
-      const rect = e.target.getBoundingClientRect();
+      const rect = event.target.getBoundingClientRect();
       const width = rect.right - rect.left;
 
-      const x = e.clientX - rect.left; // x position within the element.
+      const x = event.clientX - rect.left; // x position within the element.
       this.audio.onloadedmetadata = () => {
         this.audio.currentTime = (x * this.audio.duration) / width;
         this.audio.play();
       };
-      // this.audio.ontimeupdate = () => {
-      //   this.progress = this.audio.currentTime;
-      // };
+
+      this.audio.ontimeupdate = () => {
+        slot.progress = parseInt(
+          (this.audio.currentTime / this.audio.duration) * 100,
+          10
+        );
+      };
     }
   }
 };
@@ -57,12 +66,16 @@ export default {
       <div class="progress">
         <span
           class="progress-bar"
-          v-for="slot in walkpath.composition"
+          v-for="(slot, index) in walkpath.composition"
           :key="slot.id"
-          @click="onClick(slot, $event)"
-          :style="getStyle(slot)"
+          @click.self="onClick(slot, index, $event)"
+          :style="getProgressBarStyle(slot)"
         >
           {{ slot.duration }} min {{ slot.name }}
+          <span
+            class="progress-overlay"
+            :style="{ width: slot.progress + '%' }"
+          ></span>
         </span>
       </div>
       <div>Total {{ walkpath.duration }} min</div>
@@ -73,7 +86,7 @@ export default {
   </section>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .sydra {
   width: 100%;
 }
@@ -88,7 +101,17 @@ export default {
   height: 1rem;
 }
 
+.progress-overlay {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.2);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+}
+
 .progress-bar {
+  position: relative;
   display: flex;
   overflow: hidden;
   flex-direction: column;
