@@ -19,7 +19,6 @@ export default {
   },
   data() {
     return {
-      audioPlaying: false,
       audio: {}
     };
   },
@@ -30,23 +29,14 @@ export default {
         width: `${(slot.duration * 100) / this.max}%`
       };
     },
-    onClick(slot, index, event) {
-      // reset progresses on slots
-      this.walkpath.composition.forEach((element, i) => {
-        element.progress = index > i ? 100 : 0;
-      });
-
+    play(slot, portion, index) {
       if (!this.audio.paused) {
         this.audio.pause && this.audio.pause();
       }
-
       this.audio = new Audio(slot.audio);
-      const rect = event.target.getBoundingClientRect();
-      const width = rect.right - rect.left;
 
-      const x = event.clientX - rect.left; // x position within the element.
       this.audio.onloadedmetadata = () => {
-        this.audio.currentTime = (x * this.audio.duration) / width;
+        this.audio.currentTime = portion * this.audio.duration;
         this.audio.play();
       };
 
@@ -56,6 +46,27 @@ export default {
           10
         );
       };
+
+      this.audio.onended = () => {
+        slot.progress = 100;
+        if (!this.walkpath.composition[index + 1]) {
+          console.log("walktpath ended");
+          return;
+        }
+        this.play(this.walkpath.composition[index + 1], 0, index + 1);
+      };
+    },
+    onClick(slot, index, event) {
+      // reset progresses on slots
+      this.walkpath.composition.forEach((element, i) => {
+        element.progress = index > i ? 100 : 0;
+      });
+
+      const rect = event.target.getBoundingClientRect();
+      const width = rect.right - rect.left;
+
+      const x = event.clientX - rect.left; // x position within the element.
+      this.play(slot, x / width, index);
     }
   }
 };
