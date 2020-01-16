@@ -1,6 +1,6 @@
 <script>
 import { mapState, mapActions } from "vuex";
-import WalkpathProgress from "@/components/walkpath-progress.vue";
+import ProgressBar from "@/components/progress-bar.vue";
 
 export default {
   data() {
@@ -10,7 +10,7 @@ export default {
   },
   name: "SelectSlots",
   components: {
-    WalkpathProgress
+    ProgressBar
   },
   computed: {
     ...mapState({
@@ -49,7 +49,7 @@ export default {
 
 <template>
   <article>
-    <walkpath-progress :walkpath="customWalkpath"></walkpath-progress>
+    <progress-bar :slots="customWalkpath.composition"></progress-bar>
     <section class="container">
       <button
         @click="showModal(slot)"
