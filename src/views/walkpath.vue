@@ -9,15 +9,19 @@ export default {
   },
   data() {
     return {
-      mode: "audio",
-      audioPlaying: false,
+      mode: "text",
+      isWalkpathRunning: false,
+      slotInProgress: {},
+      indexOfLastPlayedSlot: 0,
       audio: {}
     };
   },
   mounted() {
-    if (!this.walkpathInProgress.composition) {
+    if (!this.walkpathInProgress || !this.walkpathInProgress.composition) {
       this.$router.push({ path: "/" });
+      return;
     }
+    this.slotInProgress = this.walkpathInProgress.composition[0];
   },
   computed: {
     ...mapState({
@@ -29,6 +33,9 @@ export default {
     ...mapActions(["stopWalkpath"]),
     selectMode(mode) {
       this.mode = mode;
+      if (this.mode == "text") {
+        this.reset();
+      }
     },
     pause() {
       if (!this.audio.paused) {
@@ -37,8 +44,7 @@ export default {
     },
     reset(index = 0) {
       // reset progresses on slots
-      this.customWalkpath.composition.forEach((element, i) => {
-        console.log(i, index, index > i);
+      this.walkpathInProgress.composition.forEach((element, i) => {
         element.progress = index > i ? 100 : 0;
       });
     },
@@ -61,20 +67,30 @@ export default {
 
       this.audio.onended = () => {
         slot.progress = 100;
-        if (!this.walkpath.composition[index + 1]) {
-          console.log("walktpath ended");
-          return;
-        }
-        this.play(this.walkpath.composition[index + 1], 0, index + 1);
+        this.startSlotAtIndex(index + 1);
       };
     },
+    startSlotAtIndex(index, startAudioOn = 0) {
+      console.log('startAudioOn', startAudioOn);
+      this.isWalkpathRunning = true;
+      if (!this.walkpathInProgress.composition[index]) {
+        console.log("walkpath ended");
+        this.isWalkpathRunning = false;
+        return;
+      }
+      this.slotInProgress = this.walkpathInProgress.composition[index];
+      this.indexOfLastPlayedSlot = index;
+      if (this.mode == 'audio') {
+        this.reset(index);
+        this.play(this.slotInProgress, startAudioOn, index);
+      }
+    },
     onBarClicked(slot, index, event) {
-      this.reset(index);
       const rect = event.target.getBoundingClientRect();
       const width = rect.right - rect.left;
 
       const x = event.clientX - rect.left; // x position within the element.
-      this.play(slot, x / width, index);
+      this.startSlotAtIndex(index, x / width);
     },
     exit() {
       this.pause();
@@ -86,8 +102,14 @@ export default {
         this.$router.push("select");
       }
     },
-    start() {},
-    stop() {}
+    start() {
+      if (this.isWalkpathRunning) return;
+      this.startSlotAtIndex(this.indexOfLastPlayedSlot, this.slotInProgress.progress / 100);
+    },
+    stop() {
+      this.isWalkpathRunning = false;
+      this.pause();
+    }
   }
 };
 </script>
@@ -112,8 +134,11 @@ export default {
         >Text</a
       >
     </div>
+    <div class="text-content" v-if="mode == 'text'">
+      {{ slotInProgress.text }}
+    </div>
     <div class="bottom-row">
-      <button v-if="audioPlaying" @click="stop()">Stop</button>
+      <button v-if="isWalkpathRunning" @click="stop()">Stop</button>
       <button v-else @click="start()">Start</button>
       <button @click="exit()">Exit</button>
     </div>
@@ -121,6 +146,15 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.text-content {
+  height: 200px;
+  overflow: auto;
+  columns: 100px 3
+}
+
+.button-group {
+  margin: 1em 0;
+}
 .btn {
   border-radius: 8px;
   border: 1px solid blue;

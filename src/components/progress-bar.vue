@@ -31,6 +31,7 @@ export default {
   <div class="progress">
     <span
       class="progress-bar"
+      :class="{ 'active': slot.isActive }"
       v-for="(slot, index) in slots"
       :key="slot.id"
       @click.self="onClick(slot, index, $event)"
@@ -77,6 +78,11 @@ export default {
   text-align: center;
   white-space: nowrap;
   background-color: #007bff;
-  transition: width 0.6s ease;
+  transition: all 0.6s ease;
+
+  &.active {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
 }
 </style>
