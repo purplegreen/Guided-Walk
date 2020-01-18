@@ -9,7 +9,7 @@ export default {
   },
   data() {
     return {
-      mode: "text",
+      mode: "audio",
       isWalkpathRunning: false,
       slotInProgress: {},
       indexOfLastPlayedSlot: 0,
@@ -71,7 +71,6 @@ export default {
       };
     },
     startSlotAtIndex(index, startAudioOn = 0) {
-      console.log('startAudioOn', startAudioOn);
       this.isWalkpathRunning = true;
       if (!this.walkpathInProgress.composition[index]) {
         console.log("walkpath ended");
@@ -80,7 +79,7 @@ export default {
       }
       this.slotInProgress = this.walkpathInProgress.composition[index];
       this.indexOfLastPlayedSlot = index;
-      if (this.mode == 'audio') {
+      if (this.mode == "audio") {
         this.reset(index);
         this.play(this.slotInProgress, startAudioOn, index);
       }
@@ -104,7 +103,10 @@ export default {
     },
     start() {
       if (this.isWalkpathRunning) return;
-      this.startSlotAtIndex(this.indexOfLastPlayedSlot, this.slotInProgress.progress / 100);
+      this.startSlotAtIndex(
+        this.indexOfLastPlayedSlot,
+        this.slotInProgress.progress / 100
+      );
     },
     stop() {
       this.isWalkpathRunning = false;
@@ -149,7 +151,9 @@ export default {
 .text-content {
   height: 200px;
   overflow: auto;
-  columns: 100px 3
+  columns: 100px 3;
+  width: 90%;
+  margin: auto;
 }
 
 .button-group {
@@ -157,13 +161,13 @@ export default {
 }
 .btn {
   border-radius: 8px;
-  border: 1px solid blue;
+  border: 1px solid var(--border-color);
   display: inline-block;
   width: 100px;
   cursor: pointer;
 
   &.selected {
-    color: red;
+    color: var(--fuchsia);
   }
 
   &:first-child {
@@ -179,6 +183,6 @@ export default {
 .bottom-row {
   margin-top: 1em;
   padding-top: 1em;
-  border-top: 1px solid blue;
+  border-top: 1px solid var(--border-color);
 }
 </style>

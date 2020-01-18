@@ -92,11 +92,10 @@ export default {
 <style scoped>
 article {
   display: flex;
-  border: 1px solid blue;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   width: 90vw;
   max-width: 620px;
-  border: auto;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -114,8 +113,9 @@ article {
   align-items: flex-start;
   justify-content: space-evenly;
   padding: 10px;
+  margin: 1em 0;
   border-radius: 8px;
-  border: 1px solid blue;
+  border: 1px solid var(--border-color);
 }
 
 .slot {
@@ -127,7 +127,7 @@ article {
   padding: 10px;
   margin: 10px;
   border-radius: 8px;
-  border: 1px solid blue;
+  border: 1px solid var(--border-color);
 }
 
 .slot.selected {
@@ -135,8 +135,8 @@ article {
 }
 
 .modal {
-  background-color: white;
-  border: 2px solid blue;
+  background-color: var(--white);
+  border: 2px solid var(--border-color);
   padding: 10px;
   margin: 10px;
   border-radius: 8px;
@@ -148,7 +148,7 @@ article {
 
 <style>
 .v--modal-box {
-  border: 2px solid blue;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
 }
 

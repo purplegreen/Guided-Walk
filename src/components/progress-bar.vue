@@ -31,13 +31,13 @@ export default {
   <div class="progress">
     <span
       class="progress-bar"
-      :class="{ 'active': slot.isActive }"
+      :class="{ active: slot.isActive }"
       v-for="(slot, index) in slots"
       :key="slot.id"
       @click.self="onClick(slot, index, $event)"
       :style="getProgressBarStyle(slot)"
     >
-      {{ slot.duration }} min {{ slot.name }}
+      <span class="text">{{ slot.duration }} min {{ slot.name }}</span>
       <span
         class="progress-overlay"
         :style="{ width: slot.progress + '%' }"
@@ -47,6 +47,11 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.text {
+  pointer-events: none;
+  z-index: 1; // so that overlay does not cover it
+}
+
 .progress {
   cursor: pointer;
   display: flex;
@@ -61,7 +66,7 @@ export default {
 
 .progress-overlay {
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: var(--fuchsia);
   top: 0;
   bottom: 0;
   left: 0;

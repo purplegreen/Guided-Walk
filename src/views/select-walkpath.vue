@@ -34,7 +34,7 @@ export default {
 
 <style lang="scss" scoped>
 .walkpath {
-  border: 1px solid blue;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   cursor: pointer;
   margin-bottom: 1em;
