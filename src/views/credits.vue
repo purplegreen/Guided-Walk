@@ -7,6 +7,11 @@ export default {
   components: {
     ProgressBar
   },
+  mounted() {
+    if (!this.walkpathInProgress || !this.walkpathInProgress.composition) {
+      this.$router.push({ path: "/" });
+    }
+  },
   computed: {
     ...mapState({
       walkpathInProgress: state => state.walkpath.walkpathInProgress
