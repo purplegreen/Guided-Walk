@@ -4,6 +4,7 @@ import Home from "../views/home.vue";
 import CreateWalkpath from "../views/create-walkpath.vue";
 import SelectWalkpath from "../views/select-walkpath.vue";
 import Walkpath from "../views/walkpath.vue";
+import Credits from "../views/credits.vue";
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,11 @@ const routes = [
     path: "/walkpath",
     name: "walkpath",
     component: Walkpath
+  },
+  {
+    path: "/credits",
+    name: "credits",
+    component: Credits
   }
 ];
 

@@ -79,8 +79,8 @@ export default {
     startSlotAtIndex(index, startAudioOn = 0) {
       this.isWalkpathRunning = true;
       if (!this.walkpathInProgress.composition[index]) {
-        console.log("walkpath ended");
         this.isWalkpathRunning = false;
+        this.$router.push("credits");
         return;
       }
       this.slotInProgress = this.walkpathInProgress.composition[index];
