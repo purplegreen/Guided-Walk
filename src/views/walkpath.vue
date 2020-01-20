@@ -33,9 +33,9 @@ export default {
     ...mapActions(["stopWalkpath"]),
     selectMode(mode) {
       this.mode = mode;
-      if (this.mode == "text") {
-        this.reset();
-      }
+      this.reset();
+      this.pause();
+      this.isWalkpathRunning = false;
     },
     pause() {
       if (!this.audio.paused) {
@@ -111,6 +111,12 @@ export default {
     stop() {
       this.isWalkpathRunning = false;
       this.pause();
+    },
+    nextSlot() {
+      this.startSlotAtIndex(this.indexOfLastPlayedSlot + 1);
+    },
+    previousSlot() {
+      this.startSlotAtIndex(this.indexOfLastPlayedSlot - 1);
     }
   }
 };
@@ -136,8 +142,27 @@ export default {
         >Text</a
       >
     </div>
-    <div class="text-content" v-if="mode == 'text'">
-      {{ slotInProgress.text }}
+    <div v-if="mode == 'text'">
+      <div class="text-content">
+        {{ slotInProgress.text }}
+      </div>
+      <div>
+        <button
+          @click="previousSlot"
+          :disabled="indexOfLastPlayedSlot == 0"
+        >
+          Prev
+        </button>
+        <button
+          @click="nextSlot"
+          :disabled="indexOfLastPlayedSlot + 1 == walkpathInProgress.composition.length"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+    <div>
+
     </div>
     <div class="bottom-row">
       <button v-if="isWalkpathRunning" @click="stop()">Stop</button>
