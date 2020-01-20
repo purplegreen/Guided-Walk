@@ -147,23 +147,20 @@ export default {
         {{ slotInProgress.text }}
       </div>
       <div>
-        <button
-          @click="previousSlot"
-          :disabled="indexOfLastPlayedSlot == 0"
-        >
+        <button @click="previousSlot" :disabled="indexOfLastPlayedSlot == 0">
           Prev
         </button>
         <button
           @click="nextSlot"
-          :disabled="indexOfLastPlayedSlot + 1 == walkpathInProgress.composition.length"
+          :disabled="
+            indexOfLastPlayedSlot + 1 == walkpathInProgress.composition.length
+          "
         >
           Next
         </button>
       </div>
     </div>
-    <div>
-
-    </div>
+    <div class="map"></div>
     <div class="bottom-row">
       <button v-if="isWalkpathRunning" @click="stop()">Stop</button>
       <button v-else @click="start()">Start</button>
@@ -179,6 +176,14 @@ export default {
   columns: 100px 3;
   width: 90%;
   margin: auto;
+}
+
+.map {
+  height: 400px;
+  background-image: url("/berlin.svg");
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
 
 .button-group {
