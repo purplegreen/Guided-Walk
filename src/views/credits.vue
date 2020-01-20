@@ -9,7 +9,7 @@ export default {
   },
   mounted() {
     if (!this.walkpathInProgress || !this.walkpathInProgress.composition) {
-      this.$router.push({ path: "/" });
+      this.$router.replace("/");
     }
   },
   computed: {

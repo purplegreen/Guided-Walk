@@ -6,11 +6,11 @@ import walkpath from "./walkpath";
 
 Vue.use(Vuex);
 
-const store = {
+const store = new Vuex.Store({
   modules: {
     slot,
     walkpath
   }
-};
+});
 
-export default new Vuex.Store(store);
+export default store;
