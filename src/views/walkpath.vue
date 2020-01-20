@@ -35,10 +35,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["stopWalkpath"]),
+    ...mapActions(["setWalkpathInProgress", "calculateSlotProgress"]),
     selectMode(mode) {
       this.mode = mode;
-      this.reset();
+      this.calculateSlotProgress();
       this.pause();
       this.isWalkpathRunning = false;
     },
@@ -46,15 +46,6 @@ export default {
       if (!this.audio.paused) {
         this.audio.pause && this.audio.pause();
       }
-    },
-    reset(index = 0) {
-      // reset progresses on slots
-      // if the user wants to skip to 3rd slot i.e. index parameter is 2,
-      // we assume that the first two are already played. If the index is 0,
-      // it simply means that the user is starting from the beginning.
-      this.walkpathInProgress.composition.forEach((element, i) => {
-        element.alreadyPlayedInSeconds = index > i ? element.duration : 0;
-      });
     },
     play(slot, startFrom, index) {
       this.pause();
@@ -78,14 +69,16 @@ export default {
     startSlotAtIndex(index, startAudioOn = 0) {
       this.isWalkpathRunning = true;
       if (!this.walkpathInProgress.composition[index]) {
+        // we came to a point where there is no next slot -> finish the walkpath
         this.isWalkpathRunning = false;
         this.$router.push("credits");
         return;
       }
+
       this.slotInProgress = this.walkpathInProgress.composition[index];
       this.indexOfLastPlayedSlot = index;
       if (this.mode == "audio") {
-        this.reset(index);
+        this.calculateSlotProgress(index);
         this.play(this.slotInProgress, startAudioOn, index);
       }
     },
@@ -103,9 +96,12 @@ export default {
     },
     exit() {
       this.pause();
-      this.reset();
-      this.stopWalkpath();
+      this.calculateSlotProgress();
+      this.setWalkpathInProgress({
+        composition: []
+      });
       if (this.walkpathInProgress.id) {
+        // meaing that the user selected premade walkpath
         this.$router.push("select");
       } else {
         this.$router.push("create");

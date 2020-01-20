@@ -1,5 +1,5 @@
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import ProgressBar from "@/components/progress-bar.vue";
 
 export default {
@@ -8,7 +8,7 @@ export default {
     ProgressBar
   },
   mounted() {
-    if (!this.walkpathInProgress || !this.walkpathInProgress.composition) {
+    if (!this.walkpathInProgress.composition.length) {
       this.$router.replace("/");
     }
   },
@@ -16,6 +16,16 @@ export default {
     ...mapState({
       walkpathInProgress: state => state.walkpath.walkpathInProgress
     })
+  },
+  methods: {
+    ...mapActions(["setWalkpathInProgress", "calculateSlotProgress"]),
+    toHome() {
+      this.calculateSlotProgress();
+      this.setWalkpathInProgress({
+        composition: []
+      });
+      this.$router.replace("/");
+    }
   }
 };
 </script>
@@ -34,6 +44,9 @@ export default {
       maize bamboo shoot green bean swiss chard seakale pumpkin onion chickpea
       gram corn pea. Brussels sprout coriander water chestnut gourd swiss chard
       wakame kohlrabi beetroot carrot watercress.
+    </div>
+    <div>
+      <button @click="toHome">Homepage</button>
     </div>
   </div>
 </template>

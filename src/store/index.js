@@ -12,9 +12,11 @@ const store = new Vuex.Store({
     slot,
     walkpath
   },
-  plugins: [createPersistedState({
-    key: 'guided-walk'
-  })]
+  plugins: [
+    createPersistedState({
+      key: "guided-walk"
+    })
+  ]
 });
 
 export default store;

@@ -3,6 +3,7 @@ const { walkpaths } = require("../data");
 const ADD_TO_WALKPATH = "ADD_TO_WALKPATH";
 const REMOVE_FROM_WALKPATH = "REMOVE_FROM_WALKPATH";
 const SET_WALKPATH_IN_PROGRESS = "SET_WALKPATH_IN_PROGRESS";
+const CALCULATE_SLOT_PROGRESS = "CALCULATE_SLOT_PROGRESS";
 
 const emptyWalkpath = {
   composition: [],
@@ -46,6 +47,15 @@ const mutations = {
         0
       );
     }
+  },
+  [CALCULATE_SLOT_PROGRESS](state, index) {
+    // reset progresses on slots
+    // if the user wants to skip to 3rd slot i.e. index parameter is 2,
+    // we assume that the first two are already played. If the index is 0,
+    // it simply means that the user is starting from the beginning.
+    state.walkpathInProgress.composition.forEach((element, i) => {
+      element.alreadyPlayedInSeconds = index > i ? element.duration : 0;
+    });
   }
 };
 
@@ -59,8 +69,8 @@ const actions = {
   setWalkpathInProgress({ commit }, walkpath) {
     commit(SET_WALKPATH_IN_PROGRESS, walkpath);
   },
-  stopWalkpath({ commit }) {
-    commit(SET_WALKPATH_IN_PROGRESS, emptyWalkpath);
+  calculateSlotProgress({ commit }, index = 0) {
+    commit(CALCULATE_SLOT_PROGRESS, index);
   }
 };
 

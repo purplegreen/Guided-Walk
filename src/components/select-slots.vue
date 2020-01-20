@@ -49,7 +49,7 @@ export default {
       const index = this.customWalkpath.composition.findIndex(
         e => e.id == slot.id
       );
-      return index != -1
+      return index != -1;
     }
   }
 };
@@ -83,7 +83,7 @@ export default {
             </li>
           </ul>
           <div>
-            <button v-if="selectedSlot.isSelected" @click="remove">
+            <button v-if="isSlotSelected(selectedSlot)" @click="remove">
               Remove
             </button>
             <button v-else @click="add">Save</button>
