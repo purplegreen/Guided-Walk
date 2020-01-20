@@ -9,6 +9,11 @@ Vue.use(VModal);
 
 Vue.config.productionTip = false;
 
+Vue.filter("secondsToMinutes", function(value) {
+  if (!value) return 0;
+  return (value / 60).toFixed();
+});
+
 new Vue({
   router,
   store,

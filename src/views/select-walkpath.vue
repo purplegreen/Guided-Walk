@@ -9,9 +9,9 @@ export default {
     })
   },
   methods: {
-    ...mapActions(["startWalkpath"]),
+    ...mapActions(["setWalkpathInProgress"]),
     select(walkpath) {
-      this.startWalkpath(walkpath);
+      this.setWalkpathInProgress(walkpath);
       this.$router.push("walkpath");
     }
   }
@@ -35,7 +35,7 @@ export default {
 <style lang="scss" scoped>
 .walkpath {
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   cursor: pointer;
   margin-bottom: 1em;
   padding: 1em;

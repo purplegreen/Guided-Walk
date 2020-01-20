@@ -30,7 +30,7 @@ export default {
 
 .card {
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   margin-bottom: 1em;
   padding: 1em;
 }

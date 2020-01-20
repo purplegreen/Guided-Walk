@@ -22,7 +22,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["addToWalkpath", "removeFromWalkpath", "startWalkpath"]),
+    ...mapActions([
+      "addToWalkpath",
+      "removeFromWalkpath",
+      "setWalkpathInProgress"
+    ]),
     showModal(slot) {
       this.$modal.show("slot-modal", { slot });
     },
@@ -40,7 +44,7 @@ export default {
       this.$modal.hide("slot-modal");
     },
     start() {
-      this.startWalkpath(this.customWalkpath);
+      this.setWalkpathInProgress(this.customWalkpath);
       this.$router.push("walkpath");
     }
   }
@@ -48,9 +52,8 @@ export default {
 </script>
 
 <template>
-  <article>
-    <progress-bar :slots="customWalkpath.composition"></progress-bar>
-    <section class="container">
+  <div class="wrapper">
+    <div class="slots">
       <button
         @click="showModal(slot)"
         class="slot"
@@ -69,9 +72,11 @@ export default {
       >
         <div class="slot-modal-content">
           <ul>
-            <li>name: {{ selectedSlot.name }}</li>
-            <li>category: {{ selectedSlot.category }}</li>
-            <li>duration: {{ selectedSlot.duration }} min</li>
+            <li>Name: {{ selectedSlot.name }}</li>
+            <li>Category: {{ selectedSlot.category }}</li>
+            <li>
+              Duration: {{ selectedSlot.duration | secondsToMinutes }} min
+            </li>
           </ul>
           <div>
             <button v-if="selectedSlot.isSelected" @click="remove">
@@ -82,51 +87,41 @@ export default {
           </div>
         </div>
       </modal>
-    </section>
-    <button @click="start" :disabled="!isWalkpathReady">
-      Start Walkpath!
-    </button>
-  </article>
+    </div>
+    <progress-bar :slots="customWalkpath.composition"></progress-bar>
+    <div class="duration">
+      {{ customWalkpath.duration | secondsToMinutes }} min
+    </div>
+    <div>
+      <button @click="start" :disabled="!isWalkpathReady">
+        Start Walkpath!
+      </button>
+    </div>
+  </div>
 </template>
 
 <style scoped>
-article {
-  display: flex;
+.wrapper {
   border: 1px solid var(--border-color);
-  border-radius: 8px;
-  width: 90vw;
-  max-width: 620px;
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-self: center;
-  align-items: flex-start;
-  justify-content: space-around;
+  border-radius: var(--border-radius);
   padding: 10px;
 }
 
-.container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-evenly;
+.duration {
+  color: var(--fuchsia);
+}
+
+.slots {
   padding: 10px;
   margin: 1em 0;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   border: 1px solid var(--border-color);
 }
 
 .slot {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-evenly;
   padding: 10px;
   margin: 10px;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   border: 1px solid var(--border-color);
 }
 
@@ -136,10 +131,10 @@ article {
 
 .modal {
   background-color: var(--white);
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
   padding: 10px;
   margin: 10px;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   position: absolute;
   top: 10px;
   left: 0px;
@@ -149,7 +144,7 @@ article {
 <style>
 .v--modal-box {
   border: 2px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: var(--border-radius);
 }
 
 .slot-modal-content {

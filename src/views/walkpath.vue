@@ -27,7 +27,13 @@ export default {
     ...mapState({
       customWalkpath: state => state.walkpath.customWalkpath,
       walkpathInProgress: state => state.walkpath.walkpathInProgress
-    })
+    }),
+    totalSecondsPlayed() {
+      if (!this.walkpathInProgress.composition) return 0;
+      return this.walkpathInProgress.composition.reduce((total, slot) => {
+        return total + slot.alreadyPlayedInSeconds;
+      }, 0);
+    }
   },
   methods: {
     ...mapActions(["stopWalkpath"]),
@@ -44,29 +50,29 @@ export default {
     },
     reset(index = 0) {
       // reset progresses on slots
+      // if the user wants to skip to 3rd slot i.e. index parameter is 2,
+      // we assume that the first two are already played. If the index is 0,
+      // it simply means that the user is starting from the beginning.
       this.walkpathInProgress.composition.forEach((element, i) => {
-        element.progress = index > i ? 100 : 0;
+        element.alreadyPlayedInSeconds = index > i ? element.duration : 0;
       });
     },
-    play(slot, portion, index) {
+    play(slot, startFrom, index) {
       this.pause();
       this.audio = new Audio(slot.audio);
 
       this.audio.onloadedmetadata = () => {
-        this.audio.currentTime = portion * this.audio.duration;
+        this.audio.currentTime = startFrom;
         this.audio.play();
       };
 
       this.audio.ontimeupdate = () => {
         if (this.audio.paused) return;
-        slot.progress = parseInt(
-          (this.audio.currentTime / this.audio.duration) * 100,
-          10
-        );
+        slot.alreadyPlayedInSeconds = parseInt(this.audio.currentTime, 10);
       };
 
       this.audio.onended = () => {
-        slot.progress = 100;
+        slot.alreadyPlayedInSeconds = slot.duration;
         this.startSlotAtIndex(index + 1);
       };
     },
@@ -85,11 +91,16 @@ export default {
       }
     },
     onBarClicked(slot, index, event) {
+      // First we calculate the pixels to understand at which
+      // time she wants to start playing. If she clicked on 20% from the left,
+      // we start playing the track from that exact second.
       const rect = event.target.getBoundingClientRect();
       const width = rect.right - rect.left;
 
-      const x = event.clientX - rect.left; // x position within the element.
-      this.startSlotAtIndex(index, x / width);
+      const x = event.clientX - rect.left; // x position within the element clicked.
+      const secondsInTrack = (x / width) * slot.duration;
+
+      this.startSlotAtIndex(index, secondsInTrack);
     },
     exit() {
       this.pause();
@@ -105,7 +116,7 @@ export default {
       if (this.isWalkpathRunning) return;
       this.startSlotAtIndex(
         this.indexOfLastPlayedSlot,
-        this.slotInProgress.progress / 100
+        this.slotInProgress.alreadyPlayedInSeconds
       );
     },
     stop() {
@@ -128,6 +139,10 @@ export default {
       @onBarClicked="onBarClicked"
     >
     </progress-bar>
+    <div class="duration">
+      {{ totalSecondsPlayed | secondsToMinutes }} of
+      {{ walkpathInProgress.duration | secondsToMinutes }}min
+    </div>
     <div class="button-group">
       <a
         class="btn"
@@ -146,7 +161,7 @@ export default {
       <div class="text-content">
         {{ slotInProgress.text }}
       </div>
-      <div>
+      <div v-if="walkpathInProgress.composition.length > 1">
         <button @click="previousSlot" :disabled="indexOfLastPlayedSlot == 0">
           Prev
         </button>
@@ -178,6 +193,10 @@ export default {
   margin: auto;
 }
 
+.duration {
+  color: var(--fuchsia);
+}
+
 .map {
   height: 400px;
   background-image: url("/berlin.svg");
@@ -190,7 +209,7 @@ export default {
   margin: 1em 0;
 }
 .btn {
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   border: 1px solid var(--border-color);
   display: inline-block;
   width: 100px;
