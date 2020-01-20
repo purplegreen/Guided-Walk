@@ -3,8 +3,6 @@ const slots = [
     id: 1,
     name: "Biotope",
     category: "Listening",
-    isSelected: false,
-    progress: 0,
     alreadyPlayedInSeconds: 0,
     audio: "./Tchaikovsky_Nocturne__orch.mp3",
     text:
@@ -15,8 +13,6 @@ const slots = [
     id: 2,
     name: "Breathe",
     category: "Meditation",
-    isSelected: false,
-    progress: 0,
     alreadyPlayedInSeconds: 0,
     audio: "./Tchaikovsky_Rococo_Var_orch.mp3",
     text:
@@ -27,8 +23,6 @@ const slots = [
     id: 3,
     name: "Stones",
     category: "Observation",
-    isSelected: false,
-    progress: 0,
     alreadyPlayedInSeconds: 0,
     audio: "./Vivaldi_Sonata_eminor_.mp3",
     text:
@@ -39,8 +33,6 @@ const slots = [
     id: 4,
     name: "Sandy",
     category: "Meditation",
-    isSelected: false,
-    progress: 0,
     alreadyPlayedInSeconds: 0,
     audio: "./Tchaikovsky_Nocturne__orch.mp3",
     text:
@@ -51,8 +43,6 @@ const slots = [
     id: 5,
     name: "Float",
     category: "In Water",
-    isSelected: false,
-    progress: 0,
     alreadyPlayedInSeconds: 0,
     audio: "./Tchaikovsky_Rococo_Var_orch.mp3",
     text:
@@ -63,8 +53,6 @@ const slots = [
     id: 6,
     name: "Power of Imagination",
     category: "Listening",
-    isSelected: false,
-    progress: 0,
     alreadyPlayedInSeconds: 0,
     audio: "./Vivaldi_Sonata_eminor_.mp3",
     text:

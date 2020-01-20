@@ -17,7 +17,7 @@ export default {
     };
   },
   mounted() {
-    if (!this.walkpathInProgress || !this.walkpathInProgress.composition) {
+    if (!this.walkpathInProgress.composition.length) {
       this.$router.replace("/");
       return;
     }
@@ -25,7 +25,6 @@ export default {
   },
   computed: {
     ...mapState({
-      customWalkpath: state => state.walkpath.customWalkpath,
       walkpathInProgress: state => state.walkpath.walkpathInProgress
     }),
     totalSecondsPlayed() {
@@ -106,10 +105,10 @@ export default {
       this.pause();
       this.reset();
       this.stopWalkpath();
-      if (this.customWalkpath.composition.length > 0) {
-        this.$router.push("create");
-      } else {
+      if (this.walkpathInProgress.id) {
         this.$router.push("select");
+      } else {
+        this.$router.push("create");
       }
     },
     start() {

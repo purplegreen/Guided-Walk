@@ -35,17 +35,21 @@ export default {
     },
     add() {
       this.addToWalkpath(this.selectedSlot);
-      this.selectedSlot.isSelected = true;
       this.$modal.hide("slot-modal");
     },
     remove() {
       this.removeFromWalkpath(this.selectedSlot);
-      this.selectedSlot.isSelected = false;
       this.$modal.hide("slot-modal");
     },
     start() {
       this.setWalkpathInProgress(this.customWalkpath);
       this.$router.push("walkpath");
+    },
+    isSlotSelected(slot) {
+      const index = this.customWalkpath.composition.findIndex(
+        e => e.id == slot.id
+      );
+      return index != -1
     }
   }
 };
@@ -57,7 +61,7 @@ export default {
       <button
         @click="showModal(slot)"
         class="slot"
-        :class="{ selected: slot.isSelected }"
+        :class="{ selected: isSlotSelected(slot) }"
         v-for="slot of slots"
         :key="slot.id"
       >
