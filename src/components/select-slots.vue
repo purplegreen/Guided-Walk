@@ -1,6 +1,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import ProgressBar from "@/components/progress-bar.vue";
+import Duration from "@/components/duration.vue";
 
 export default {
   data() {
@@ -10,7 +11,8 @@ export default {
   },
   name: "SelectSlots",
   components: {
-    ProgressBar
+    ProgressBar,
+    Duration
   },
   computed: {
     ...mapState({
@@ -93,9 +95,9 @@ export default {
       </modal>
     </div>
     <progress-bar :slots="customWalkpath.composition"></progress-bar>
-    <div class="duration">
-      {{ customWalkpath.duration | secondsToMinutes }} min
-    </div>
+    <duration
+      :total="customWalkpath.duration"
+    ></duration>
     <div>
       <button @click="start" :disabled="!isWalkpathReady">
         Start Walkpath!
@@ -109,10 +111,6 @@ export default {
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   padding: 10px;
-}
-
-.duration {
-  color: var(--fuchsia);
 }
 
 .slots {

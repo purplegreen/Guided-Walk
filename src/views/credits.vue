@@ -1,11 +1,13 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import ProgressBar from "@/components/progress-bar.vue";
+import Duration from "@/components/duration.vue";
 
 export default {
   name: "credits",
   components: {
-    ProgressBar
+    ProgressBar,
+    Duration
   },
   mounted() {
     if (!this.walkpathInProgress.composition.length) {
@@ -32,10 +34,11 @@ export default {
 <template>
   <div>
     <progress-bar :slots="walkpathInProgress.composition"> </progress-bar>
-    <div class="duration">
-      {{ walkpathInProgress.duration | secondsToMinutes }}min of
-      {{ walkpathInProgress.duration | secondsToMinutes }}min
-    </div>
+    <duration
+      :total="walkpathInProgress.duration"
+      :passed="walkpathInProgress.duration"
+      :withRemaining="true"
+    ></duration>
     <div>
       END PAGE Turnip greens yarrow ricebean rutabaga endive cauliflower sea
       lettuce kohlrabi amaranth water spinach avocado daikon napa cabbage
@@ -50,9 +53,3 @@ export default {
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.duration {
-  color: var(--fuchsia);
-}
-</style>

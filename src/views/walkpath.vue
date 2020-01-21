@@ -1,12 +1,11 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import ProgressBar from "@/components/progress-bar.vue";
+import Duration from "@/components/duration.vue";
 
 export default {
   name: "Walkpath",
-  components: {
-    ProgressBar
-  },
+  components: { ProgressBar, Duration },
   data() {
     return {
       mode: "audio",
@@ -28,7 +27,7 @@ export default {
       slotInProgress: state => state.walkpath.slotInProgress
     }),
     durationPassed() {
-      if (this.mode == 'audio') {
+      if (this.mode == "audio") {
         return this.walkpathInProgress.composition.reduce((total, slot) => {
           return total + slot.alreadyPlayedInSeconds;
         }, 0);
@@ -37,7 +36,7 @@ export default {
       return this.walkpathInProgress.composition.reduce((total, slot, i) => {
         return i < this.indexOfLastPlayedSlot ? total + slot.duration : total;
       }, 0);
-  }
+    }
   },
   methods: {
     ...mapActions([
@@ -128,7 +127,8 @@ export default {
         this.slotInProgress.alreadyPlayedInSeconds
       );
     },
-    stop() { // this only makes sense in audio mode
+    stop() {
+      // this only makes sense in audio mode
       this.isWalkpathRunning = false;
       this.pause();
     },
@@ -148,10 +148,11 @@ export default {
       @onBarClicked="onBarClicked"
     >
     </progress-bar>
-    <div class="duration">
-      {{ durationPassed | secondsToMinutes }} of
-      {{ walkpathInProgress.duration | secondsToMinutes }}min
-    </div>
+    <duration
+      :total="walkpathInProgress.duration"
+      :passed="durationPassed"
+      :withRemaining="true"
+    ></duration>
     <div class="button-group">
       <a
         class="btn"
@@ -201,11 +202,6 @@ export default {
   width: 90%;
   margin: auto;
 }
-
-.duration {
-  color: var(--fuchsia);
-}
-
 .map {
   height: 400px;
   background-image: url("/berlin.svg");
