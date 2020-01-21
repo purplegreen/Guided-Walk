@@ -4,6 +4,7 @@ const ADD_TO_WALKPATH = "ADD_TO_WALKPATH";
 const REMOVE_FROM_WALKPATH = "REMOVE_FROM_WALKPATH";
 const SET_WALKPATH_IN_PROGRESS = "SET_WALKPATH_IN_PROGRESS";
 const CALCULATE_SLOT_PROGRESS = "CALCULATE_SLOT_PROGRESS";
+const SET_SLOT_ACTIVE = "SET_SLOT_ACTIVE";
 
 const emptyWalkpath = {
   composition: [],
@@ -56,6 +57,11 @@ const mutations = {
     state.walkpathInProgress.composition.forEach((element, i) => {
       element.alreadyPlayedInSeconds = index > i ? element.duration : 0;
     });
+  },
+  [SET_SLOT_ACTIVE](state, index) {
+    state.walkpathInProgress.composition.forEach((element, i) => {
+      element.isActive = index == i ? true : false;
+    });
   }
 };
 
@@ -71,6 +77,9 @@ const actions = {
   },
   calculateSlotProgress({ commit }, index = 0) {
     commit(CALCULATE_SLOT_PROGRESS, index);
+  },
+  setSlotActive({ commit }, index) {
+    commit(SET_SLOT_ACTIVE, index);
   }
 };
 

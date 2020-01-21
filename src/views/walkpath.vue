@@ -35,7 +35,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["setWalkpathInProgress", "calculateSlotProgress"]),
+    ...mapActions(["setWalkpathInProgress", "calculateSlotProgress", "setSlotActive"]),
     selectMode(mode) {
       this.mode = mode;
       this.calculateSlotProgress();
@@ -80,6 +80,8 @@ export default {
       if (this.mode == "audio") {
         this.calculateSlotProgress(index);
         this.play(this.slotInProgress, startAudioOn, index);
+      } else {
+        this.setSlotActive(index);
       }
     },
     onBarClicked(slot, index, event) {
