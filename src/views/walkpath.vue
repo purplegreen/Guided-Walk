@@ -11,7 +11,6 @@ export default {
     return {
       mode: "audio",
       isWalkpathRunning: false,
-      slotInProgress: {},
       indexOfLastPlayedSlot: 0,
       audio: {}
     };
@@ -21,25 +20,37 @@ export default {
       this.$router.replace("/");
       return;
     }
-    this.slotInProgress = this.walkpathInProgress.composition[0];
+    this.setSlotInProgress(this.walkpathInProgress.composition[0]);
   },
   computed: {
     ...mapState({
-      walkpathInProgress: state => state.walkpath.walkpathInProgress
+      walkpathInProgress: state => state.walkpath.walkpathInProgress,
+      slotInProgress: state => state.walkpath.slotInProgress
     }),
-    totalSecondsPlayed() {
-      if (!this.walkpathInProgress.composition) return 0;
-      return this.walkpathInProgress.composition.reduce((total, slot) => {
-        return total + slot.alreadyPlayedInSeconds;
+    durationPassed() {
+      if (this.mode == 'audio') {
+        return this.walkpathInProgress.composition.reduce((total, slot) => {
+          return total + slot.alreadyPlayedInSeconds;
+        }, 0);
+      }
+
+      return this.walkpathInProgress.composition.reduce((total, slot, i) => {
+        return i < this.indexOfLastPlayedSlot ? total + slot.duration : total;
       }, 0);
-    }
+  }
   },
   methods: {
-    ...mapActions(["setWalkpathInProgress", "calculateSlotProgress", "setSlotActive"]),
+    ...mapActions([
+      "setWalkpathInProgress",
+      "calculateSlotAudioProgress",
+      "highlightSlotAt",
+      "setSlotInProgress",
+      "resetWalkpath"
+    ]),
     selectMode(mode) {
       this.mode = mode;
-      this.calculateSlotProgress();
       this.pause();
+      this.resetWalkpath();
       this.isWalkpathRunning = false;
     },
     pause() {
@@ -75,13 +86,14 @@ export default {
         return;
       }
 
-      this.slotInProgress = this.walkpathInProgress.composition[index];
+      this.setSlotInProgress(this.walkpathInProgress.composition[index]);
       this.indexOfLastPlayedSlot = index;
       if (this.mode == "audio") {
-        this.calculateSlotProgress(index);
+        this.calculateSlotAudioProgress(index);
         this.play(this.slotInProgress, startAudioOn, index);
       } else {
-        this.setSlotActive(index);
+        // for now highlighting only happens for text mode
+        this.highlightSlotAt(index);
       }
     },
     onBarClicked(slot, index, event) {
@@ -98,7 +110,7 @@ export default {
     },
     exit() {
       this.pause();
-      this.calculateSlotProgress();
+      this.resetWalkpath();
       if (this.walkpathInProgress.id) {
         // meaing that the user selected premade walkpath
         this.$router.push("select");
@@ -116,7 +128,7 @@ export default {
         this.slotInProgress.alreadyPlayedInSeconds
       );
     },
-    stop() {
+    stop() { // this only makes sense in audio mode
       this.isWalkpathRunning = false;
       this.pause();
     },
@@ -137,7 +149,7 @@ export default {
     >
     </progress-bar>
     <div class="duration">
-      {{ totalSecondsPlayed | secondsToMinutes }} of
+      {{ durationPassed | secondsToMinutes }} of
       {{ walkpathInProgress.duration | secondsToMinutes }}min
     </div>
     <div class="button-group">

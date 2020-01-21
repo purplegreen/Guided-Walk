@@ -3,8 +3,9 @@ const { walkpaths } = require("../data");
 const ADD_TO_WALKPATH = "ADD_TO_WALKPATH";
 const REMOVE_FROM_WALKPATH = "REMOVE_FROM_WALKPATH";
 const SET_WALKPATH_IN_PROGRESS = "SET_WALKPATH_IN_PROGRESS";
-const CALCULATE_SLOT_PROGRESS = "CALCULATE_SLOT_PROGRESS";
-const SET_SLOT_ACTIVE = "SET_SLOT_ACTIVE";
+const CALCULATE_SLOT_AUDIO_PROGRESS = "CALCULATE_SLOT_AUDIO_PROGRESS";
+const HIGHLIGHT_SLOT = "HIGHLIGHT_SLOT";
+const SET_SLOT_IN_PROGRESS = "SET_SLOT_IN_PROGRESS";
 
 const emptyWalkpath = {
   composition: [],
@@ -15,6 +16,7 @@ const state = {
   walkpaths,
   customWalkpath: emptyWalkpath,
   walkpathInProgress: emptyWalkpath,
+  slotInProgress: {},
   error: false,
   errorMessage: "",
   success: false
@@ -49,7 +51,7 @@ const mutations = {
       );
     }
   },
-  [CALCULATE_SLOT_PROGRESS](state, index) {
+  [CALCULATE_SLOT_AUDIO_PROGRESS](state, index) {
     // reset progresses on slots
     // if the user wants to skip to 3rd slot i.e. index parameter is 2,
     // we assume that the first two are already played. If the index is 0,
@@ -58,10 +60,13 @@ const mutations = {
       element.alreadyPlayedInSeconds = index > i ? element.duration : 0;
     });
   },
-  [SET_SLOT_ACTIVE](state, index) {
+  [HIGHLIGHT_SLOT](state, index) {
     state.walkpathInProgress.composition.forEach((element, i) => {
       element.isActive = index == i ? true : false;
     });
+  },
+  [SET_SLOT_IN_PROGRESS](state, slot) {
+    state.slotInProgress = slot;
   }
 };
 
@@ -75,11 +80,18 @@ const actions = {
   setWalkpathInProgress({ commit }, walkpath) {
     commit(SET_WALKPATH_IN_PROGRESS, walkpath);
   },
-  calculateSlotProgress({ commit }, index = 0) {
-    commit(CALCULATE_SLOT_PROGRESS, index);
+  calculateSlotAudioProgress({ commit }, index = 0) {
+    commit(CALCULATE_SLOT_AUDIO_PROGRESS, index);
   },
-  setSlotActive({ commit }, index) {
-    commit(SET_SLOT_ACTIVE, index);
+  highlightSlotAt({ commit }, index) {
+    commit(HIGHLIGHT_SLOT, index);
+  },
+  setSlotInProgress({ commit }, slot) {
+    commit(SET_SLOT_IN_PROGRESS, slot);
+  },
+  resetWalkpath({ commit }) {
+    commit(CALCULATE_SLOT_AUDIO_PROGRESS, 0);
+    commit(HIGHLIGHT_SLOT, -1);
   }
 };
 

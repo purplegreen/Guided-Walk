@@ -18,9 +18,9 @@ export default {
     })
   },
   methods: {
-    ...mapActions(["setWalkpathInProgress", "calculateSlotProgress"]),
+    ...mapActions(["setWalkpathInProgress", "resetWalkpath"]),
     toHome() {
-      this.calculateSlotProgress();
+      this.resetWalkpath();
       this.setWalkpathInProgress({
         composition: []
       });
