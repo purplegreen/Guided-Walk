@@ -97,15 +97,15 @@ export default {
     exit() {
       this.pause();
       this.calculateSlotProgress();
-      this.setWalkpathInProgress({
-        composition: []
-      });
       if (this.walkpathInProgress.id) {
         // meaing that the user selected premade walkpath
         this.$router.push("select");
       } else {
         this.$router.push("create");
       }
+      this.setWalkpathInProgress({
+        composition: []
+      });
     },
     start() {
       if (this.isWalkpathRunning) return;
