@@ -2,10 +2,11 @@
 import { mapState, mapActions } from "vuex";
 import ProgressBar from "@/components/progress-bar.vue";
 import Duration from "@/components/duration.vue";
+import MapComponent from "@/components/map.vue";
 
 export default {
   name: "Walkpath",
-  components: { ProgressBar, Duration },
+  components: { ProgressBar, Duration, MapComponent },
   data() {
     return {
       mode: "audio",
@@ -185,7 +186,7 @@ export default {
         </button>
       </div>
     </div>
-    <div class="map"></div>
+    <map-component></map-component>
     <div class="bottom-row">
       <button v-if="isWalkpathRunning" @click="stop()">Stop</button>
       <button v-else @click="start()">Start</button>
@@ -201,13 +202,6 @@ export default {
   columns: 100px 3;
   width: 90%;
   margin: auto;
-}
-.map {
-  height: 400px;
-  background-image: url("/berlin.svg");
-  background-position: center;
-  background-size: 100%;
-  background-repeat: no-repeat;
 }
 
 .button-group {

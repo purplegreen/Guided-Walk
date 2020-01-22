@@ -95,9 +95,7 @@ export default {
       </modal>
     </div>
     <progress-bar :slots="customWalkpath.composition"></progress-bar>
-    <duration
-      :total="customWalkpath.duration"
-    ></duration>
+    <duration :total="customWalkpath.duration"></duration>
     <div>
       <button @click="start" :disabled="!isWalkpathReady">
         Start Walkpath!
