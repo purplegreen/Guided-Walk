@@ -6,21 +6,7 @@ export default {
       location: null,
       loading: false,
       error: null,
-      currentLocation: null,
-      markers: [
-        {
-          position: {
-            lat: 10.0,
-            lng: 10.0
-          }
-        },
-        {
-          position: {
-            lat: 11.0,
-            lng: 11.0
-          }
-        }
-      ]
+      watcherId: null
     };
   },
   computed: {
@@ -34,6 +20,9 @@ export default {
       return { lat: 0, lng: 0 };
     }
   },
+  beforeDestroy() {
+    navigator.geolocation.clearWatch(this.watcherId);
+  },
   created() {
     //do we support geolocation
     if (!("geolocation" in navigator)) {
@@ -42,19 +31,18 @@ export default {
     }
 
     this.loading = true;
-    // get position
-    navigator.geolocation.getCurrentPosition(
-      pos => {
+    this.watcherId = navigator.geolocation.watchPosition(
+      position => {
         this.loading = false;
-        this.location = pos;
-        this.currentLocation = {
-          lat: pos.coords.latitude,
-          lng: pos.coords.longitude
-        };
+        this.location = position;
+        // console.log('new position acquired', position.coords.latitude, position.coords.longitude);
       },
       err => {
         this.loading = false;
         this.error = err.message;
+      },
+      {
+        enableHighAccuracy: true
       }
     );
   }
@@ -73,7 +61,7 @@ export default {
       Your location data is {{ location.coords.latitude }},
       {{ location.coords.longitude }}
     </div>
-    <GmapMap
+    <gmap-map
       class="map"
       :center="center"
       :options="{
@@ -85,11 +73,14 @@ export default {
         fullscreenControl: true,
         disableDefaultUi: false
       }"
-      :zoom="12"
+      :zoom="13"
       v-if="location"
     >
-      <GmapMarker :position="currentLocation" />
-    </GmapMap>
+      <gmap-marker
+        :position="center"
+        icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/library_maps.png"
+      />
+    </gmap-map>
   </div>
 </template>
 

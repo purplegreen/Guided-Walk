@@ -9,7 +9,11 @@ import store from "./store";
 
 Vue.use(VModal);
 Vue.use(VueGoogleMaps, {
-  load: { key: process.env.VUE_APP_GOOGLE_MAPS_API_KEY },
+  load: {
+    // this key needs to be generated manually
+    // https://developers.google.com/maps/documentation/javascript/get-api-key
+    key: process.env.VUE_APP_GOOGLE_MAPS_API_KEY
+  },
   installComponents: true
 });
 
