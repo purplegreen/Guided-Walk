@@ -112,6 +112,70 @@ export default {
         this.infoWinOpen = true;
         this.currentMarkerIndex = index;
       }
+    },
+    route() {
+      // this.directionsService = new this.google.maps.DirectionsService();
+      // this.directionsDisplay = new this.google.maps.DirectionsRenderer();
+
+      // this.directionsDisplay.setMap(this.$refs.map.$mapObject);
+
+      // console.log(this.markers[0]);
+
+      // var start = new this.google.maps.LatLng(this.markers[0].position.lat, this.markers[0].position.lng);
+      // var end = new this.google.maps.LatLng(this.markers[1].position.lat, this.markers[1].position.lng);
+      // var request = {
+      //   origin: start,
+      //   destination: end,
+      //   travelMode: this.google.maps.TravelMode.WALKING
+      // };
+      // this.directionsService.route(request, (response, status) => {
+      //   if (status == this.google.maps.DirectionsStatus.OK) {
+      //     this.directionsDisplay.setDirections(response);
+      //     this.directionsDisplay.setMap(this.$refs.map);
+      //   } else {
+      //     alert("Directions Request failed: " + status);
+      //   }
+      // });
+      //Initialize the Path Array
+      const path = new this.google.maps.MVCArray();
+
+      //Initialize the Direction Service
+      const service = new this.google.maps.DirectionsService();
+
+      //Set the Path Stroke Color
+      const polyline = new this.google.maps.Polyline({
+        map: this.$refs.map.$mapObject,
+        strokeColor: "#4986E7"
+      });
+
+      //Loop and Draw Path Route between the Points on MAP
+      for (let i = 0; i < this.markers.length; i++) {
+        // we don't want to process the last item
+        if (i + 1 >= this.markers.length) return;
+        const src = new this.google.maps.LatLng(
+          this.markers[i].position.lat,
+          this.markers[i].position.lng
+        );
+        const des = new this.google.maps.LatLng(
+          this.markers[i + 1].position.lat,
+          this.markers[i + 1].position.lng
+        );
+        path.push(src);
+        polyline.setPath(path);
+        const request = {
+          origin: src,
+          destination: des,
+          travelMode: this.google.maps.TravelMode.WALKING
+        };
+        service.route(request, function(result, status) {
+          if (status == this.google.maps.DirectionsStatus.OK) {
+            // dont try to optimize. path is not a regular array
+            for (let j = 0, len = result.routes[0].overview_path.length; j < len; j++) {
+              path.push(result.routes[0].overview_path[j]);
+            }
+          }
+        });
+      }
     }
   }
 };
@@ -128,6 +192,9 @@ export default {
     <div v-if="location">
       Your location data is {{ location.lat }},
       {{ location.lng }}
+    </div>
+    <div>
+      <button @click="route">Route!</button>
     </div>
     <gmap-map
       class="map"
@@ -164,7 +231,7 @@ export default {
         :opened="infoWinOpen"
         @closeclick="infoWinOpen = false"
       ></gmap-info-window>
-      <gmap-polyline v-if="path.length > 0" :path="path"> </gmap-polyline>
+      <!-- <gmap-polyline v-if="path.length > 0" :path="path"> </gmap-polyline> -->
     </gmap-map>
   </div>
 </template>
