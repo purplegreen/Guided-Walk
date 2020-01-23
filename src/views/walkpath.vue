@@ -37,6 +37,11 @@ export default {
       return this.walkpathInProgress.composition.reduce((total, slot, i) => {
         return i < this.indexOfLastPlayedSlot ? total + slot.duration : total;
       }, 0);
+    },
+    markers() {
+      return this.walkpathInProgress.composition
+        .filter(s => !!s.location)
+        .map(s => ({ position: s.location, text: s.name }));
     }
   },
   methods: {
@@ -186,7 +191,7 @@ export default {
         </button>
       </div>
     </div>
-    <map-component></map-component>
+    <map-component :markers="markers"></map-component>
     <div class="bottom-row">
       <button v-if="isWalkpathRunning" @click="stop()">Stop</button>
       <button v-else @click="start()">Start</button>
