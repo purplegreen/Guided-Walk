@@ -12,9 +12,10 @@ export default {
       infoWindowPos: null,
       infoWinOpen: false,
       currentMarkerIndex: null,
+      routeCalculated: false,
       infoOptions: {
         content: "",
-        //optional: offset infowindow so it visually sits nicely on top of our marker
+        // offset infowindow so it visually sits nicely on top of our marker
         pixelOffset: {
           width: 0,
           height: -35
@@ -41,14 +42,6 @@ export default {
   },
   computed: {
     google: gmapApi,
-    path() {
-      let points = [];
-      if (this.location) {
-        points.push(this.location);
-      }
-      points.push(...this.markers.map(m => m.position));
-      return points;
-    },
     center() {
       // center is the center of markers
       if (this.markers.length) {
@@ -87,6 +80,7 @@ export default {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
+        setTimeout(() => this.calculateRoute(), 1000);
         // console.log('new position acquired', position.coords.latitude, position.coords.longitude);
       },
       err => {
@@ -94,7 +88,7 @@ export default {
         this.error = err.message;
       },
       {
-        enableHighAccuracy: true // this might cause high battery consumption
+        enableHighAccuracy: false // this might cause high battery consumption
       }
     );
   },
@@ -103,79 +97,53 @@ export default {
       this.infoWindowPos = marker.position;
       this.infoOptions.content = marker.text;
 
-      //check if its the same marker that was selected if yes toggle
+      // check if its the same marker that was selected if yes toggle
       if (this.currentMarkerIndex == index) {
         this.infoWinOpen = !this.infoWinOpen;
       }
-      //if different marker set infowindow to open and reset current marker index
+      // if different marker set infowindow to open and reset current marker index
       else {
         this.infoWinOpen = true;
         this.currentMarkerIndex = index;
       }
     },
-    route() {
-      // this.directionsService = new this.google.maps.DirectionsService();
-      // this.directionsDisplay = new this.google.maps.DirectionsRenderer();
+    calculateRoute() {
+      if (this.routeCalculated) return;
+      let points = [];
+      if (this.location) {
+        points.push({ position: this.location });
+      }
 
-      // this.directionsDisplay.setMap(this.$refs.map.$mapObject);
+      points.push(...this.markers);
+      const directionsService = new this.google.maps.DirectionsService();
 
-      // console.log(this.markers[0]);
-
-      // var start = new this.google.maps.LatLng(this.markers[0].position.lat, this.markers[0].position.lng);
-      // var end = new this.google.maps.LatLng(this.markers[1].position.lat, this.markers[1].position.lng);
-      // var request = {
-      //   origin: start,
-      //   destination: end,
-      //   travelMode: this.google.maps.TravelMode.WALKING
-      // };
-      // this.directionsService.route(request, (response, status) => {
-      //   if (status == this.google.maps.DirectionsStatus.OK) {
-      //     this.directionsDisplay.setDirections(response);
-      //     this.directionsDisplay.setMap(this.$refs.map);
-      //   } else {
-      //     alert("Directions Request failed: " + status);
-      //   }
-      // });
-      //Initialize the Path Array
-      const path = new this.google.maps.MVCArray();
-
-      //Initialize the Direction Service
-      const service = new this.google.maps.DirectionsService();
-
-      //Set the Path Stroke Color
-      const polyline = new this.google.maps.Polyline({
-        map: this.$refs.map.$mapObject,
-        strokeColor: "#4986E7"
-      });
-
-      //Loop and Draw Path Route between the Points on MAP
-      for (let i = 0; i < this.markers.length; i++) {
-        // we don't want to process the last item
-        if (i + 1 >= this.markers.length) return;
-        const src = new this.google.maps.LatLng(
-          this.markers[i].position.lat,
-          this.markers[i].position.lng
+      points.forEach((marker, index) => {
+        if (!points[index + 1]) return; // skip the last one
+        const start = new this.google.maps.LatLng(
+          marker.position.lat,
+          marker.position.lng
         );
-        const des = new this.google.maps.LatLng(
-          this.markers[i + 1].position.lat,
-          this.markers[i + 1].position.lng
+        const end = new this.google.maps.LatLng(
+          points[index + 1].position.lat,
+          points[index + 1].position.lng
         );
-        path.push(src);
-        polyline.setPath(path);
         const request = {
-          origin: src,
-          destination: des,
+          origin: start,
+          destination: end,
           travelMode: this.google.maps.TravelMode.WALKING
         };
-        service.route(request, function(result, status) {
+        const directionsDisplay = new this.google.maps.DirectionsRenderer({
+          map: this.$refs.map.$mapObject,
+          suppressMarkers: true
+        });
+
+        directionsService.route(request, (response, status) => {
           if (status == this.google.maps.DirectionsStatus.OK) {
-            // dont try to optimize. path is not a regular array
-            for (let j = 0, len = result.routes[0].overview_path.length; j < len; j++) {
-              path.push(result.routes[0].overview_path[j]);
-            }
+            directionsDisplay.setDirections(response);
           }
         });
-      }
+      });
+      this.routeCalculated = true;
     }
   }
 };
@@ -193,9 +161,9 @@ export default {
       Your location data is {{ location.lat }},
       {{ location.lng }}
     </div>
-    <div>
-      <button @click="route">Route!</button>
-    </div>
+    <!-- <div>
+      <button @click="calculateRoute">Route!</button>
+    </div> -->
     <gmap-map
       class="map"
       :center="center"
@@ -231,7 +199,6 @@ export default {
         :opened="infoWinOpen"
         @closeclick="infoWinOpen = false"
       ></gmap-info-window>
-      <!-- <gmap-polyline v-if="path.length > 0" :path="path"> </gmap-polyline> -->
     </gmap-map>
   </div>
 </template>
