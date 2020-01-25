@@ -6,6 +6,7 @@ import VModal from "vue-js-modal";
 import App from "./app.vue";
 import router from "./router";
 import store from "./store";
+import "./registerServiceWorker";
 
 Vue.use(VModal);
 Vue.use(VueGoogleMaps, {
