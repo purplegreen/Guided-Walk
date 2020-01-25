@@ -88,7 +88,7 @@ export default {
         this.error = err.message;
       },
       {
-        enableHighAccuracy: false // this might cause high battery consumption
+        enableHighAccuracy: true // this might cause high battery consumption
       }
     );
   },
