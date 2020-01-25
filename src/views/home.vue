@@ -1,6 +1,11 @@
 <script>
 export default {
-  name: "home"
+  name: "home",
+  methods: {
+    clearCache() {
+      localStorage.clear();
+    }
+  }
 };
 </script>
 
@@ -20,6 +25,7 @@ export default {
         </div>
       </div>
     </router-link>
+    <button @click="clearCache">Clear Cache</button>
   </div>
 </template>
 
