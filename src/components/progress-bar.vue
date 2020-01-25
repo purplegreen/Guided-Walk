@@ -18,7 +18,8 @@ export default {
     getProgressBarStyle(slot) {
       return {
         backgroundColor: slot.color,
-        width: `${(slot.duration * 100) / this.max}%`
+        width: `${(slot.duration * 100) / this.max}%`,
+        fontWeight: slot.isActive ? 'bold' : 'normal'
       };
     },
     getProgressOverlayStyle(slot) {
