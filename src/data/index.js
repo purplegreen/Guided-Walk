@@ -15,7 +15,7 @@ const slots = [
     name: "Breathe",
     category: "Meditation",
     alreadyPlayedInSeconds: 0,
-    audio: "./Tchaikovsky_Rococo_Var_orch.mp3",
+    audio: "./Tchaikovsky_Nocturne__orch.mp3",
     text:
       "Duis ut diam quam nulla porttitor. Aliquet enim tortor at auctor urna. Ultricies mi eget mauris pharetra. Gravida rutrum quisque non tellus orci. At urna condimentum mattis pellentesque id. Blandit turpis cursus in hac habitasse platea. Erat nam at lectus urna duis convallis convallis. Arcu bibendum at varius vel pharetra vel turpis nunc eget. Habitant morbi tristique senectus et netus et malesuada fames ac. Tortor consequat id porta nibh venenatis cras. Magnis dis parturient montes nascetur. Eleifend mi in nulla posuere. Massa tincidunt dui ut ornare lectus sit amet est. Nam at lectus urna duis convallis convallis tellus id. In eu mi bibendum neque egestas congue. Fermentum leo vel orci porta. Proin libero nunc consequat interdum varius. Morbi quis commodo odio aenean sed adipiscing. Augue lacus viverra vitae congue eu. Adipiscing elit pellentesque habitant morbi tristique",
     color: "#EB5160",
@@ -48,7 +48,7 @@ const slots = [
     name: "Float",
     category: "In Water",
     alreadyPlayedInSeconds: 0,
-    audio: "./Tchaikovsky_Rococo_Var_orch.mp3",
+    audio: "./Tchaikovsky_Nocturne__orch.mp3",
     text:
       "Turpis egestas sed tempus urna et pharetra pharetra. Nulla facilisi cras fermentum odio eu. Vitae sapien pellentesque habitant morbi tristique senectus et. Etiam non quam lacus suspendisse faucibus interdum posuere. Cursus risus at ultrices mi. Integer feugiat scelerisque varius morbi enim nunc faucibus a. Semper viverra nam libero justo laoreet sit. Commodo sed egestas egestas fringilla phasellus faucibus scelerisque eleifend. Egestas dui id ornare arcu odio ut sem nulla pharetra. Luctus venenatis lectus magna fringilla. Fringilla est ullamcorper eget nulla facilisi etiam dignissim diam. Duis convallis convallis tellus id. Tortor pretium viverra suspendisse potenti.",
     color: "#DFE0E2",
