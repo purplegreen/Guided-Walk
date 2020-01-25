@@ -19,7 +19,7 @@ export default {
       return {
         backgroundColor: slot.color,
         width: `${(slot.duration * 100) / this.max}%`,
-        fontWeight: slot.isActive ? 'bold' : 'normal'
+        fontWeight: slot.isActive ? "bold" : "normal"
       };
     },
     getProgressOverlayStyle(slot) {
