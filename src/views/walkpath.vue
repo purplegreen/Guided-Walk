@@ -12,7 +12,8 @@ export default {
       mode: "audio",
       isWalkpathRunning: false,
       indexOfLastPlayedSlot: 0,
-      audio: {}
+      audio: {},
+      locationAcquired: false
     };
   },
   mounted() {
@@ -37,6 +38,9 @@ export default {
       return this.walkpathInProgress.composition.reduce((total, slot, i) => {
         return i < this.indexOfLastPlayedSlot ? total + slot.duration : total;
       }, 0);
+    },
+    imgToShow() {
+      return this.walkpathInProgress.composition[this.indexOfLastPlayedSlot].image;
     },
     markers() {
       return this.walkpathInProgress.composition
@@ -133,6 +137,9 @@ export default {
         this.slotInProgress.alreadyPlayedInSeconds
       );
     },
+    onLocationAcquired(value) {
+      this.locationAcquired = value;
+    },
     stop() {
       // this only makes sense in audio mode
       this.isWalkpathRunning = false;
@@ -152,8 +159,7 @@ export default {
     <progress-bar
       :slots="walkpathInProgress.composition"
       @onBarClicked="onBarClicked"
-    >
-    </progress-bar>
+    ></progress-bar>
     <duration
       :total="walkpathInProgress.duration"
       :passed="durationPassed"
@@ -174,9 +180,7 @@ export default {
       >
     </div>
     <div v-if="mode == 'text'">
-      <div class="text-content">
-        {{ slotInProgress.text }}
-      </div>
+      <div class="text-content">{{ slotInProgress.text }}</div>
       <div v-if="walkpathInProgress.composition.length > 1">
         <button @click="previousSlot" :disabled="indexOfLastPlayedSlot == 0">
           Prev
@@ -191,7 +195,13 @@ export default {
         </button>
       </div>
     </div>
-    <map-component :markers="markers"></map-component>
+    <div class="map" v-if="!locationAcquired">
+      <img :src="imgToShow">
+    </div>
+    <map-component
+      :markers="markers"
+      @locationAcquired="onLocationAcquired"
+    ></map-component>
     <div class="bottom-row">
       <button v-if="isWalkpathRunning" @click="stop()">Stop</button>
       <button v-else @click="start()">Start</button>
@@ -237,5 +247,9 @@ export default {
   margin-top: 1em;
   padding-top: 1em;
   border-top: 1px solid var(--border-color);
+}
+
+.map {
+  height: 300px;
 }
 </style>

@@ -80,10 +80,12 @@ export default {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
+        this.$emit("locationAcquired", true);
         setTimeout(() => this.calculateRoute(), 1000);
         // console.log('new position acquired', position.coords.latitude, position.coords.longitude);
       },
       err => {
+        this.$emit("locationAcquired", false);
         this.loading = false;
         this.error = err.message;
       },
@@ -150,9 +152,7 @@ export default {
 </script>
 <template>
   <div>
-    <div class="map" v-if="!location"></div>
     <div v-if="error">Sorry, but the following error occurred: {{ error }}</div>
-
     <div v-if="loading">
       <i>Getting your location...</i>
     </div>
@@ -206,9 +206,5 @@ export default {
 <style lang="scss" scoped>
 .map {
   height: 400px;
-  background-image: url("/berlin.svg");
-  background-position: center;
-  background-size: 100%;
-  background-repeat: no-repeat;
 }
 </style>
