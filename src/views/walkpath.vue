@@ -39,13 +39,16 @@ export default {
         return i < this.indexOfLastPlayedSlot ? total + slot.duration : total;
       }, 0);
     },
-    imgToShow() {
-      return this.walkpathInProgress.composition[this.indexOfLastPlayedSlot].image;
-    },
     markers() {
-      return this.walkpathInProgress.composition
-        .filter(s => !!s.location)
-        .map(s => ({ position: s.location, text: s.name }));
+      return [
+        {
+          position: this.slotInProgress.location,
+          text: this.slotInProgress.name
+        }
+      ];
+      // return this.walkpathInProgress.composition
+      //   .filter(s => !!s.location)
+      //   .map(s => ({ position: s.location, text: s.name }));
     }
   },
   methods: {
@@ -195,13 +198,17 @@ export default {
         </button>
       </div>
     </div>
-    <div class="map" v-if="!locationAcquired">
-      <img :src="imgToShow">
+    <div class="map">
+      <img
+        v-if="!slotInProgress.location || !locationAcquired"
+        :src="slotInProgress.image"
+      />
+      <map-component
+        v-if="slotInProgress.location"
+        :markers="markers"
+        @locationAcquired="onLocationAcquired"
+      ></map-component>
     </div>
-    <map-component
-      :markers="markers"
-      @locationAcquired="onLocationAcquired"
-    ></map-component>
     <div class="bottom-row">
       <button v-if="isWalkpathRunning" @click="stop()">Stop</button>
       <button v-else @click="start()">Start</button>
@@ -250,6 +257,10 @@ export default {
 }
 
 .map {
-  height: 300px;
+  height: 400px;
+
+  img {
+    min-height: 350px;
+  }
 }
 </style>
