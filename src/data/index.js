@@ -10,7 +10,7 @@ const slots = [
     text:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac placerat vestibulum lectus mauris ultrices eros in cursus. Tellus id interdum velit laoreet id donec ultrices. Enim lobortis scelerisque fermentum dui faucibus in ornare quam viverra. Venenatis tellus in metus vulputate eu. Ac orci phasellus egestas tellus rutrum tellus. Morbi tincidunt augue interdum velit euismod in. Integer enim neque volutpat ac tincidunt vitae. Diam quis enim lobortis scelerisque fermentum dui faucibus. Maecenas accumsan lacus vel facilisis volutpat est velit egestas. Velit laoreet id donec ultrices tincidunt arcu. Maecenas sed enim ut sem viverra aliquet eget sit. Amet aliquam id diam maecenas ultricies mi. Viverra ipsum nunc aliquet bibendum enim facilisis gravida neque. Mattis vulputate enim nulla aliquet porttitor.",
     color: "#071013",
-    location: { lat: 51.795755, lng: 7.217349 }
+    location: { lat: 52.527686, lng: 13.400372 }
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ const slots = [
     text:
       "Duis ut diam quam nulla porttitor. Aliquet enim tortor at auctor urna. Ultricies mi eget mauris pharetra. Gravida rutrum quisque non tellus orci. At urna condimentum mattis pellentesque id. Blandit turpis cursus in hac habitasse platea. Erat nam at lectus urna duis convallis convallis. Arcu bibendum at varius vel pharetra vel turpis nunc eget. Habitant morbi tristique senectus et netus et malesuada fames ac. Tortor consequat id porta nibh venenatis cras. Magnis dis parturient montes nascetur. Eleifend mi in nulla posuere. Massa tincidunt dui ut ornare lectus sit amet est. Nam at lectus urna duis convallis convallis tellus id. In eu mi bibendum neque egestas congue. Fermentum leo vel orci porta. Proin libero nunc consequat interdum varius. Morbi quis commodo odio aenean sed adipiscing. Augue lacus viverra vitae congue eu. Adipiscing elit pellentesque habitant morbi tristique",
     color: "#EB5160",
-    location: { lat: 51.795755, lng: 7.213079 }
+    location: { lat: 52.526283, lng: 13.407442 }
   },
   {
     id: 3,
@@ -36,7 +36,7 @@ const slots = [
     text:
       "Quis lectus nulla at volutpat diam ut venenatis tellus in. Augue interdum velit euismod in pellentesque massa. Eget duis at tellus at urna. Proin nibh nisl condimentum id venenatis. Tellus rutrum tellus pellentesque eu tincidunt. Eu consequat ac felis donec. Risus at ultrices mi tempus imperdiet nulla malesuada. Praesent tristique magna sit amet purus. Dui nunc mattis enim ut tellus elementum sagittis. Pulvinar sapien et ligula ullamcorper malesuada proin. Nunc mattis enim ut tellus elementum. Sed viverra tellus in hac. Aliquam sem et tortor consequat id porta. Condimentum lacinia quis vel eros donec ac odio. Pretium lectus quam id leo in vitae. Amet nisl purus in mollis nunc sed id semper. Massa tempor nec feugiat nisl pretium fusce id velit. Neque convallis a cras semper auctor neque.",
     color: "#B7999C",
-    location: { lat: 51.798698, lng: 7.212607 }
+    location: { lat: 52.523737, lng: 13.402282 }
   },
   {
     id: 4,
@@ -49,7 +49,7 @@ const slots = [
     text:
       "Turpis egestas maecenas pharetra convallis posuere morbi leo urna molestie. Donec et odio pellentesque diam. Vel risus commodo viverra maecenas accumsan lacus. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Vitae tempus quam pellentesque nec. Ut tellus elementum sagittis vitae et leo duis ut. Enim praesent elementum facilisis leo vel fringilla est. Nibh sit amet commodo nulla. Ac tortor vitae purus faucibus ornare. Et tortor at risus viverra adipiscing. Euismod quis viverra nibh cras pulvinar mattis nunc sed. Ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae. Ligula ullamcorper malesuada proin libero nunc consequat. Habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Tempor orci eu lobortis elementum nibh tellus molestie nunc non. Id neque aliquam vestibulum morbi blandit cursus risus. Sapien nec sagittis aliquam malesuada bibendum arcu vitae elementum curabitur. Diam quam nulla porttitor massa id neque aliquam vestibulum. Nunc consequat interdum varius sit amet mattis. Aliquet nibh praesent tristique magna sit.",
     color: "#AAAAAA",
-    location: { lat: 51.797155, lng: 7.213079 }
+    location: { lat: 52.525434, lng: 13.409416 }
   },
   {
     id: 5,
@@ -62,7 +62,7 @@ const slots = [
     text:
       "Turpis egestas sed tempus urna et pharetra pharetra. Nulla facilisi cras fermentum odio eu. Vitae sapien pellentesque habitant morbi tristique senectus et. Etiam non quam lacus suspendisse faucibus interdum posuere. Cursus risus at ultrices mi. Integer feugiat scelerisque varius morbi enim nunc faucibus a. Semper viverra nam libero justo laoreet sit. Commodo sed egestas egestas fringilla phasellus faucibus scelerisque eleifend. Egestas dui id ornare arcu odio ut sem nulla pharetra. Luctus venenatis lectus magna fringilla. Fringilla est ullamcorper eget nulla facilisi etiam dignissim diam. Duis convallis convallis tellus id. Tortor pretium viverra suspendisse potenti.",
     color: "#DFE0E2",
-    location: { lat: 51.798698, lng: 7.217349 }
+    location: { lat: 52.52345, lng: 13.407228 }
   },
   {
     id: 6,
