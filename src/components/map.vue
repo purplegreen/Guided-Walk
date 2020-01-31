@@ -38,6 +38,9 @@ export default {
         }
         this.$refs.map.fitBounds(bounds);
       }
+    },
+    location(value) {
+      this.$emit("locationChanged", value);
     }
   },
   computed: {

@@ -4,6 +4,8 @@ import ProgressBar from "@/components/progress-bar.vue";
 import Duration from "@/components/duration.vue";
 import MapComponent from "@/components/map.vue";
 
+const R = 6378137; // Radius of earth in meters
+
 export default {
   name: "Walkpath",
   components: { ProgressBar, Duration, MapComponent },
@@ -143,6 +145,41 @@ export default {
     onLocationAcquired(value) {
       this.locationAcquired = value;
     },
+    onLocationChange(location) {
+      if (!location) return;
+      // find the nearest slot
+      let nearestDistance = Number.POSITIVE_INFINITY;
+      let nearestSlot = null;
+      let nearestSlotIndex = -1;
+      this.walkpathInProgress.composition.forEach((slot, index) => {
+        if (!slot.location) return;
+        const dLat = ((location.lat - slot.location.lat) * Math.PI) / 180;
+        const dLon = ((location.lng - slot.location.lng) * Math.PI) / 180;
+        const a =
+          Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos((location.lat * Math.PI) / 180) *
+            Math.cos((slot.location.lat * Math.PI) / 180) *
+            Math.sin(dLon / 2) *
+            Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const d = R * c;
+        if (d < nearestDistance) {
+          nearestDistance = d;
+          nearestSlot = slot;
+          nearestSlotIndex = index;
+        }
+      });
+
+      if (nearestDistance < process.env.VUE_APP_LOCATION_LIMIT) {
+        if (this.slotInProgress.id != nearestSlot.id) {
+          this.startSlotAtIndex(nearestSlotIndex);
+        } else {
+          console.log("slot already playing");
+        }
+      } else {
+        console.log("slot is too far to start", nearestDistance);
+      }
+    },
     stop() {
       // this only makes sense in audio mode
       this.isWalkpathRunning = false;
@@ -207,6 +244,7 @@ export default {
         v-if="slotInProgress.location"
         :markers="markers"
         @locationAcquired="onLocationAcquired"
+        @locationChanged="onLocationChange"
       ></map-component>
     </div>
     <div class="bottom-row">
