@@ -173,11 +173,7 @@ export default {
       if (nearestDistance < process.env.VUE_APP_LOCATION_LIMIT) {
         if (this.slotInProgress.id != nearestSlot.id) {
           this.startSlotAtIndex(nearestSlotIndex);
-        } else {
-          console.log("slot already playing");
         }
-      } else {
-        console.log("slot is too far to start", nearestDistance);
       }
     },
     stop() {
