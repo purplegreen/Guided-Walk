@@ -20,7 +20,7 @@ export default {
 <template>
   <div>
     <a
-      class="walkpath"
+      class="walkpath card"
       v-for="walkpath in walkpaths"
       :key="walkpath.id"
       @click="select(walkpath)"
@@ -34,12 +34,8 @@ export default {
 
 <style lang="scss" scoped>
 .walkpath {
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
   cursor: pointer;
   margin-bottom: 1em;
-  padding: 1em;
-  // width: 120px;
   display: block;
 }
 </style>

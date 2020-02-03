@@ -263,6 +263,7 @@ export default {
 .button-group {
   margin: 1em 0;
 }
+
 .btn {
   border-radius: var(--border-radius);
   border: 1px solid var(--border-color);

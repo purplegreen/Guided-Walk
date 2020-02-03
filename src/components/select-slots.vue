@@ -58,11 +58,11 @@ export default {
 </script>
 
 <template>
-  <div class="wrapper">
-    <div class="slots">
+  <div class="card">
+    <div class="slots card">
       <button
         @click="showModal(slot)"
-        class="slot"
+        class="slot card"
         :class="{ selected: isSlotSelected(slot) }"
         v-for="slot of slots"
         :key="slot.id"
@@ -105,39 +105,16 @@ export default {
 </template>
 
 <style scoped>
-.wrapper {
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  padding: 10px;
-}
-
 .slots {
-  padding: 10px;
   margin: 1em 0;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
 }
 
 .slot {
-  padding: 10px;
-  margin: 10px;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
+  margin: 1em;
 }
 
 .slot.selected {
   background: #81f495;
-}
-
-.modal {
-  background-color: var(--white);
-  border: 1px solid var(--border-color);
-  padding: 10px;
-  margin: 10px;
-  border-radius: var(--border-radius);
-  position: absolute;
-  top: 10px;
-  left: 0px;
 }
 </style>
 

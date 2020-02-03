@@ -1,11 +1,6 @@
 <script>
 export default {
-  name: "home",
-  methods: {
-    clearCache() {
-      localStorage.clear();
-    }
-  }
+  name: "home"
 };
 </script>
 
@@ -25,7 +20,6 @@ export default {
         </div>
       </div>
     </router-link>
-    <button @click="clearCache">Clear Cache</button>
   </div>
 </template>
 
@@ -35,9 +29,6 @@ export default {
 }
 
 .card {
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
   margin-bottom: 1em;
-  padding: 1em;
 }
 </style>
