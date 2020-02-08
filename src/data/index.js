@@ -4,7 +4,7 @@ const slots = [
     name: "Biotope",
     category: "Listening",
     alreadyPlayedInSeconds: 0,
-    audio: "./Tchaikovsky_Nocturne__orch.mp3",
+    audio: "Tchaikovsky_Nocturne__orch.mp3",
     image: "https://via.placeholder.com/400x350?text=Biotope",
     duration: 270,
     text:
@@ -17,7 +17,7 @@ const slots = [
     name: "Breathe",
     category: "Meditation",
     alreadyPlayedInSeconds: 0,
-    audio: "./Tchaikovsky_Nocturne__orch.mp3",
+    audio: "Tchaikovsky_Nocturne__orch.mp3",
     image: "https://via.placeholder.com/400x350?text=Breathe",
     duration: 270,
     text:
@@ -30,7 +30,7 @@ const slots = [
     name: "Stones",
     category: "Observation",
     alreadyPlayedInSeconds: 0,
-    audio: "./Vivaldi_Sonata_eminor_.mp3",
+    audio: "Vivaldi_Sonata_eminor_.mp3",
     image: "https://via.placeholder.com/400x350?text=Stones",
     duration: 184,
     text:
@@ -43,7 +43,7 @@ const slots = [
     name: "Sandy",
     category: "Meditation",
     alreadyPlayedInSeconds: 0,
-    audio: "./Tchaikovsky_Nocturne__orch.mp3",
+    audio: "Tchaikovsky_Nocturne__orch.mp3",
     image: "https://via.placeholder.com/400x350?text=Sandy",
     duration: 270,
     text:
@@ -56,7 +56,7 @@ const slots = [
     name: "Float",
     category: "In Water",
     alreadyPlayedInSeconds: 0,
-    audio: "./Tchaikovsky_Nocturne__orch.mp3",
+    audio: "Tchaikovsky_Nocturne__orch.mp3",
     image: "https://via.placeholder.com/400x350?text=Float",
     duration: 270,
     text:
@@ -69,7 +69,7 @@ const slots = [
     name: "Power of Imagination",
     category: "Listening",
     alreadyPlayedInSeconds: 0,
-    audio: "./Vivaldi_Sonata_eminor_.mp3",
+    audio: "Vivaldi_Sonata_eminor_.mp3",
     image: "https://via.placeholder.com/400x350?text=Imagination",
     duration: 184,
     text:

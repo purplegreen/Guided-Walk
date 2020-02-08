@@ -14,7 +14,7 @@ export default {
       mode: "audio",
       isWalkpathRunning: false,
       indexOfLastPlayedSlot: 0,
-      audio: {},
+      audio: new Audio(""),
       locationAcquired: false
     };
   },
@@ -73,13 +73,19 @@ export default {
       }
     },
     play(slot, startFrom, index) {
-      this.pause();
-      this.audio = new Audio(slot.audio);
+      // check if it is different file. If not, no need to load again
+      if (!this.audio.src.includes(slot.audio)) {
+        this.pause();
+        this.audio.src = `./${slot.audio}`;
+        this.audio.load();
 
-      this.audio.onloadedmetadata = () => {
+        this.audio.onloadedmetadata = () => {
+          this.audio.currentTime = startFrom;
+          this.audio.play();
+        };
+      } else {
         this.audio.currentTime = startFrom;
-        this.audio.play();
-      };
+      }
 
       this.audio.ontimeupdate = () => {
         if (this.audio.paused) return;
