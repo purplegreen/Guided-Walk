@@ -22,7 +22,7 @@ export default {
       };
     },
     getProgressOverlayStyle(slot) {
-      if (slot.isHighlighted) return { width: '100%' };
+      if (slot.isHighlighted) return { width: "100%" };
       return {
         width: `${(slot.alreadyPlayedInSeconds * 100) / slot.duration}%`
       };
