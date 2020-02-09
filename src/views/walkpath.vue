@@ -85,6 +85,7 @@ export default {
         };
       } else {
         this.audio.currentTime = startFrom;
+        this.audio.play();
       }
 
       this.audio.ontimeupdate = () => {

@@ -62,7 +62,7 @@ const mutations = {
   },
   [HIGHLIGHT_SLOT](state, index) {
     state.walkpathInProgress.composition.forEach((element, i) => {
-      element.isActive = index == i ? true : false;
+      element.isHighlighted = index == i ? true : false;
     });
   },
   [SET_SLOT_IN_PROGRESS](state, slot) {

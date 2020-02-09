@@ -15,7 +15,11 @@ const store = new Vuex.Store({
   plugins: [
     createPersistedState({
       key: "guided-walk",
-      paths: ["walkpath.slotInProgress", "walkpath.walkpathInProgress"]
+      paths: [
+        "walkpath.slotInProgress",
+        "walkpath.walkpathInProgress",
+        "walkpath.customWalkpath"
+      ]
     })
   ]
 });

@@ -18,11 +18,11 @@ export default {
     getProgressBarStyle(slot) {
       return {
         backgroundColor: slot.color,
-        width: `${(slot.duration * 100) / this.max}%`,
-        fontWeight: slot.isActive ? "bold" : "normal"
+        width: `${(slot.duration * 100) / this.max}%`
       };
     },
     getProgressOverlayStyle(slot) {
+      if (slot.isHighlighted) return { width: '100%' };
       return {
         width: `${(slot.alreadyPlayedInSeconds * 100) / slot.duration}%`
       };
@@ -37,7 +37,7 @@ export default {
   <div class="progress">
     <span
       class="progress-bar"
-      :class="{ active: slot.isActive }"
+      :class="{ highlight: slot.isHighlighted }"
       v-for="(slot, index) in slots"
       :key="slot.id"
       @click.self="onClick(slot, index, $event)"
@@ -93,7 +93,7 @@ export default {
   background-color: #007bff;
   transition: all 0.6s ease;
 
-  &.active {
+  &.highlight {
     font-weight: bold;
     font-size: 1.2em;
   }
