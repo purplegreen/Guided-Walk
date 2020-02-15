@@ -11,7 +11,7 @@
   max-width: 414px;
   width: 96vw;
   height: 96vh;
-  margin: auto;
+  margin: 7px auto;
 
   -webkit-box-shadow: 0px 10px 13px -7px #000000,
     5px 5px 15px 5px rgba(0, 0, 0, 0);
