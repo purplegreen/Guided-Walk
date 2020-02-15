@@ -6,17 +6,18 @@ export default {
 
 <template>
   <div class="wrapper">
-    <router-link to="select">
+    <router-link class="link" to="select">
       <div class="card">
         <div>
-          Choose a pre-composed walkpaths
+          <h2>Choose a walkpaths</h2>
         </div>
       </div>
     </router-link>
-    <router-link to="create">
+
+    <router-link class="link" to="create">
       <div class="card">
         <div>
-          Compose your walkpath
+          <h2>Compose a walkpath</h2>
         </div>
       </div>
     </router-link>
