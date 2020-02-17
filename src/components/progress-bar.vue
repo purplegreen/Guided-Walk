@@ -43,13 +43,8 @@ export default {
       @click.self="onClick(slot, index, $event)"
       :style="getProgressBarStyle(slot)"
     >
-      <span class="text">
-        {{ slot.duration | secondsToMinutes }} min {{ slot.name }}
-      </span>
-      <span
-        class="progress-overlay"
-        :style="getProgressOverlayStyle(slot)"
-      ></span>
+      <span class="text">{{ slot.duration | secondsToMinutes }} min {{ slot.name }}</span>
+      <span class="progress-overlay" :style="getProgressOverlayStyle(slot)"></span>
     </span>
   </div>
 </template>
@@ -64,10 +59,10 @@ export default {
   cursor: pointer;
   display: flex;
   overflow: hidden;
-  font-size: 0.75em;
+  font-size: 0.8rem;
   background-color: #e9ecef;
-  border-radius: var(--border-radius);
-  height: 1rem;
+  border-radius: 12px;
+  height: 9rem;
   width: 100%;
   margin: 1rem 0;
 }

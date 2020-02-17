@@ -58,16 +58,21 @@ export default {
 </script>
 
 <template>
-  <div class="card">
-    <div class="slots card">
+  <div class>
+    <progress-bar :slots="customWalkpath.composition"></progress-bar>
+    <duration :total="customWalkpath.duration"></duration>
+    <div>
+      <button class="a-button" @click="start" :disabled="!isWalkpathReady">Start</button>
+    </div>
+    <div class="slots">
       <button
         @click="showModal(slot)"
-        class="slot card"
+        class="slot"
         :class="{ selected: isSlotSelected(slot) }"
         v-for="slot of slots"
         :key="slot.id"
       >
-        {{ slot.name }}
+        <h3>{{ slot.name }}</h3>
       </button>
       <modal
         name="slot-modal"
@@ -80,41 +85,36 @@ export default {
           <ul>
             <li>Name: {{ selectedSlot.name }}</li>
             <li>Category: {{ selectedSlot.category }}</li>
-            <li>
-              Duration: {{ selectedSlot.duration | secondsToMinutes }} min
-            </li>
+            <li>Duration: {{ selectedSlot.duration | secondsToMinutes }} min</li>
           </ul>
           <div>
-            <button v-if="isSlotSelected(selectedSlot)" @click="remove">
-              Remove
-            </button>
-            <button v-else @click="add">Save</button>
-            <button @click="$modal.hide('slot-modal')">Close</button>
+            <button class="a-button" v-if="isSlotSelected(selectedSlot)" @click="remove">Remove</button>
+            <button class="a-button" v-else @click="add">Add</button>
+            <button class="a-button" @click="$modal.hide('slot-modal')">Close</button>
           </div>
         </div>
       </modal>
-    </div>
-    <progress-bar :slots="customWalkpath.composition"></progress-bar>
-    <duration :total="customWalkpath.duration"></duration>
-    <div>
-      <button @click="start" :disabled="!isWalkpathReady">
-        Start Walkpath!
-      </button>
     </div>
   </div>
 </template>
 
 <style scoped>
 .slots {
-  margin: 1em 0;
+  padding-top: 20px;
 }
 
 .slot {
-  margin: 1em;
+  background-color: whitesmoke;
+  border-radius: var(--border-radius);
+  -webkit-box-shadow: 0px 10px 13px -7px #000000,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
+  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  padding: 20px;
+  margin: 8px;
 }
 
 .slot.selected {
-  background: #81f495;
+  background: gainsboro;
 }
 </style>
 
