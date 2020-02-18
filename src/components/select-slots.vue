@@ -72,24 +72,34 @@ export default {
         v-for="slot of slots"
         :key="slot.id"
       >
-        <h3>{{ slot.name }}</h3>
+        <h3 class="centered">{{ slot.name }}</h3>
       </button>
       <modal
         name="slot-modal"
         transition="nice-modal-fade"
         :adaptive="true"
-        width="90%"
         @before-open="beforeOpen"
       >
         <div class="slot-modal-content">
           <ul>
-            <li>Name: {{ selectedSlot.name }}</li>
-            <li>Category: {{ selectedSlot.category }}</li>
-            <li>Duration: {{ selectedSlot.duration | secondsToMinutes }} min</li>
+            <li>
+              <h4>{{ selectedSlot.name }}</h4>
+            </li>
+            <li>
+              <h5>{{ selectedSlot.category }}</h5>
+            </li>
+            <li>
+              <h5>{{ selectedSlot.duration | secondsToMinutes }} min</h5>
+            </li>
+            <li>
+              <h6 class="with-padding">{{ selectedSlot.shortText }}</h6>
+            </li>
           </ul>
-          <div>
+          <div class="wrap-buttons">
             <button class="a-button" v-if="isSlotSelected(selectedSlot)" @click="remove">Remove</button>
-            <button class="a-button" v-else @click="add">Add</button>
+            <button class="a-button" v-else @click="add">
+              <img alt="Insert Slot" class src="../../public/img/t_icons/insert.svg" />
+            </button>
             <button class="a-button" @click="$modal.hide('slot-modal')">Close</button>
           </div>
         </div>
@@ -116,15 +126,49 @@ export default {
 .slot.selected {
   background: gainsboro;
 }
+
+.slot-modal-content {
+  padding: 10px;
+}
 </style>
 
 <style>
-.v--modal-box {
+.v--modal {
   border: 2px solid var(--border-color);
-  border-radius: var(--border-radius);
+  border-radius: 12px;
+  background-color: white;
+
+  border-radius: 3px;
+  box-shadow: 0 20px 60px -2px rgba(27, 33, 58, 0.4);
+  padding: 0;
 }
 
-.slot-modal-content {
+.v--modal-box {
+  border-radius: var(--border-radius);
+  max-width: 414px;
+  width: 96vw;
+  height: 96vh;
+  padding: 20px;
+}
+
+.v--modal-overlay .v--modal-box {
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.centered {
+  text-align: center;
+  margin: auto;
+}
+.with-padding {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.wrap-buttons {
+  display: flex;
+  justify-content: space-evenly;
   padding: 10px;
 }
 </style>

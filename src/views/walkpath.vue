@@ -199,61 +199,37 @@ export default {
 </script>
 <template>
   <div>
-    <progress-bar
-      :slots="walkpathInProgress.composition"
-      @onBarClicked="onBarClicked"
-    ></progress-bar>
-    <duration
-      :total="walkpathInProgress.duration"
-      :passed="durationPassed"
-      :withRemaining="true"
-    ></duration>
+    <progress-bar :slots="walkpathInProgress.composition" @onBarClicked="onBarClicked"></progress-bar>
+    <duration :total="walkpathInProgress.duration" :passed="durationPassed" :withRemaining="true"></duration>
+    <div class="bottom-row">
+      <button v-if="isWalkpathRunning" @click="stop()">Stop</button>
+      <button v-else @click="start()">Start</button>
+      <button @click="exit()">Exit</button>
+    </div>
     <div class="button-group">
-      <a
-        class="btn"
-        :class="{ selected: mode == 'audio' }"
-        @click="selectMode('audio')"
-        >Audio</a
-      >
-      <a
-        class="btn"
-        :class="{ selected: mode == 'text' }"
-        @click="selectMode('text')"
-        >Text</a
-      >
+      <a class="btn" :class="{ selected: mode == 'audio' }" @click="selectMode('audio')">Audio</a>
+      <a class="btn" :class="{ selected: mode == 'text' }" @click="selectMode('text')">Text</a>
     </div>
     <div v-if="mode == 'text'">
       <div class="text-content">{{ slotInProgress.text }}</div>
       <div v-if="walkpathInProgress.composition.length > 1">
-        <button @click="previousSlot" :disabled="indexOfLastPlayedSlot == 0">
-          Prev
-        </button>
+        <button @click="previousSlot" :disabled="indexOfLastPlayedSlot == 0">Prev</button>
         <button
           @click="nextSlot"
           :disabled="
             indexOfLastPlayedSlot + 1 == walkpathInProgress.composition.length
           "
-        >
-          Next
-        </button>
+        >Next</button>
       </div>
     </div>
     <div class="map">
-      <img
-        v-if="!slotInProgress.location || !locationAcquired"
-        :src="slotInProgress.image"
-      />
+      <img v-if="!slotInProgress.location || !locationAcquired" :src="slotInProgress.image" />
       <map-component
         v-if="slotInProgress.location"
         :markers="markers"
         @locationAcquired="onLocationAcquired"
         @locationChanged="onLocationChange"
       ></map-component>
-    </div>
-    <div class="bottom-row">
-      <button v-if="isWalkpathRunning" @click="stop()">Stop</button>
-      <button v-else @click="start()">Start</button>
-      <button @click="exit()">Exit</button>
     </div>
   </div>
 </template>
