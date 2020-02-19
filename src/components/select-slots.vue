@@ -52,6 +52,11 @@ export default {
         e => e.id == slot.id
       );
       return index != -1;
+    },
+    isSlotSelectedColor(slot) {
+      return {
+        backgroundColor: slot.color
+      };
     }
   }
 };
@@ -73,6 +78,7 @@ export default {
         :class="{ selected: isSlotSelected(slot) }"
         v-for="slot of slots"
         :key="slot.id"
+        :style="isSlotSelectedColor(slot)"
       >
         <h3 class="centered">{{ slot.name }}</h3>
       </button>
