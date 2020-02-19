@@ -10,9 +10,9 @@
 #app {
   max-width: 414px;
   width: 96vw;
-  height: 96vh;
+  height: auto;
   margin: 7px auto;
-
+  overflow: scroll;
   -webkit-box-shadow: 0px 10px 13px -7px #000000,
     5px 5px 15px 5px rgba(0, 0, 0, 0);
   box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);

@@ -249,7 +249,6 @@ export default {
 
 .btn {
   border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
   display: inline-block;
   width: 100px;
   cursor: pointer;

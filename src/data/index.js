@@ -16,7 +16,7 @@ const slots = [
   },
   {
     id: 2,
-    name: "Breathe",
+    name: "Breathe I",
     category: "Meditation",
     alreadyPlayedInSeconds: 0,
     audio: "Tchaikovsky_Nocturne__orch.mp3",
@@ -46,7 +46,7 @@ const slots = [
   },
   {
     id: 4,
-    name: "Sandy",
+    name: "Breathe II",
     category: "Meditation",
     alreadyPlayedInSeconds: 0,
     audio: "Tchaikovsky_Nocturne__orch.mp3",

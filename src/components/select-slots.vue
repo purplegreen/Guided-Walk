@@ -62,7 +62,9 @@ export default {
     <progress-bar :slots="customWalkpath.composition"></progress-bar>
     <duration :total="customWalkpath.duration"></duration>
     <div>
-      <button class="a-button" @click="start" :disabled="!isWalkpathReady">Start</button>
+      <button @click="start" :disabled="!isWalkpathReady">
+        <img alt="Start Walk" class="t-icon" src="../../public/img/t_icons/play.svg" />
+      </button>
     </div>
     <div class="slots">
       <button
@@ -96,11 +98,15 @@ export default {
             </li>
           </ul>
           <div class="wrap-buttons">
-            <button class="a-button" v-if="isSlotSelected(selectedSlot)" @click="remove">Remove</button>
-            <button class="a-button" v-else @click="add">
-              <img alt="Insert Slot" class src="../../public/img/t_icons/insert.svg" />
+            <button v-if="isSlotSelected(selectedSlot)" @click="remove">
+              <img alt="Remove Slot" class="t-icon" src="../../public/img/t_icons/remove.svg" />
             </button>
-            <button class="a-button" @click="$modal.hide('slot-modal')">Close</button>
+            <button v-else @click="add">
+              <img alt="Insert Slot" class="t-icon" src="../../public/img/t_icons/insert.svg" />
+            </button>
+            <button @click="$modal.hide('slot-modal')">
+              <img alt="Close Slot" class="t-icon" src="../../public/img/t_icons/close.svg" />
+            </button>
           </div>
         </div>
       </modal>
@@ -124,7 +130,7 @@ export default {
 }
 
 .slot.selected {
-  background: gainsboro;
+  background: #add8e6;
 }
 
 .slot-modal-content {
@@ -132,12 +138,11 @@ export default {
 }
 </style>
 
-<style>
+<style lang="scss">
 .v--modal {
   border: 2px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: var(--border-radius);
   background-color: white;
-
   border-radius: 3px;
   box-shadow: 0 20px 60px -2px rgba(27, 33, 58, 0.4);
   padding: 0;
@@ -170,5 +175,15 @@ export default {
   display: flex;
   justify-content: space-evenly;
   padding: 10px;
+}
+
+.t-icon {
+  width: 4rem;
+  height: auto;
+
+  &:hover {
+    background-color: #748e91;
+    border-radius: var(--icons-border-radius);
+  }
 }
 </style>
