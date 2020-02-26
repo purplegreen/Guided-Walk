@@ -9,7 +9,7 @@ export default {
     <router-link class="link" to="select">
       <div class="card">
         <div>
-          <h2>choose a walkpath</h2>
+          <h2>Choose a Walk</h2>
         </div>
       </div>
     </router-link>
@@ -17,7 +17,7 @@ export default {
     <router-link class="link" to="create">
       <div class="card">
         <div>
-          <h2>compose a walkpath</h2>
+          <h2>Compose a walk</h2>
         </div>
       </div>
     </router-link>

@@ -64,6 +64,9 @@ export default {
 
 <template>
   <div class>
+    <div class="wrap-title">
+      <h2 class="with-padding">Create your Custom Walk by adding Meditations to your Composition</h2>
+    </div>
     <progress-bar :slots="customWalkpath.composition"></progress-bar>
     <duration :total="customWalkpath.duration"></duration>
     <div>
@@ -80,7 +83,7 @@ export default {
         :key="slot.id"
         :style="isSlotSelectedColor(slot)"
       >
-        <h3 class="centered">{{ slot.name }}</h3>
+        <h5 class="centered">{{ slot.name }}</h5>
       </button>
       <modal
         name="slot-modal"
@@ -89,18 +92,23 @@ export default {
         @before-open="beforeOpen"
       >
         <div class="slot-modal-content">
+          <div class="side-el">
+            <button @click="$modal.hide('slot-modal')">
+              <img alt="Close Slot" src="../../public/img/t_icons/close.svg" />
+            </button>
+          </div>
           <ul>
             <li>
-              <h4>{{ selectedSlot.name }}</h4>
+              <h3 class="with-padding">{{ selectedSlot.name }}</h3>
             </li>
             <li>
-              <h5>{{ selectedSlot.category }}</h5>
+              <h4>{{ selectedSlot.category }}</h4>
             </li>
             <li>
-              <h5>{{ selectedSlot.duration | secondsToMinutes }} min</h5>
+              <h4 class="with-padding-10">{{ selectedSlot.duration | secondsToMinutes }} min</h4>
             </li>
             <li>
-              <h6 class="with-padding">{{ selectedSlot.shortText }}</h6>
+              <h5 class="with-padding">{{ selectedSlot.shortText }}</h5>
             </li>
           </ul>
           <div class="wrap-buttons">
@@ -109,9 +117,6 @@ export default {
             </button>
             <button v-else @click="add">
               <img alt="Insert Slot" class="t-icon" src="../../public/img/t_icons/insert.svg" />
-            </button>
-            <button @click="$modal.hide('slot-modal')">
-              <img alt="Close Slot" class="t-icon" src="../../public/img/t_icons/close.svg" />
             </button>
           </div>
         </div>
@@ -123,6 +128,7 @@ export default {
 <style scoped>
 .slots {
   padding-top: 20px;
+  padding-bottom: 40px;
 }
 
 .slot {
@@ -141,6 +147,11 @@ export default {
 
 .slot-modal-content {
   padding: 10px;
+}
+
+.wrap-title {
+  width: 90%;
+  margin: auto;
 }
 </style>
 
@@ -173,8 +184,11 @@ export default {
   margin: auto;
 }
 .with-padding {
-  padding-top: 20px;
   padding-bottom: 20px;
+}
+
+.with-padding-10 {
+  padding-bottom: 10px;
 }
 
 .wrap-buttons {
@@ -188,8 +202,14 @@ export default {
   height: auto;
 
   &:hover {
-    background-color: #748e91;
-    border-radius: var(--icons-border-radius);
   }
+}
+
+.side-el {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 3rem;
+  height: auto;
 }
 </style>

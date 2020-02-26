@@ -22,9 +22,10 @@ const slots = [
     audio: "Tchaikovsky_Nocturne__orch.mp3",
     image: "https://via.placeholder.com/400x350?text=Breathe",
     duration: 270,
-    shortText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    shortText:
+      "observe your breath. take a walk, observe your breath next to A next to B ",
     text:
-      "Duis ut diam quam nulla porttitor. Aliquet enim tortor at auctor urna. Ultricies mi eget mauris pharetra. Gravida rutrum quisque non tellus orci. At urna condimentum mattis pellentesque id. Blandit turpis cursus in hac habitasse platea. Erat nam at lectus urna duis convallis convallis. Arcu bibendum at varius vel pharetra vel turpis nunc eget. Habitant morbi tristique senectus et netus et malesuada fames ac. Tortor consequat id porta nibh venenatis cras. Magnis dis parturient montes nascetur. Eleifend mi in nulla posuere. Massa tincidunt dui ut ornare lectus sit amet est. Nam at lectus urna duis convallis convallis tellus id. In eu mi bibendum neque egestas congue. Fermentum leo vel orci porta. Proin libero nunc consequat interdum varius. Morbi quis commodo odio aenean sed adipiscing. Augue lacus viverra vitae congue eu. Adipiscing elit pellentesque habitant morbi tristique",
+      "observe your breath. take a walk, observe your breath next to A next to B don’t look at the clock observe your biological clock",
     color: "#B0C4DE",
     isHighlighted: false,
     location: { lat: 52.526283, lng: 13.407442 }

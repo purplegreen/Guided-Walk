@@ -136,7 +136,7 @@ export default {
         // meaing that the user selected premade walkpath
         this.$router.push("select");
       } else {
-        this.$router.push("create");
+        this.$router.push("credits");
       }
       this.setWalkpathInProgress({
         composition: []
@@ -202,9 +202,15 @@ export default {
     <progress-bar :slots="walkpathInProgress.composition" @onBarClicked="onBarClicked"></progress-bar>
     <duration :total="walkpathInProgress.duration" :passed="durationPassed" :withRemaining="true"></duration>
     <div class="bottom-row">
-      <button v-if="isWalkpathRunning" @click="stop()">Stop</button>
-      <button v-else @click="start()">Start</button>
-      <button @click="exit()">Exit</button>
+      <button v-if="isWalkpathRunning" @click="stop()">
+        <img alt="Stop" class="t-icon" src="../../public/img/t_icons/stop.svg" />
+      </button>
+      <button v-else @click="start()">
+        <img alt="Play" class="t-icon" src="../../public/img/t_icons/play.svg" />
+      </button>
+      <button @click="exit()">
+        <img alt="Exit" class="t-icon" src="../../public/img/t_icons/exit.svg" />
+      </button>
     </div>
     <div class="button-group">
       <a class="btn" :class="{ selected: mode == 'audio' }" @click="selectMode('audio')">Audio</a>
