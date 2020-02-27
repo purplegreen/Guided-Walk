@@ -43,7 +43,8 @@ export default {
       @click.self="onClick(slot, index, $event)"
       :style="getProgressBarStyle(slot)"
     >
-      <span class="text">{{ slot.duration | secondsToMinutes }} min {{ slot.name }}</span>
+      <h6>{{ slot.duration | secondsToMinutes }} min</h6>
+      <span class="text">{{ slot.name }}</span>
       <span class="progress-overlay" :style="getProgressOverlayStyle(slot)"></span>
     </span>
   </div>
@@ -52,6 +53,7 @@ export default {
 <style lang="scss" scoped>
 .text {
   pointer-events: none;
+  font-size: 0.5rem;
   z-index: 1; // so that overlay does not cover it
 }
 
@@ -84,7 +86,7 @@ export default {
   justify-content: center;
   color: #fff;
   text-align: center;
-  white-space: nowrap;
+  white-space: wrap;
   background-color: #007bff;
   transition: all 0.6s ease;
 

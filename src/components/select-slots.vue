@@ -65,7 +65,7 @@ export default {
 <template>
   <div class>
     <div class="wrap-title">
-      <h2 class="with-padding">Create your Custom Walk by adding Meditations to your Composition</h2>
+      <h1 class="with-padding">Create your Custom Walk by adding Meditations to your Composition</h1>
     </div>
     <progress-bar :slots="customWalkpath.composition"></progress-bar>
     <duration :total="customWalkpath.duration"></duration>
@@ -83,7 +83,7 @@ export default {
         :key="slot.id"
         :style="isSlotSelectedColor(slot)"
       >
-        <h5 class="centered">{{ slot.name }}</h5>
+        <h6 class="centered">{{ slot.name }}</h6>
       </button>
       <modal
         name="slot-modal"
@@ -99,16 +99,16 @@ export default {
           </div>
           <ul>
             <li>
-              <h3 class="with-padding">{{ selectedSlot.name }}</h3>
+              <h2 class="with-padding">{{ selectedSlot.name }}</h2>
             </li>
             <li>
-              <h4>{{ selectedSlot.category }}</h4>
+              <h3>{{ selectedSlot.category }}</h3>
             </li>
             <li>
-              <h4 class="with-padding-10">{{ selectedSlot.duration | secondsToMinutes }} min</h4>
+              <h3 class="with-padding-10">{{ selectedSlot.duration | secondsToMinutes }} min</h3>
             </li>
             <li>
-              <h5 class="with-padding">{{ selectedSlot.shortText }}</h5>
+              <h4 class="with-padding">{{ selectedSlot.shortText }}</h4>
             </li>
           </ul>
           <div class="wrap-buttons">
@@ -132,13 +132,14 @@ export default {
 }
 
 .slot {
+  width: 25%;
   background-color: whitesmoke;
   border-radius: var(--border-radius);
   -webkit-box-shadow: 0px 10px 13px -7px #000000,
     5px 5px 15px 5px rgba(0, 0, 0, 0);
   box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
-  padding: 20px;
-  margin: 8px;
+  padding: 13px 7px;
+  margin: 7px;
 }
 
 .slot.selected {
