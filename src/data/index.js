@@ -77,7 +77,7 @@ const slots = [
   },
   {
     id: 6,
-    name: "Power of Imagination",
+    name: "Imagination",
     category: "Listening",
     alreadyPlayedInSeconds: 0,
     audio: "Vivaldi_Sonata_eminor_.mp3",

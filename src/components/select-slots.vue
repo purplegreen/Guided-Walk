@@ -127,7 +127,7 @@ export default {
 
 <style scoped>
 .slots {
-  padding-top: 20px;
+  padding-top: 12px;
   padding-bottom: 40px;
 }
 

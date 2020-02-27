@@ -219,13 +219,17 @@ export default {
     <div v-if="mode == 'text'">
       <div class="text-content">{{ slotInProgress.text }}</div>
       <div v-if="walkpathInProgress.composition.length > 1">
-        <button @click="previousSlot" :disabled="indexOfLastPlayedSlot == 0">Prev</button>
+        <button @click="previousSlot" :disabled="indexOfLastPlayedSlot == 0">
+          <img alt="Previous Meditation" class="t-icon" src="../../public/img/t_icons/prev.svg" />
+        </button>
         <button
           @click="nextSlot"
           :disabled="
             indexOfLastPlayedSlot + 1 == walkpathInProgress.composition.length
           "
-        >Next</button>
+        >
+          <img alt="Next Meditation" class="t-icon" src="../../public/img/t_icons/next.svg" />
+        </button>
       </div>
     </div>
     <div class="map">
@@ -243,10 +247,11 @@ export default {
 <style lang="scss" scoped>
 .text-content {
   height: 200px;
-  overflow: auto;
-  columns: 100px 3;
-  width: 90%;
-  margin: auto;
+  overflow: scroll;
+  columns: 100vw 6;
+  text-align: left;
+  padding-bottom: 20px;
+  margin: 20px;
 }
 
 .button-group {
