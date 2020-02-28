@@ -65,8 +65,8 @@ export default {
   background-color: #e9ecef;
   border-radius: 12px;
   height: 9rem;
-  width: 100%;
-  margin: 1rem 0;
+  width: 99%;
+  margin: auto;
 }
 
 .progress-overlay {

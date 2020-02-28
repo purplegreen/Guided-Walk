@@ -132,14 +132,14 @@ export default {
 }
 
 .slot {
-  width: 25%;
+  width: 27%;
   background-color: whitesmoke;
   border-radius: var(--border-radius);
   -webkit-box-shadow: 0px 10px 13px -7px #000000,
     5px 5px 15px 5px rgba(0, 0, 0, 0);
   box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
   padding: 13px 7px;
-  margin: 7px;
+  margin: 3px;
 }
 
 .slot.selected {
