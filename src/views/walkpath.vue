@@ -208,9 +208,6 @@ export default {
       <button v-else @click="start()">
         <img alt="Play" class="t-icon" src="../../public/img/t_icons/play.svg" />
       </button>
-      <button @click="exit()">
-        <img alt="Exit" class="t-icon" src="../../public/img/t_icons/exit.svg" />
-      </button>
     </div>
     <div class="button-group">
       <a class="btn" :class="{ selected: mode == 'audio' }" @click="selectMode('audio')">Audio</a>
@@ -240,6 +237,11 @@ export default {
         @locationAcquired="onLocationAcquired"
         @locationChanged="onLocationChange"
       ></map-component>
+    </div>
+    <div>
+      <button @click="exit()">
+        <img alt="Exit" class="t-icon" src="../../public/img/t_icons/exit.svg" />
+      </button>
     </div>
   </div>
 </template>

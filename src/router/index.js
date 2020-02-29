@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/home.vue";
+import Enter from "../views/enter.vue";
 import CreateWalkpath from "../views/create-walkpath.vue";
 import SelectWalkpath from "../views/select-walkpath.vue";
 import Walkpath from "../views/walkpath.vue";
@@ -13,6 +14,11 @@ const routes = [
     path: "/",
     name: "home",
     component: Home
+  },
+  {
+    path: "/enter",
+    name: "enter",
+    component: Enter
   },
   {
     path: "/create",

@@ -33,7 +33,7 @@ export default {
 </script>
 <template>
   <div>
-    <progress-bar :slots="walkpathInProgress.composition"> </progress-bar>
+    <progress-bar :slots="walkpathInProgress.composition"></progress-bar>
     <duration
       :total="walkpathInProgress.duration"
       :passed="walkpathInProgress.duration"

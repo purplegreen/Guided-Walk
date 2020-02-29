@@ -1,15 +1,15 @@
 const slots = [
   {
     id: 1,
-    name: "Biotope",
+    name: "Diversity",
     category: "Listening",
     alreadyPlayedInSeconds: 0,
     audio: "Tchaikovsky_Nocturne__orch.mp3",
     image: "https://via.placeholder.com/400x350?text=Biotope",
     duration: 270,
-    shortText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    shortText: "On celebrating differences",
     text:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac placerat vestibulum lectus mauris ultrices eros in cursus. Tellus id interdum velit laoreet id donec ultrices. Enim lobortis scelerisque fermentum dui faucibus in ornare quam viverra. Venenatis tellus in metus vulputate eu. Ac orci phasellus egestas tellus rutrum tellus. Morbi tincidunt augue interdum velit euismod in. Integer enim neque volutpat ac tincidunt vitae. Diam quis enim lobortis scelerisque fermentum dui faucibus. Maecenas accumsan lacus vel facilisis volutpat est velit egestas. Velit laoreet id donec ultrices tincidunt arcu. Maecenas sed enim ut sem viverra aliquet eget sit. Amet aliquam id diam maecenas ultricies mi. Viverra ipsum nunc aliquet bibendum enim facilisis gravida neque. Mattis vulputate enim nulla aliquet porttitor.",
+      "[It is not our differences that divide us. It is our inability to recognize, accept, and celebrate those differences,] Lorde wrote in Sister Outsider: Essays and Speeches.",
     color: "#AFEEEE",
     isHighlighted: false,
     location: { lat: 52.527686, lng: 13.400372 }

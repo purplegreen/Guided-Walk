@@ -71,7 +71,7 @@ export default {
     <duration :total="customWalkpath.duration"></duration>
     <div>
       <button @click="start" :disabled="!isWalkpathReady">
-        <img alt="Start Walk" class="t-icon" src="../../public/img/t_icons/play.svg" />
+        <img alt="Start Walk" class="t-icon" src="../../public/img/t_icons/start.svg" />
       </button>
     </div>
     <div class="slots">
@@ -132,13 +132,13 @@ export default {
 }
 
 .slot {
-  width: 27%;
+  width: 22%;
   background-color: whitesmoke;
   border-radius: var(--border-radius);
   -webkit-box-shadow: 0px 10px 13px -7px #000000,
     5px 5px 15px 5px rgba(0, 0, 0, 0);
   box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
-  padding: 13px 7px;
+  padding: 19px 0px;
   margin: 3px;
 }
 

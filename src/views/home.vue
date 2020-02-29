@@ -1,32 +1,27 @@
 <script>
 export default {
-  name: "home"
+  name: "home",
+  created() {
+    setTimeout(() => this.$router.push({ path: "/enter" }), 5000);
+  }
 };
 </script>
 
 <template>
   <div class="wrapper">
-    <router-link class="link" to="select">
-      <div class="card">
-        <div>
-          <h1>Choose a Walk</h1>
-        </div>
-      </div>
-    </router-link>
-
-    <router-link class="link" to="create">
-      <div class="card">
-        <div>
-          <h1>Compose a walk</h1>
-        </div>
-      </div>
-    </router-link>
+    <img alt="Guided Meditation Walk" class="guidedwalk-logo" src="../assets/guidedwalk.svg" />
   </div>
 </template>
 
 <style lang="scss" scoped>
 .wrapper {
   padding: 1em;
+}
+
+.guidedwalk-logo {
+  width: 80vw;
+  margin: auto;
+  padding-top: 20vh;
 }
 
 .card {

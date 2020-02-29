@@ -10,6 +10,7 @@
 #app {
   max-width: 414px;
   width: 96vw;
+  min-height: 90vh;
   height: auto;
   margin: 7px auto;
   overflow: scroll;
@@ -20,8 +21,26 @@
 }
 
 .logo {
-  width: 40vw;
+  width: 20vw;
   height: auto;
   padding: 10px 3px 30px 3px;
+}
+
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+  #app {
+    max-width: 90vw;
+    width: 90vw;
+    width: 96vw;
+    background-color: aqua;
+  }
+  .logo {
+    width: 16vw;
+  }
+}
+
+@media only screen and (min-width: 600px) and (min-device-width: 1024px) {
+  .logo {
+    width: 8vw;
+  }
 }
 </style>
