@@ -65,6 +65,7 @@ export default {
   // top: 2%;
   // left: 50%;
   // transform: translate(-50%, -2%);
+  pointer-events: none;
 }
 
 .num {
@@ -112,7 +113,9 @@ export default {
 
 .progress-overlay {
   position: absolute;
-  background-color: var(--fuchsia);
+  pointer-events: none;
+  background-color: yellow;
+  opacity: 0.3;
   top: 0;
   bottom: 0;
   left: 0;

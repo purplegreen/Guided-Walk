@@ -18,16 +18,13 @@ export default {
 };
 </script>
 <template>
-  <div class="duration">
-    <template v-if="withRemaining">
-      {{ passed | secondsToMinutes }}min of
-    </template>
+  <h6 class="duration">
+    <template v-if="withRemaining">{{ passed | secondsToMinutes }}min of</template>
     {{ total | secondsToMinutes }}min
-  </div>
+  </h6>
 </template>
 
 <style lang="scss" scoped>
 .duration {
-  color: var(--fuchsia);
 }
 </style>
