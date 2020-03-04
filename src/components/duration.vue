@@ -18,13 +18,22 @@ export default {
 };
 </script>
 <template>
-  <h6 class="duration">
+  <div class="duration">
     <template v-if="withRemaining">{{ passed | secondsToMinutes }}min of</template>
     {{ total | secondsToMinutes }}min
-  </h6>
+  </div>
 </template>
 
 <style lang="scss" scoped>
 .duration {
+  color: white;
+  font-size: 0.8rem;
+  display: inline-block;
+  position: relative;
+  background-color: #8fd478;
+  background-size: contain;
+  padding: 8px;
+  margin: 8px 5px 20px 5px;
+  border-radius: var(--border-radius);
 }
 </style>

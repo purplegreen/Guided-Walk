@@ -114,8 +114,8 @@ export default {
 .progress-overlay {
   position: absolute;
   pointer-events: none;
-  background-color: yellow;
-  opacity: 0.3;
+  background-color: blue;
+  opacity: 0.7;
   top: 0;
   bottom: 0;
   left: 0;

@@ -200,19 +200,6 @@ export default {
 <template>
   <div>
     <progress-bar :slots="walkpathInProgress.composition" @onBarClicked="onBarClicked"></progress-bar>
-    <duration :total="walkpathInProgress.duration" :passed="durationPassed" :withRemaining="true"></duration>
-    <div class="bottom-row">
-      <button v-if="isWalkpathRunning" @click="stop()">
-        <img alt="Stop" class="t-icon" src="../../public/img/t_icons/stop.svg" />
-      </button>
-      <button v-else @click="start()">
-        <img alt="Play" class="t-icon" src="../../public/img/t_icons/play.svg" />
-      </button>
-    </div>
-    <div class="button-group">
-      <a class="btn" :class="{ selected: mode == 'audio' }" @click="selectMode('audio')">Audio</a>
-      <a class="btn" :class="{ selected: mode == 'text' }" @click="selectMode('text')">Text</a>
-    </div>
     <div v-if="mode == 'text'">
       <div class="text-content">{{ slotInProgress.text }}</div>
       <div v-if="walkpathInProgress.composition.length > 1">
@@ -229,6 +216,20 @@ export default {
         </button>
       </div>
     </div>
+    <duration :total="walkpathInProgress.duration" :passed="durationPassed" :withRemaining="true"></duration>
+    <div class="bottom-row">
+      <button v-if="isWalkpathRunning" @click="stop()">
+        <img alt="Stop" class="t-icon" src="../../public/img/t_icons/stop.svg" />
+      </button>
+      <button v-else @click="start()">
+        <img alt="Play" class="t-icon" src="../../public/img/t_icons/play.svg" />
+      </button>
+    </div>
+    <div class="button-group">
+      <a class="btn" :class="{ selected: mode == 'audio' }" @click="selectMode('audio')">Audio</a>
+      <a class="btn" :class="{ selected: mode == 'text' }" @click="selectMode('text')">Text</a>
+    </div>
+
     <div class="map">
       <img v-if="!slotInProgress.location || !locationAcquired" :src="slotInProgress.image" />
       <map-component
@@ -240,7 +241,7 @@ export default {
     </div>
     <div>
       <button @click="exit()">
-        <img alt="Exit" class="t-icon" src="../../public/img/t_icons/exit.svg" />
+        <img alt="Exit" class="t-icon margin" src="../../public/img/t_icons/exit.svg" />
       </button>
     </div>
   </div>
@@ -278,6 +279,10 @@ export default {
     border-radius: 0 8px 8px 0;
     border-left: none;
   }
+}
+
+.margin {
+  margin: 20px;
 }
 
 .bottom-row {

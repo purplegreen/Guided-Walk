@@ -71,7 +71,7 @@ export default {
     <duration :total="customWalkpath.duration"></duration>
     <div>
       <button @click="start" :disabled="!isWalkpathReady">
-        <img alt="Start Walk" class="t-icon" src="../../public/img/t_icons/start.svg" />
+        <img alt="Start Walk" class="t-icon with-padding" src="../../public/img/t_icons/start.svg" />
       </button>
     </div>
     <div class="slots">
@@ -199,7 +199,7 @@ export default {
 }
 
 .t-icon {
-  width: 4rem;
+  width: 50px;
   height: auto;
 
   &:hover {

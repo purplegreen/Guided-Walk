@@ -160,13 +160,13 @@ export default {
       <i>Getting your location...</i>
     </div>
 
-    <div v-if="location">
+    <div class="location" v-if="location">
       Your location data is {{ location.lat }},
       {{ location.lng }}
     </div>
     <!-- <div>
       <button @click="calculateRoute">Route!</button>
-    </div> -->
+    </div>-->
     <gmap-map
       class="map"
       :center="center"
@@ -209,5 +209,10 @@ export default {
 <style lang="scss" scoped>
 .map {
   height: 400px;
+}
+
+.location {
+  margin: 20px;
+  font-size: 0.8rem;
 }
 </style>
