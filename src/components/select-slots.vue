@@ -135,9 +135,9 @@ export default {
   width: 22%;
   color: white;
   border-radius: var(--border-radius);
-  -webkit-box-shadow: 0px 10px 13px -7px #000000,
+  -webkit-box-shadow: 0px 6px 9px -7px #000000,
     5px 5px 15px 5px rgba(0, 0, 0, 0);
-  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  box-shadow: 0px 6px 9px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
   padding: 19px 0px;
   margin: 3px;
 }
@@ -192,6 +192,10 @@ export default {
   padding-bottom: 10px;
 }
 
+.with-margin {
+  margin-bottom: 30px;
+}
+
 .wrap-buttons {
   display: flex;
   justify-content: space-evenly;
@@ -201,17 +205,13 @@ export default {
 .t-icon {
   width: 50px;
   height: auto;
-
-  &:hover {
-    fill: red;
-  }
 }
 
 .side-el {
   position: absolute;
   width: 38px;
   height: 38px;
-  right: 10px;
+  right: 18px;
   top: 10px;
   width: 3rem;
   height: auto;

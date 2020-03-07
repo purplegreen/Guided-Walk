@@ -204,7 +204,7 @@ export default {
       <div class="text-content">{{ slotInProgress.text }}</div>
       <div v-if="walkpathInProgress.composition.length > 1">
         <button @click="previousSlot" :disabled="indexOfLastPlayedSlot == 0">
-          <img alt="Previous Meditation" class="t-icon" src="../../public/img/t_icons/prev.svg" />
+          <BaseIcon alt="Previous" name="prev" />
         </button>
         <button
           @click="nextSlot"
@@ -212,7 +212,7 @@ export default {
             indexOfLastPlayedSlot + 1 == walkpathInProgress.composition.length
           "
         >
-          <img alt="Next Meditation" class="t-icon" src="../../public/img/t_icons/next.svg" />
+          <BaseIcon alt="Next" name="next" />
         </button>
       </div>
     </div>
@@ -226,8 +226,12 @@ export default {
       </button>
     </div>
     <div class="button-group">
-      <a class="btn" :class="{ selected: mode == 'audio' }" @click="selectMode('audio')">Audio</a>
-      <a class="btn" :class="{ selected: mode == 'text' }" @click="selectMode('text')">Text</a>
+      <a class="btn" :class="{ selected: mode == 'audio' }" @click="selectMode('audio')">
+        <BaseIcon alt="Sound" name="sound" />
+      </a>
+      <a class="btn" :class="{ selected: mode == 'text' }" @click="selectMode('text')">
+        <BaseIcon alt="Text" name="text" />
+      </a>
     </div>
 
     <div class="map">
@@ -239,7 +243,7 @@ export default {
         @locationChanged="onLocationChange"
       ></map-component>
     </div>
-    <div>
+    <div class="margin">
       <button @click="exit()">
         <BaseIcon alt="Exit" name="exit" />
       </button>

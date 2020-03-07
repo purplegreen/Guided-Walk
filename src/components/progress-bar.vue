@@ -104,7 +104,9 @@ export default {
   display: flex;
   overflow: hidden;
   font-size: 0.8rem;
-  background-color: #e9ecef;
+  -webkit-box-shadow: 0px 6px 9px -7px #000000,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
+  box-shadow: 0px 6px 9px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
   border-radius: 12px;
   height: 6rem;
   width: 99%;
