@@ -1,0 +1,105 @@
+
+<svg  xmlns="http://www.w3.org/2000/svg">
+  <defs>
+
+
+    <symbol id="stop" viewBox="0 0 103 103" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+     <g id="Mobile" transform="translate(-145.000000, -60.000000)" stroke="#383B3A" stroke-width="3">
+            <g id="=" transform="translate(147.000000, 62.000000)">
+                <circle id="Oval-Copy" cx="49" cy="49" r="49"></circle>
+                <g id="====" transform="translate(39.000000, 23.000000)">
+                    <path d="M-23.3771777,26.4732143 L26.4486063,26.4732143" id="==" transform="translate(1.535714, 26.473214) rotate(90.000000) translate(-1.535714, -26.473214) "></path>
+                    <path d="M-7.3771777,26.4732143 L42.4486063,26.4732143" id="=" transform="translate(17.535714, 26.473214) rotate(90.000000) translate(-17.535714, -26.473214) "></path>
+                </g>
+            </g>
+        </g>
+    </symbol>
+
+     <symbol id="remove" viewBox="0 0 103 103" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+      <g id="Mobile" transform="translate(-145.000000, -186.000000)" stroke="#383B3A" stroke-width="3">
+            <g id="Delete" transform="translate(147.000000, 188.000000)">
+                <circle id="Oval-Copy-2" cx="49" cy="49" r="49"></circle>
+                <g id="cestino" transform="translate(23.000000, 22.000000)">
+                    <polygon id="Path-4" points="5.89285714 7.85714286 10.8035714 55 40.2678571 55 45.1785714 7.85714286"></polygon>
+                    <path d="M0.6228223,7.36607143 L50.4486063,7.36607143" id="Path-3"></path>
+                    <polyline id="Path-5" points="19.6428571 7.85714286 19.6428571 0 30.4464286 0 30.4464286 7.85714286"></polyline>
+                </g>
+            </g>
+        </g>
+    </symbol>
+
+   <symbol id="prev" viewBox="0 0 103 103" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Mobile" transform="translate(-46.000000, -464.000000)" stroke-width="3">
+            <g id="previous-" transform="translate(48.000000, 465.000000)">
+                <g id="previous" transform="translate(49.065000, 49.780000) scale(-1, 1) translate(-49.065000, -49.780000) translate(0.065000, 0.780000)">
+                    <polyline id="Path-7" stroke="#383B3A" points="39 36 59.2923964 49.4496115 39 62.663265"></polyline>
+                    <circle id="Oval-&gt;-Copy" stroke="#000000" cx="49" cy="49" r="49"></circle>
+                </g>
+            </g>
+         </g>
+    </symbol>
+
+    <symbol id="play" viewBox="0 0 103 103" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+     <g id="n-icon" transform="translate(-27.000000, -60.000000)" stroke="#383B3A" stroke-width="3">
+            <g id="&gt;" transform="translate(29.000000, 62.000000)">
+                <circle id="Oval" cx="49" cy="49" r="49"></circle>
+                <polygon id="Path-7-Copy" points="39 29 69.8230088 49.4292035 39 69.5"></polygon>
+            </g>
+        </g>
+    </symbol>
+
+
+    
+    <symbol id="next" viewBox="0 0 103 103" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="n-icon" transform="translate(-116.000000, -510.000000)" stroke="#000000" stroke-width="3">
+            <g id="next" transform="translate(118.000000, 512.000000)">
+                <circle id="Oval-&gt;" cx="49" cy="49" r="49"></circle>
+                <polyline id="Path-7" points="39 36 59.2923964 49.4496115 39 62.663265"></polyline>
+            </g>
+        </g>
+    </g>
+    </symbol>
+
+    
+    <symbol id="insert" viewBox="0 0 103 103" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="Mobile" transform="translate(-21.000000, -318.000000)" stroke="#383B3A" stroke-width="3">
+            <g id="V-Copy" transform="translate(23.000000, 320.000000)">
+                <circle id="Oval-Copy" cx="49" cy="49" r="49"></circle>
+                <polyline id="Path" points="27 48 45.2647059 69 71.5 30"></polyline>
+            </g>
+        </g>
+    </symbol>
+
+
+    <symbol id="exit" viewBox="0 0 103 103" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="exit2" transform="translate(-21.000000, -192.000000)" stroke="#383B3A" stroke-width="3">
+            <g id="exit3" transform="translate(23.000000, 194.000000)">
+                <circle id="Oval" cx="49" cy="49" r="49"></circle>
+                <g id="icon" transform="translate(24.000000, 21.000000)">
+                    <path d="M13.75,7.09677419 C5.76612903,11.0887097 0,21.2903226 0,30.1612903 C0,39.0322581 7.54032258,55 24.3951613,55 C41.25,55 50.5645161,40.8064516 50.5645161,31.0483871 C50.5645161,21.2903226 44.7983871,11.5322581 35.9274194,7.09677419" id="Path-6"></path>
+                    <path d="M24.3951613,0.443548387 L24.3951613,19.9596774" id="Line" stroke-linecap="square"></path>
+                </g>
+            </g>
+        </g>
+    </symbol>
+
+    <symbol id="close" viewBox="0 0 103 103" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="close-in" transform="translate(-263.000000, -60.000000)" stroke="#383B3A" stroke-width="3">
+            <g id="X" transform="translate(265.000000, 62.000000)">
+                <circle id="Oval-Copy-2" cx="49" cy="49" r="49"></circle>
+                <g id="Group" transform="translate(29.000000, 29.000000)">
+                    <path d="M0,0 L41,41" id="Path-2"></path>
+                    <g id="Path-2-Copy-2" transform="translate(20.500000, 20.500000) rotate(90.000000) translate(-20.500000, -20.500000) ">
+                        <path d="M0,0 L41,41" id="Path-2-Copy"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </symbol>
+
+
+
+
+  </defs>  
+</svg>

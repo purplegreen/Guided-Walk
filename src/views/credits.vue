@@ -39,6 +39,7 @@ export default {
       :passed="walkpathInProgress.duration"
       :withRemaining="true"
     ></duration>
+
     <div>
       END PAGE Turnip greens yarrow ricebean rutabaga endive cauliflower sea
       lettuce kohlrabi amaranth water spinach avocado daikon napa cabbage
@@ -48,6 +49,7 @@ export default {
       gram corn pea. Brussels sprout coriander water chestnut gourd swiss chard
       wakame kohlrabi beetroot carrot watercress.
     </div>
+
     <div>
       <button @click="toHome">Homepage</button>
     </div>

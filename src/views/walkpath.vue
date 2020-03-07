@@ -219,10 +219,10 @@ export default {
     <duration :total="walkpathInProgress.duration" :passed="durationPassed" :withRemaining="true"></duration>
     <div class="bottom-row">
       <button v-if="isWalkpathRunning" @click="stop()">
-        <img alt="Stop" class="t-icon" src="../../public/img/t_icons/stop.svg" />
+        <BaseIcon alt="Stop" name="stop" />
       </button>
       <button v-else @click="start()">
-        <img alt="Play" class="t-icon" src="../../public/img/t_icons/play.svg" />
+        <BaseIcon alt="Play" name="play" />
       </button>
     </div>
     <div class="button-group">
@@ -241,7 +241,7 @@ export default {
     </div>
     <div>
       <button @click="exit()">
-        <img alt="Exit" class="t-icon margin" src="../../public/img/t_icons/exit.svg" />
+        <BaseIcon alt="Exit" name="exit" />
       </button>
     </div>
   </div>

@@ -71,7 +71,7 @@ export default {
     <duration :total="customWalkpath.duration"></duration>
     <div>
       <button @click="start" :disabled="!isWalkpathReady">
-        <img alt="Start Walk" class="t-icon with-padding" src="../../public/img/t_icons/start.svg" />
+        <BaseIcon alt="Start Walk" name="next" />
       </button>
     </div>
     <div class="slots">
@@ -94,7 +94,7 @@ export default {
         <div class="slot-modal-content">
           <div class="side-el">
             <button @click="$modal.hide('slot-modal')">
-              <img alt="Close Slot" src="../../public/img/t_icons/close.svg" />
+              <BaseIcon alt="Close Slot" name="close" />
             </button>
           </div>
           <ul>
@@ -113,10 +113,10 @@ export default {
           </ul>
           <div class="wrap-buttons">
             <button v-if="isSlotSelected(selectedSlot)" @click="remove">
-              <img alt="Remove Slot" class="t-icon" src="../../public/img/t_icons/remove.svg" />
+              <BaseIcon alt="Remove Slot" name="remove" />
             </button>
             <button v-else @click="add">
-              <img alt="Insert Slot" class="t-icon" src="../../public/img/t_icons/insert.svg" />
+              <BaseIcon alt="Insert Slot" name="insert" />
             </button>
           </div>
         </div>
@@ -203,11 +203,14 @@ export default {
   height: auto;
 
   &:hover {
+    fill: red;
   }
 }
 
 .side-el {
   position: absolute;
+  width: 38px;
+  height: 38px;
   right: 10px;
   top: 10px;
   width: 3rem;
