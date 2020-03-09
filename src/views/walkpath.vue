@@ -200,24 +200,27 @@ export default {
 <template>
   <div>
     <progress-bar :slots="walkpathInProgress.composition" @onBarClicked="onBarClicked"></progress-bar>
-    <div v-if="mode == 'text'">
-      <div class="text-content">{{ slotInProgress.text }}</div>
-      <div v-if="walkpathInProgress.composition.length > 1">
-        <button @click="previousSlot" :disabled="indexOfLastPlayedSlot == 0">
-          <BaseIcon alt="Previous" name="prev" />
-        </button>
-        <button
-          @click="nextSlot"
-          :disabled="
-            indexOfLastPlayedSlot + 1 == walkpathInProgress.composition.length
-          "
-        >
-          <BaseIcon alt="Next" name="next" />
-        </button>
+    <transition name="fade">
+      <div v-if="mode == 'text'" class="text-card">
+        <div class="text-content">{{ slotInProgress.text }}</div>
+        <div v-if="walkpathInProgress.composition.length > 1">
+          <button @click="previousSlot" :disabled="indexOfLastPlayedSlot == 0">
+            <BaseIcon alt="Previous" name="prev" />
+          </button>
+          <button
+            @click="nextSlot"
+            :disabled="
+              indexOfLastPlayedSlot + 1 == walkpathInProgress.composition.length
+            "
+          >
+            <BaseIcon alt="Next" name="next" />
+          </button>
+        </div>
       </div>
-    </div>
+    </transition>
     <duration :total="walkpathInProgress.duration" :passed="durationPassed" :withRemaining="true"></duration>
-    <div class="bottom-row">
+
+    <div v-if="mode == 'audio'" class="play-stop-sw">
       <button v-if="isWalkpathRunning" @click="stop()">
         <BaseIcon alt="Stop" name="stop" />
       </button>
@@ -225,7 +228,8 @@ export default {
         <BaseIcon alt="Play" name="play" />
       </button>
     </div>
-    <div class="button-group">
+
+    <div class="audio-text-sw">
       <a class="btn" :class="{ selected: mode == 'audio' }" @click="selectMode('audio')">
         <BaseIcon alt="Sound" name="sound" />
       </a>
@@ -261,7 +265,10 @@ export default {
   margin: 20px;
 }
 
-.button-group {
+.text-card {
+}
+
+.audio-text-sw {
   margin: 1em 0;
 }
 
@@ -289,7 +296,7 @@ export default {
   margin: 20px;
 }
 
-.bottom-row {
+.play-stop-sw {
   margin-top: 1em;
   padding-top: 1em;
   border-top: 1px solid var(--border-color);
@@ -300,6 +307,18 @@ export default {
 
   img {
     min-height: 350px;
+  }
+  .fade-enter {
+    opacity: 0;
+  }
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.5s ease-out;
+  }
+
+  .fade-leave-to {
+    opacity: 0;
   }
 }
 </style>

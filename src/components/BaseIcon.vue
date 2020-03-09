@@ -25,4 +25,8 @@ export default {
 .icon-colors:hover {
   --color-i: #949494;
 }
+
+.icon-colors:active {
+  --color-i: green;
+}
 </style>
