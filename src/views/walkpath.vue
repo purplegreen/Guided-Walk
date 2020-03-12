@@ -15,7 +15,8 @@ export default {
       isWalkpathRunning: false,
       indexOfLastPlayedSlot: 0,
       audio: new Audio(""),
-      locationAcquired: false
+      locationAcquired: false,
+      isOpen: false
     };
   },
   mounted() {
@@ -193,6 +194,9 @@ export default {
     },
     previousSlot() {
       this.startSlotAtIndex(this.indexOfLastPlayedSlot - 1);
+    },
+    toggleModal() {
+      this.isOpen = !this.isOpen;
     }
   }
 };
@@ -200,43 +204,63 @@ export default {
 <template>
   <div>
     <progress-bar :slots="walkpathInProgress.composition" @onBarClicked="onBarClicked"></progress-bar>
-    <transition name="fade">
-      <div v-if="mode == 'text'" class="text-card">
-        <div class="text-content">{{ slotInProgress.text }}</div>
-        <div v-if="walkpathInProgress.composition.length > 1">
-          <button @click="previousSlot" :disabled="indexOfLastPlayedSlot == 0">
-            <BaseIcon alt="Previous" name="prev" />
-          </button>
-          <button
-            @click="nextSlot"
-            :disabled="
-              indexOfLastPlayedSlot + 1 == walkpathInProgress.composition.length
-            "
-          >
-            <BaseIcon alt="Next" name="next" />
-          </button>
-        </div>
-      </div>
-    </transition>
+
     <duration :total="walkpathInProgress.duration" :passed="durationPassed" :withRemaining="true"></duration>
 
-    <div v-if="mode == 'audio'" class="play-stop-sw">
-      <button v-if="isWalkpathRunning" @click="stop()">
-        <BaseIcon alt="Stop" name="stop" />
-      </button>
-      <button v-else @click="start()">
-        <BaseIcon alt="Play" name="play" />
-      </button>
-    </div>
-
     <div class="audio-text-sw">
-      <a class="btn" :class="{ selected: mode == 'audio' }" @click="selectMode('audio')">
-        <BaseIcon alt="Sound" name="sound" />
+      <a
+        class="audio-btn"
+        :class="{ selected: mode == 'audio' }"
+        v-on:click="toggleModal"
+        @click="selectMode('audio')"
+      >
+        <BaseIcon alt="Sound" class="ico-sound" name="sound" />
       </a>
-      <a class="btn" :class="{ selected: mode == 'text' }" @click="selectMode('text')">
+      <transition name="fade">
+        <div v-if="isOpen" class="audio-card">
+          <div v-if="mode == 'audio'">
+            <button v-if="isWalkpathRunning" @click="stop()">
+              <BaseIcon alt="Stop" name="stop" />
+            </button>
+            <button v-else @click="start()">
+              <BaseIcon alt="Play" name="play" />
+            </button>
+          </div>
+        </div>
+      </transition>
+
+      <a
+        class="text-btn"
+        :class="{ selected: mode == 'text' }"
+        v-on:click="toggleModal"
+        @click="selectMode('text')"
+      >
         <BaseIcon alt="Text" name="text" />
       </a>
     </div>
+
+    <transition name="fade">
+      <div v-if="isOpen" class="text-card">
+        <div v-if="mode == 'text'">
+          <div class="text-content">{{ slotInProgress.text }}</div>
+          <div v-if="walkpathInProgress.composition.length > 1">
+            <button @click="previousSlot" :disabled="indexOfLastPlayedSlot == 0">
+              <BaseIcon alt="Previous" name="prev" />
+            </button>
+
+            <button
+              @click="nextSlot"
+              :disabled="
+                indexOfLastPlayedSlot + 1 ==
+                  walkpathInProgress.composition.length
+              "
+            >
+              <BaseIcon alt="Next" name="next" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </transition>
 
     <div class="map">
       <img v-if="!slotInProgress.location || !locationAcquired" :src="slotInProgress.image" />
@@ -265,13 +289,6 @@ export default {
   margin: 20px;
 }
 
-.text-card {
-}
-
-.audio-text-sw {
-  margin: 1em 0;
-}
-
 .btn {
   border-radius: var(--border-radius);
   display: inline-block;
@@ -296,10 +313,49 @@ export default {
   margin: 20px;
 }
 
-.play-stop-sw {
+.audio-text-sw {
+  position: relative;
+  border: 1px solid violet;
+}
+
+.audio-btn {
+  position: absolute;
+  top: 3px;
+  left: 8vw;
+  border: 1px solid blue;
+}
+
+.text-btn {
+  position: absolute;
+  top: 3px;
+  right: 8vw;
+  border: 1px solid blue;
+}
+
+.audio-card {
   margin-top: 1em;
   padding-top: 1em;
   border-top: 1px solid var(--border-color);
+  border: 1px solid green;
+}
+
+.text-card {
+  border: 1px solid red;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.6s ease-out;
+  background-color: chartreuse;
+}
+
+.fade-leave-to {
+  opacity: 0;
+  background-color: blue;
 }
 
 .map {
@@ -307,18 +363,6 @@ export default {
 
   img {
     min-height: 350px;
-  }
-  .fade-enter {
-    opacity: 0;
-  }
-
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 0.5s ease-out;
-  }
-
-  .fade-leave-to {
-    opacity: 0;
   }
 }
 </style>
