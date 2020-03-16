@@ -3,6 +3,7 @@ import { mapState, mapActions } from "vuex";
 import ProgressBar from "@/components/progress-bar.vue";
 import Duration from "@/components/duration.vue";
 import MapComponent from "@/components/map.vue";
+import gsap from "gsap";
 
 const R = 6378137; // Radius of earth in meters
 
@@ -16,7 +17,9 @@ export default {
       indexOfLastPlayedSlot: 0,
       audio: new Audio(""),
       locationAcquired: false,
-      isOpen: false
+      isOpen: false,
+      audioOpen: false,
+      textOpen: false
     };
   },
   mounted() {
@@ -197,73 +200,123 @@ export default {
     },
     toggleModal() {
       this.isOpen = !this.isOpen;
+    },
+    beforeEnter(el) {
+      el.style.opacity = 0;
+      el.style.transform = "scale(0,0)";
+    },
+    enter(el, done) {
+      gsap.to(el, {
+        duration: 1,
+        opacity: 1,
+        scale: 1,
+        ease: "easeOut",
+        onComplete: done
+      });
     }
   }
 };
 </script>
 <template>
   <div>
-    <progress-bar :slots="walkpathInProgress.composition" @onBarClicked="onBarClicked"></progress-bar>
+    <progress-bar
+      :slots="walkpathInProgress.composition"
+      @onBarClicked="onBarClicked"
+    ></progress-bar>
 
-    <duration :total="walkpathInProgress.duration" :passed="durationPassed" :withRemaining="true"></duration>
+    <duration
+      :total="walkpathInProgress.duration"
+      :passed="durationPassed"
+      :withRemaining="true"
+    ></duration>
 
     <div class="audio-text-sw">
-      <a
-        class="audio-btn"
-        :class="{ selected: mode == 'audio' }"
-        v-on:click="toggleModal"
-        @click="selectMode('audio')"
-      >
-        <BaseIcon alt="Sound" class="ico-sound" name="sound" />
-      </a>
-      <transition name="fade">
-        <div v-if="isOpen" class="audio-card">
-          <div v-if="mode == 'audio'">
-            <button v-if="isWalkpathRunning" @click="stop()">
-              <BaseIcon alt="Stop" name="stop" />
-            </button>
-            <button v-else @click="start()">
-              <BaseIcon alt="Play" name="play" />
-            </button>
+      <div class="audio-text-btns">
+        <a
+          class="audio-btn"
+          :class="{ selected: mode == 'audio' }"
+          v-on:click="audioOpen = !audioOpen"
+          @click="selectMode('audio')"
+        >
+          <BaseIcon alt="Sound" name="sound" />
+        </a>
+
+        <transition
+          appear
+          @before-enter="beforeEnter"
+          @enter="enter"
+          @leave="leave"
+          :css="false"
+        >
+          <div v-if="!audioOpen" class="audio-card">
+            <div v-if="mode == 'audio'">
+              <button v-if="isWalkpathRunning" @click="stop()">
+                <BaseIcon
+                  v-if="!audioOpen"
+                  class="stop-open"
+                  alt="Stop"
+                  name="stop"
+                />
+              </button>
+              <button v-else @click="start()">
+                <BaseIcon
+                  v-if="!audioOpen"
+                  class="play-open"
+                  alt="Play"
+                  name="play"
+                />
+              </button>
+            </div>
           </div>
-        </div>
-      </transition>
+        </transition>
 
-      <a
-        class="text-btn"
-        :class="{ selected: mode == 'text' }"
-        v-on:click="toggleModal"
-        @click="selectMode('text')"
-      >
-        <BaseIcon alt="Text" name="text" />
-      </a>
-    </div>
+        <a
+          class="text-btn"
+          :class="{ selected: mode == 'text' }"
+          v-on:click="textOpen = !textOpen"
+          @click="selectMode('text')"
+        >
+          <BaseIcon alt="Text" name="text" />
+        </a>
 
-    <transition name="fade">
-      <div v-if="isOpen" class="text-card">
-        <div v-if="mode == 'text'">
-          <div class="text-content">{{ slotInProgress.text }}</div>
-          <div v-if="walkpathInProgress.composition.length > 1">
-            <button @click="previousSlot" :disabled="indexOfLastPlayedSlot == 0">
-              <BaseIcon alt="Previous" name="prev" />
-            </button>
+        <transition
+          appear
+          @before-enter="beforeEnter"
+          @enter="enter"
+          @leave="leave"
+          :css="false"
+        >
+          <div v-if="textOpen" class="text-card">
+            <div v-if="mode == 'text'">
+              <div class="text-content">{{ slotInProgress.text }}</div>
+              <div v-if="walkpathInProgress.composition.length > 1">
+                <button
+                  @click="previousSlot"
+                  :disabled="indexOfLastPlayedSlot == 0"
+                >
+                  <BaseIcon alt="Previous" name="prev" />
+                </button>
 
-            <button
-              @click="nextSlot"
-              :disabled="
-                indexOfLastPlayedSlot + 1 ==
-                  walkpathInProgress.composition.length
-              "
-            >
-              <BaseIcon alt="Next" name="next" />
-            </button>
+                <button
+                  @click="nextSlot"
+                  :disabled="
+                    indexOfLastPlayedSlot + 1 ==
+                      walkpathInProgress.composition.length
+                  "
+                >
+                  <BaseIcon alt="Next" name="next" />
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
+        </transition>
       </div>
-    </transition>
-
+    </div>
     <div class="map">
-      <img v-if="!slotInProgress.location || !locationAcquired" :src="slotInProgress.image" />
+      <img
+        v-if="!slotInProgress.location || !locationAcquired"
+        :src="slotInProgress.image"
+      />
       <map-component
         v-if="slotInProgress.location"
         :markers="markers"
@@ -280,15 +333,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.text-content {
-  height: 200px;
-  overflow: scroll;
-  columns: 100vw 6;
-  text-align: left;
-  padding-bottom: 20px;
-  margin: 20px;
-}
-
 .btn {
   border-radius: var(--border-radius);
   display: inline-block;
@@ -314,33 +358,82 @@ export default {
 }
 
 .audio-text-sw {
-  position: relative;
   border: 1px solid violet;
+  height: 20em;
+  display: block;
+  position: relative;
+}
+
+.audio-text-btns {
+  height: 60px;
+  border: 1px dotted green;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 .audio-btn {
-  position: absolute;
-  top: 3px;
-  left: 8vw;
-  border: 1px solid blue;
+  // position: absolute;
+  // top: 3px;
+  // left: 8vw;
+  grid-column: 1;
+  &.icon:active {
+    --color-i: palegreen;
+  }
 }
 
 .text-btn {
-  position: absolute;
-  top: 3px;
-  right: 8vw;
-  border: 1px solid blue;
+  // position: absolute;
+  // top: 3px;
+  // right: 8vw;
+  grid-column: 2;
+}
+
+.text-content {
+  height: 200px;
+  grid-row-end: 3;
+  overflow: scroll;
+  columns: 100vw 6;
+  text-align: left;
+  padding-bottom: 20px;
+  margin: 20px;
 }
 
 .audio-card {
-  margin-top: 1em;
-  padding-top: 1em;
-  border-top: 1px solid var(--border-color);
-  border: 1px solid green;
+  width: 400px;
+  height: 20em;
+  border-radius: 1%;
+  box-shadow: 0.08em 0.03em 0.4em #ababab;
+  padding-top: 0.7em;
+  position: absolute;
+  z-index: 2;
+  background-color: white;
+  border: 2px dotted goldenrod;
+}
+.text-card {
+  width: 400px;
+  height: 20em;
+  border-radius: 1%;
+  box-shadow: 0.08em 0.03em 0.4em #ababab;
+  padding-top: 0.7em;
+  position: absolute;
+  z-index: 2;
+  background-color: white;
+  border: 2px dotted salmon;
 }
 
-.text-card {
-  border: 1px solid red;
+.play-open,
+.stop-open {
+  &.icon {
+    width: 120px;
+    height: auto;
+    align-self: center;
+    --color-i: palegreen;
+    padding-top: 6em;
+    z-index: 3;
+  }
 }
 
 .fade-enter {
@@ -354,8 +447,13 @@ export default {
 }
 
 .fade-leave-to {
-  opacity: 0;
+  opacity: 0.9;
   background-color: blue;
+}
+
+.isaudio > .icon,
+.istext > .icon {
+  --color-i: #808000;
 }
 
 .map {
