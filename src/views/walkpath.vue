@@ -17,7 +17,6 @@ export default {
       indexOfLastPlayedSlot: 0,
       audio: new Audio(""),
       locationAcquired: false,
-      isOpen: false,
       audioOpen: false,
       textOpen: false
     };
@@ -198,9 +197,6 @@ export default {
     previousSlot() {
       this.startSlotAtIndex(this.indexOfLastPlayedSlot - 1);
     },
-    toggleModal() {
-      this.isOpen = !this.isOpen;
-    },
     beforeEnter(el) {
       el.style.opacity = 0;
       el.style.transform = "scale(0,0)";
@@ -358,7 +354,6 @@ export default {
 }
 
 .audio-text-sw {
-  border: 1px solid violet;
   height: 20em;
   display: block;
   position: relative;
@@ -366,7 +361,6 @@ export default {
 
 .audio-text-btns {
   height: 60px;
-  border: 1px dotted green;
   display: block;
   position: absolute;
   top: 0;
@@ -375,20 +369,15 @@ export default {
 }
 
 .audio-btn {
-  // position: absolute;
-  // top: 3px;
-  // left: 8vw;
-  grid-column: 1;
+  padding-right: 10px;
+
   &.icon:active {
     --color-i: palegreen;
   }
 }
 
 .text-btn {
-  // position: absolute;
-  // top: 3px;
-  // right: 8vw;
-  grid-column: 2;
+  padding-left: 1px;
 }
 
 .text-content {
@@ -402,26 +391,26 @@ export default {
 }
 
 .audio-card {
-  width: 400px;
   height: 20em;
   border-radius: 1%;
   box-shadow: 0.08em 0.03em 0.4em #ababab;
   padding-top: 0.7em;
   position: absolute;
+  left: 3px;
+  right: 3px;
   z-index: 2;
   background-color: white;
-  border: 2px dotted goldenrod;
 }
 .text-card {
-  width: 400px;
   height: 20em;
   border-radius: 1%;
   box-shadow: 0.08em 0.03em 0.4em #ababab;
   padding-top: 0.7em;
   position: absolute;
+  left: 3px;
+  right: 3px;
   z-index: 2;
   background-color: white;
-  border: 2px dotted salmon;
 }
 
 .play-open,
@@ -430,7 +419,7 @@ export default {
     width: 120px;
     height: auto;
     align-self: center;
-    --color-i: palegreen;
+    --color-i: #a477d0;
     padding-top: 6em;
     z-index: 3;
   }
@@ -443,7 +432,7 @@ export default {
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.6s ease-out;
-  background-color: chartreuse;
+  background-color: #a477d0;
 }
 
 .fade-leave-to {
