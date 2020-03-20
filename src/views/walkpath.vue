@@ -197,6 +197,12 @@ export default {
     previousSlot() {
       this.startSlotAtIndex(this.indexOfLastPlayedSlot - 1);
     },
+    show() {
+      this.$modal.show("showAudio");
+    },
+    hide() {
+      this.$modal.hide("hideAudio");
+    },
     beforeEnter(el) {
       el.style.opacity = 0;
       el.style.transform = "scale(0,0)";
@@ -215,52 +221,32 @@ export default {
 </script>
 <template>
   <div>
-    <progress-bar
-      :slots="walkpathInProgress.composition"
-      @onBarClicked="onBarClicked"
-    ></progress-bar>
+    <progress-bar :slots="walkpathInProgress.composition" @onBarClicked="onBarClicked"></progress-bar>
 
-    <duration
-      :total="walkpathInProgress.duration"
-      :passed="durationPassed"
-      :withRemaining="true"
-    ></duration>
+    <duration :total="walkpathInProgress.duration" :passed="durationPassed" :withRemaining="true"></duration>
 
     <div class="audio-text-sw">
       <div class="audio-text-btns">
         <a
           class="audio-btn"
           :class="{ selected: mode == 'audio' }"
-          v-on:click="audioOpen = !audioOpen"
-          @click="selectMode('audio')"
+          @click="
+            selectMode('audio');
+            show(showAudio, showText);
+            audioOpen = !audioOpen;
+          "
         >
           <BaseIcon alt="Sound" name="sound" />
         </a>
 
-        <transition
-          appear
-          @before-enter="beforeEnter"
-          @enter="enter"
-          @leave="leave"
-          :css="false"
-        >
+        <transition appear @before-enter="beforeEnter" @enter="enter" :css="false">
           <div v-if="!audioOpen" class="audio-card">
             <div v-if="mode == 'audio'">
               <button v-if="isWalkpathRunning" @click="stop()">
-                <BaseIcon
-                  v-if="!audioOpen"
-                  class="stop-open"
-                  alt="Stop"
-                  name="stop"
-                />
+                <BaseIcon v-if="!audioOpen" class="stop-open" alt="Stop" name="stop" />
               </button>
               <button v-else @click="start()">
-                <BaseIcon
-                  v-if="!audioOpen"
-                  class="play-open"
-                  alt="Play"
-                  name="play"
-                />
+                <BaseIcon v-if="!audioOpen" class="play-open" alt="Play" name="play" />
               </button>
             </div>
           </div>
@@ -269,27 +255,21 @@ export default {
         <a
           class="text-btn"
           :class="{ selected: mode == 'text' }"
-          v-on:click="textOpen = !textOpen"
-          @click="selectMode('text')"
+          @click="
+            selectMode('text');
+            show(showText);
+            textOpen = !textOpen;
+          "
         >
           <BaseIcon alt="Text" name="text" />
         </a>
 
-        <transition
-          appear
-          @before-enter="beforeEnter"
-          @enter="enter"
-          @leave="leave"
-          :css="false"
-        >
+        <transition appear @before-enter="beforeEnter" @enter="enter" :css="false">
           <div v-if="textOpen" class="text-card">
             <div v-if="mode == 'text'">
               <div class="text-content">{{ slotInProgress.text }}</div>
               <div v-if="walkpathInProgress.composition.length > 1">
-                <button
-                  @click="previousSlot"
-                  :disabled="indexOfLastPlayedSlot == 0"
-                >
+                <button @click="previousSlot" :disabled="indexOfLastPlayedSlot == 0">
                   <BaseIcon alt="Previous" name="prev" />
                 </button>
 
@@ -309,10 +289,7 @@ export default {
       </div>
     </div>
     <div class="map">
-      <img
-        v-if="!slotInProgress.location || !locationAcquired"
-        :src="slotInProgress.image"
-      />
+      <img v-if="!slotInProgress.location || !locationAcquired" :src="slotInProgress.image" />
       <map-component
         v-if="slotInProgress.location"
         :markers="markers"
@@ -419,7 +396,7 @@ export default {
     width: 120px;
     height: auto;
     align-self: center;
-    --color-i: #a477d0;
+    --color-i: #53c6e3;
     padding-top: 6em;
     z-index: 3;
   }
@@ -432,7 +409,7 @@ export default {
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.6s ease-out;
-  background-color: #a477d0;
+  background-color: #53c6e3;
 }
 
 .fade-leave-to {
