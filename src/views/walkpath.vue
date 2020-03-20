@@ -3,7 +3,6 @@ import { mapState, mapActions } from "vuex";
 import ProgressBar from "@/components/progress-bar.vue";
 import Duration from "@/components/duration.vue";
 import MapComponent from "@/components/map.vue";
-import gsap from "gsap";
 
 const R = 6378137; // Radius of earth in meters
 
@@ -202,19 +201,6 @@ export default {
     },
     hide() {
       this.$modal.hide("hideAudio");
-    },
-    beforeEnter(el) {
-      el.style.opacity = 0;
-      el.style.transform = "scale(0,0)";
-    },
-    enter(el, done) {
-      gsap.to(el, {
-        duration: 1,
-        opacity: 1,
-        scale: 1,
-        ease: "easeOut",
-        onComplete: done
-      });
     }
   }
 };
@@ -239,18 +225,16 @@ export default {
           <BaseIcon alt="Sound" name="sound" />
         </a>
 
-        <transition appear @before-enter="beforeEnter" @enter="enter" :css="false">
-          <div v-if="!audioOpen" class="audio-card">
-            <div v-if="mode == 'audio'">
-              <button v-if="isWalkpathRunning" @click="stop()">
-                <BaseIcon v-if="!audioOpen" class="stop-open" alt="Stop" name="stop" />
-              </button>
-              <button v-else @click="start()">
-                <BaseIcon v-if="!audioOpen" class="play-open" alt="Play" name="play" />
-              </button>
-            </div>
+        <div v-if="!audioOpen" class="audio-card">
+          <div v-if="mode == 'audio'">
+            <button v-if="isWalkpathRunning" @click="stop()">
+              <BaseIcon v-if="!audioOpen" class="stop-open" alt="Stop" name="stop" />
+            </button>
+            <button v-else @click="start()">
+              <BaseIcon v-if="!audioOpen" class="play-open" alt="Play" name="play" />
+            </button>
           </div>
-        </transition>
+        </div>
 
         <a
           class="text-btn"
@@ -264,28 +248,26 @@ export default {
           <BaseIcon alt="Text" name="text" />
         </a>
 
-        <transition appear @before-enter="beforeEnter" @enter="enter" :css="false">
-          <div v-if="textOpen" class="text-card">
-            <div v-if="mode == 'text'">
-              <div class="text-content">{{ slotInProgress.text }}</div>
-              <div v-if="walkpathInProgress.composition.length > 1">
-                <button @click="previousSlot" :disabled="indexOfLastPlayedSlot == 0">
-                  <BaseIcon alt="Previous" name="prev" />
-                </button>
+        <div v-if="textOpen" class="text-card">
+          <div v-if="mode == 'text'">
+            <div class="text-content">{{ slotInProgress.text }}</div>
+            <div v-if="walkpathInProgress.composition.length > 1">
+              <button @click="previousSlot" :disabled="indexOfLastPlayedSlot == 0">
+                <BaseIcon alt="Previous" name="prev" />
+              </button>
 
-                <button
-                  @click="nextSlot"
-                  :disabled="
-                    indexOfLastPlayedSlot + 1 ==
-                      walkpathInProgress.composition.length
-                  "
-                >
-                  <BaseIcon alt="Next" name="next" />
-                </button>
-              </div>
+              <button
+                @click="nextSlot"
+                :disabled="
+                  indexOfLastPlayedSlot + 1 ==
+                    walkpathInProgress.composition.length
+                "
+              >
+                <BaseIcon alt="Next" name="next" />
+              </button>
             </div>
           </div>
-        </transition>
+        </div>
       </div>
     </div>
     <div class="map">
