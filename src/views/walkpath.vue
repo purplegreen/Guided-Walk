@@ -15,9 +15,7 @@ export default {
       isWalkpathRunning: false,
       indexOfLastPlayedSlot: 0,
       audio: new Audio(""),
-      locationAcquired: false,
-      audioOpen: false,
-      textOpen: false
+      locationAcquired: false
     };
   },
   mounted() {
@@ -196,11 +194,17 @@ export default {
     previousSlot() {
       this.startSlotAtIndex(this.indexOfLastPlayedSlot - 1);
     },
-    show() {
-      this.$modal.show("showAudio");
+    showModal1() {
+      this.$modal.show("audioModal");
     },
-    hide() {
-      this.$modal.hide("hideAudio");
+    hideModal1() {
+      this.$modal.hide("audioModal");
+    },
+    showModal2() {
+      this.$modal.show("textModal");
+    },
+    hideModal2() {
+      this.$modal.hide("textModal");
     }
   }
 };
@@ -218,56 +222,66 @@ export default {
           :class="{ selected: mode == 'audio' }"
           @click="
             selectMode('audio');
-            show(showAudio, showText);
-            audioOpen = !audioOpen;
+            showModal1();
           "
         >
           <BaseIcon alt="Sound" name="sound" />
         </a>
 
-        <div v-if="!audioOpen" class="audio-card">
-          <div v-if="mode == 'audio'">
-            <button v-if="isWalkpathRunning" @click="stop()">
-              <BaseIcon v-if="!audioOpen" class="stop-open" alt="Stop" name="stop" />
-            </button>
-            <button v-else @click="start()">
-              <BaseIcon v-if="!audioOpen" class="play-open" alt="Play" name="play" />
+        <modal name="audioModal" transition="nice-modal-fade" :adaptive="true">
+          <div class="side-el">
+            <button @click="$modal.hide('audioModal')">
+              <BaseIcon alt="Close Slot" name="close" />
             </button>
           </div>
-        </div>
+
+          <button v-if="isWalkpathRunning" @click="stop()">
+            <BaseIcon class="stop-open" alt="Stop" name="stop" />
+          </button>
+          <button v-else @click="start()">
+            <BaseIcon class="play-open" alt="Play" name="play" />
+          </button>
+        </modal>
 
         <a
           class="text-btn"
           :class="{ selected: mode == 'text' }"
           @click="
             selectMode('text');
-            show(showText);
-            textOpen = !textOpen;
+            showModal2();
           "
         >
           <BaseIcon alt="Text" name="text" />
         </a>
 
-        <div v-if="textOpen" class="text-card">
-          <div v-if="mode == 'text'">
+        <modal name="textModal" transition="nice-modal-fade" :adaptive="true">
+          <div class="side-el">
+            <button @click="$modal.hide('textModal')">
+              <BaseIcon alt="Close Slot" name="close" />
+            </button>
+          </div>
+
+          <div class="text-card">
             <div class="text-content">{{ slotInProgress.text }}</div>
             <div v-if="walkpathInProgress.composition.length > 1">
-              <button @click="previousSlot" :disabled="indexOfLastPlayedSlot == 0">
-                <BaseIcon alt="Previous" name="prev" />
-              </button>
+              <div class="low-btn">
+                <button @click="previousSlot" :disabled="indexOfLastPlayedSlot == 0">
+                  <BaseIcon alt="Previous" name="prev" />
+                </button>
 
-              <button
-                @click="nextSlot"
-                :disabled="
-                  indexOfLastPlayedSlot + 1 ==
-                    walkpathInProgress.composition.length
-                "
-              >
-                <BaseIcon alt="Next" name="next" />
-              </button>
+                <button
+                  @click="nextSlot"
+                  :disabled="
+                    indexOfLastPlayedSlot + 1 ==
+                      walkpathInProgress.composition.length
+                  "
+                >
+                  <BaseIcon alt="Next" name="next" />
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </modal>
       </div>
     </div>
     <div class="map">
@@ -339,8 +353,17 @@ export default {
   padding-left: 1px;
 }
 
+.text-card {
+  position: absolute;
+  top: 40px;
+  bottom: 3px;
+  left: 3px;
+  right: 3px;
+  background-color: pink;
+}
+
 .text-content {
-  height: 200px;
+  height: 160px;
   grid-row-end: 3;
   overflow: scroll;
   columns: 100vw 6;
@@ -348,28 +371,28 @@ export default {
   padding-bottom: 20px;
   margin: 20px;
 }
-
-.audio-card {
-  height: 20em;
-  border-radius: 1%;
-  box-shadow: 0.08em 0.03em 0.4em #ababab;
-  padding-top: 0.7em;
-  position: absolute;
-  left: 3px;
-  right: 3px;
-  z-index: 2;
+.v--modal {
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
   background-color: white;
+  border-radius: 3px;
+  box-shadow: 0 20px 60px -2px rgba(27, 33, 58, 0.4);
+  padding: 0;
 }
-.text-card {
-  height: 20em;
-  border-radius: 1%;
-  box-shadow: 0.08em 0.03em 0.4em #ababab;
-  padding-top: 0.7em;
-  position: absolute;
-  left: 3px;
-  right: 3px;
-  z-index: 2;
-  background-color: white;
+
+.v--modal-box {
+  position: relative;
+  border-radius: var(--border-radius);
+  max-width: 414px;
+  width: 96vw;
+  height: 96vh;
+  padding: 20px;
+}
+
+.v--modal-overlay .v--modal-box {
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .play-open,
@@ -402,6 +425,22 @@ export default {
 .isaudio > .icon,
 .istext > .icon {
   --color-i: #808000;
+}
+
+.side-el {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  right: 18px;
+  top: 10px;
+  width: 3rem;
+  height: auto;
+}
+
+.low-btn {
+  border: 1px solid red;
+  margin: auto;
+  text-align: center;
 }
 
 .map {
